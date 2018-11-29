@@ -20,6 +20,15 @@ for row in cr:
 	for category in categories:
 		if(row[h["category"]] == category):
 			byParam[param]["inc_all_" + category] = float(row[h["pctchginafttaxincpercent_pct_12"]])
+			byParam[param]["inc_q1_" + category] = float(row[h["pctchginafttaxincpercent_pct_2"]])
+			byParam[param]["inc_q2_" + category] = float(row[h["pctchginafttaxincpercent_pct_3"]])
+			byParam[param]["inc_q3_" + category] = float(row[h["pctchginafttaxincpercent_pct_4"]])
+			byParam[param]["inc_q4_" + category] = float(row[h["pctchginafttaxincpercent_pct_5"]])
+			byParam[param]["inc_q5_" + category] = float(row[h["pctchginafttaxincpercent_pct_13"]])
+			byParam[param]["inc_top10_" + category] = float(row[h["pctchginafttaxincpercent_pct_14"]])
+			byParam[param]["inc_top5_" + category] = float(row[h["pctchginafttaxincpercent_pct_15"]])
+			byParam[param]["inc_top1_" + category] = float(row[h["pctchginafttaxincpercent_pct_16"]])
+			byParam[param]["inc_top05_" + category] = float(row[h["pctchginafttaxincpercent_pct_17"]])
 
 dataOut = []
 for d in byParam:
