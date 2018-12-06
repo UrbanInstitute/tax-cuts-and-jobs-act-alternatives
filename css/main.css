@@ -9,8 +9,8 @@ line {
   shape-rendering: crispEdges;
 }
 
-div,
-svg,
+
+
 canvas {
   position: absolute;
 }
@@ -34,4 +34,14 @@ circle {
 
 .hidden {
   display: none;
+}
+
+
+#controls{
+  display: block;
+}
+.controlContainer{
+  display: inline-block;
+  margin-right: 40px;
+  margin-top: 20px;
 }
