@@ -21,7 +21,7 @@ d3.json("data/data.json", function(points){
     .range([0, width]);
 
   var y = d3.scaleLinear()
-    .range([height, 0]);
+    .range([height,0]);
 
   var xAxis = d3.axisBottom()
     .scale(x)
@@ -80,22 +80,26 @@ d3.json("data/data.json", function(points){
 
 
     // Redraw axes
-    x.domain([-3.5, 5.5]);
+    x.domain([-3.50, 5.50]);
     y.domain([-550, 250]);
+
+    // x.domain([-, 1.5]);
+    // y.domain([-550, -200]);
+
     xg.call(xAxis);
     yg.call(yAxis);
 
 
     var tree = d3.quadtree()
-    .extent([
-      [0, 0],
-      [width, height]
-    ])
+    .x(function(p){ return x(p.x) })
+    .y(function(p){ return y(p.y) })
+    .extent([[-1, -1], [width + 1, height + 1]])
 
 
 
     // Update canvas
     context.clearRect(0, 0, width, height);
+
 
     points.forEach(function(p,i){
 
@@ -114,12 +118,31 @@ d3.json("data/data.json", function(points){
       if(!p.hide){
          context.fillStyle = "rgba(22,150,210, 0.3)";
          context.fill();
-         tree.add([p.x, p.y])
+         tree.add(p)
       }
     });
 
-    console.log(tree.data())
-    console.log(shown)
+    // console.log(shown)
+
+
+    // dummy.forEach(function(p,i){
+
+    //   context.beginPath();
+    //   context.arc(x(p[0]), y(p[1]), 3, 0, 2 * Math.PI);
+    //   context.fillStyle = "rgba(22,150,210, 0.3)";
+    //   context.fill();
+      
+    //   if(i != 4){
+    //     // console.log(p)
+    //    tree.add([p[0], p[1]])
+    //   }
+      
+    // });
+
+
+
+
+    // tree.addAll()
 
 
 // var  shown2 = points.filter(function(p){ return p.hide == false })
@@ -131,18 +154,19 @@ d3.json("data/data.json", function(points){
   canvas.on("mousemove",function(){
 
     var mouse = d3.mouse(this),
-        closest = tree.find(x.invert(mouse[0]), y.invert(mouse[1]),1);
+        closest = tree.find(mouse[0], mouse[1]);
     // tree.visit(function(node, x0, y0, x1, y1){
     //   // console.log(x0, y0)
     // })
-    // console.log(mouse, closest)
-
+// console.log(x.invert(mouse[0]), y.invert(mouse[1]))
+// console.log(closest)
     if(typeof(closest) != "undefined"){
-      highlight.classed("hidden", false)
-        .attr("cx", x(closest[0]))
-        .attr("cy", y(closest[1]));
+      showExploreTooltip(closest)
+
+
     }else{
-      highlight.classed("hidden", true);
+      hideExploreTooltip()
+      
     }
 
   });
@@ -152,7 +176,7 @@ d3.json("data/data.json", function(points){
   });
 
   canvas.on("mouseout",function(){
-    highlight.classed("hidden", true);
+    hideExploreTooltip()
   });
 
 
@@ -249,13 +273,38 @@ function animateLayout(income, group) {
     // if this animation is over
     if (t === 1) {
       // stop this timer for this layout and start a new one
-      console.log("foo")
       shown = points.map(function(p){ return [p.x, p.y] })
       draw();
       timer.stop()
 
     }
   });
+}
+
+function showExploreTooltip(point){
+  // console.log(point)
+  for(property in point){
+    if(point.hasOwnProperty(property)){
+
+      if(d3.select(".control." + property).node() != null){
+        console.log(property, point[property])
+        d3.selectAll(".control." + property).nodes().forEach(function(n){
+          d3.select(n.parentNode).classed("tempHighlight", false)
+        })
+
+          
+        d3.select(d3.select(".control." + property + "." + point[property]).node().parentNode).classed("tempHighlight", true)
+      }
+    }
+  }
+       highlight.classed("hidden", false)
+        .attr("cx", x(point.x))
+        .attr("cy", y(point.y));
+}
+
+function hideExploreTooltip(){
+  highlight.classed("hidden", true)
+  d3.selectAll(".tempHighlight").classed("tempHighlight", false)
 }
 
 

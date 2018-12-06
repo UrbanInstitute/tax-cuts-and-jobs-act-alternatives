@@ -12,13 +12,17 @@ byParam = {}
 count = 0
 for row in cr:
 	
-	# TO BE REMOVED, DEBUGGER
-	# param = 
 
-	param = row[h["paramfilename"]]	
+	param = row[h["paramfilename"]]
+
 	if param not in byParam:
 		byParam[param] = {}
 
+
+	# TO BE REMOVED, DEBUGGER		
+	byParam[param]["count"] = count
+	count += 1
+	#####
 	
 
 	byParam[param]["burden"] = float(row[h["burden_chg"]])
@@ -124,8 +128,12 @@ for row in cr:
 
 dataOut = []
 for d in byParam:
-# 	if(d.find("batch_1") != -1):
-	dataOut.append(byParam[d])
+# TO BE REMOVED, DEBUGGER
+	# print byParam[d]["count"]
+	# if(byParam[d]["count"] < 500):
+		# print count
+#######
+	dataOut.append(byParam[d])	
 
 with open('data/pretty.json', 'wt') as out:
     res = json.dump(dataOut, out, sort_keys=True, indent=4, separators=(',', ': '))

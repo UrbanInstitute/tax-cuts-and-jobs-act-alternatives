@@ -28,8 +28,8 @@ svg {
 
 circle {
   stroke-width: 4px;
-  stroke: #000;
-  fill: none;
+  stroke: #fdbf11;
+  fill: #fdbf11;
 }
 
 .hidden {
@@ -44,4 +44,8 @@ circle {
   display: inline-block;
   margin-right: 40px;
   margin-top: 20px;
+}
+
+div.tempHighlight{
+  background: pink;
 }
