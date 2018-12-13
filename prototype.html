@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/prototype.css">
 <body>
 
 <select id = "groupMenu">
-<option value = "all">all</option>
-<option value = "elderly">elderly</option>
-<option value = "hoh">head of household</option>
-<option value = "kids">with kids</option>
-<option value = "mfj">married filing jointly</option>
-<option value = "mfs">married filing separatlye</option>
-<option value = "mkids">married with kids</option>
-<option value = "mminorkids">married with minor kids</option>
-<option value = "myoungkids">married with young kids</option>
-<option value = "nokids">no kids</option>
-<option value = "notelderly">not elderly</option>
-<option value = "single">single</option>
+<option value = "a">all</option>
+<option value = "b">elderly</option>
+<option value = "c">head of household</option>
+<option value = "d">with kids</option>
+<option value = "e">married filing jointly</option>
+<option value = "f">married filing separatly</option>
+<option value = "g">married with kids</option>
+<option value = "h">married with minor kids</option>
+<option value = "i">married with young kids</option>
+<option value = "j">no kids</option>
+<option value = "k">not elderly</option>
+<option value = "l">single</option>
 </select>
 
 <select id = "incomeMenu">
-<option value = "q1">1st quartile</option>
-<option value = "q2">2nd quartile</option>
-<option value = "q3">3rd quartile</option>
-<option value = "q4">4th quartile</option>
-<option value = "q5">5th quartile</option>
-<option value = "top10">top 10%</option>
-<option value = "top5">top 5%</option>
-<option value = "top1">top 1%</option>
-<option value = "top05">top 0.5%</option>
-<option value = "all">all</option>
+<option value = "1">1st quartile</option>
+<option value = "2">2nd quartile</option>
+<option value = "3">3rd quartile</option>
+<option value = "4">4th quartile</option>
+<option value = "5">5th quartile</option>
+<option value = "6">top 10%</option>
+<option value = "7">top 5%</option>
+<option value = "8">top 1%</option>
+<option value = "9">top 0.5%</option>
+<option value = "0">all</option>
 </select>
 
 
@@ -45,53 +45,53 @@
 
   <div class = "controlContainer">
     <div>Standard deductions</div>
-    <div><input class = "standard low control" type="checkbox" value="low" checked="checked"><span>Low</span></div>
-    <div><input class = "standard mediumLow control" type="checkbox" value="mediumLow" checked="checked"><span>Medium low</span></div>
-    <div><input class = "standard mediumHigh control" type="checkbox" value="mediumHigh" checked="checked"><span>Medium high</span></div>
-    <div><input class = "standard high control" type="checkbox" value="high" checked="checked"><span>High</span></div>
+    <div><input class = "standard l control" type="checkbox" value="l" checked="checked"><span>Low</span></div>
+    <div><input class = "standard ml control" type="checkbox" value="ml" checked="checked"><span>Medium low</span></div>
+    <div><input class = "standard mh control" type="checkbox" value="mh" checked="checked"><span>Medium high</span></div>
+    <div><input class = "standard h control" type="checkbox" value="h" checked="checked"><span>High</span></div>
   </div>
 
   <div class = "controlContainer">
     <div>AMT exemption phaseout threshold</div>
-    <div><input class = "amtThreshold low control" type="checkbox" value="low" checked="checked"><span>Low</span></div>
-    <div><input class = "amtThreshold high control" type="checkbox" value="high" checked="checked"><span>High</span></div>
+    <div><input class = "amtThreshold l control" type="checkbox" value="l" checked="checked"><span>Low</span></div>
+    <div><input class = "amtThreshold h control" type="checkbox" value="h" checked="checked"><span>High</span></div>
   </div>
 
   <div class = "controlContainer">
     <div>AMT exemption amount</div>
-    <div><input class = "amtAmount low control" type="checkbox" value="low" checked="checked"><span>Low</span></div>
-    <div><input class = "amtAmount high control" type="checkbox" value="high" checked="checked"><span>High</span></div>
+    <div><input class = "amtAmount l control" type="checkbox" value="l" checked="checked"><span>Low</span></div>
+    <div><input class = "amtAmount h control" type="checkbox" value="h" checked="checked"><span>High</span></div>
   </div>
 
   <div class = "controlContainer">
     <div>Personal exemption amount</div>
-    <div><input class = "personal low control" type="checkbox" value="low" checked="checked"><span>$0</span></div>
-    <div><input class = "personal mediumLow control" type="checkbox" value="mediumLow" checked="checked"><span>$991</span></div>
-    <div><input class = "personal mediumHigh control" type="checkbox" value="mediumHigh" checked="checked"><span>$4,150</span></div>
-    <div><input class = "personal high control" type="checkbox" value="high" checked="checked"><span>$5,550</span></div>
+    <div><input class = "personal l control" type="checkbox" value="l" checked="checked"><span>$0</span></div>
+    <div><input class = "personal ml control" type="checkbox" value="ml" checked="checked"><span>$991</span></div>
+    <div><input class = "personal mh control" type="checkbox" value="mh" checked="checked"><span>$4,150</span></div>
+    <div><input class = "personal h control" type="checkbox" value="h" checked="checked"><span>$5,550</span></div>
   </div>
 
   <div class = "controlContainer">
     <div>State and local tax deduction</div>
-    <div><input class = "salt low control" type="checkbox" value="low" checked="checked"><span>$0</span></div>
-    <div><input class = "salt mediumLow control" type="checkbox" value="mediumLow" checked="checked"><span>$10,000</span></div>
-    <div><input class = "salt mediumHigh control" type="checkbox" value="mediumHigh" checked="checked"><span>$15,000</span></div>
-    <div><input class = "salt high control" type="checkbox" value="high" checked="checked"><span>$20,000</span></div>
+    <div><input class = "salt l control" type="checkbox" value="l" checked="checked"><span>$0</span></div>
+    <div><input class = "salt ml control" type="checkbox" value="ml" checked="checked"><span>$10,000</span></div>
+    <div><input class = "salt mh control" type="checkbox" value="mh" checked="checked"><span>$15,000</span></div>
+    <div><input class = "salt h control" type="checkbox" value="h" checked="checked"><span>$20,000</span></div>
   </div>
 
 
   <div class = "controlContainer">
     <div>Refundability threshold of child tax credit</div>
-    <div><input class = "ctcThreshold low control" type="checkbox" value="low" checked="checked"><span>$0</span></div>
+    <div><input class = "ctcThreshold l control" type="checkbox" value="l" checked="checked"><span>$0</span></div>
     <div><input class = "ctcThreshold medium control" type="checkbox" value="medium" checked="checked"><span>$1,250</span></div>
-    <div><input class = "ctcThreshold high control" type="checkbox" value="high" checked="checked"><span>$2,500</span></div>
+    <div><input class = "ctcThreshold h control" type="checkbox" value="h" checked="checked"><span>$2,500</span></div>
   </div>
 
   <div class = "controlContainer">
     <div>Refunable portion of the child tax credit</div>
-    <div><input class = "ctcAmount low control" type="checkbox" value="low" checked="checked"><span>$1,000</span></div>
+    <div><input class = "ctcAmount l control" type="checkbox" value="l" checked="checked"><span>$1,000</span></div>
     <div><input class = "ctcAmount medium control" type="checkbox" value="medium" checked="checked"><span>$1,400</span></div>
-    <div><input class = "ctcAmount high control" type="checkbox" value="high" checked="checked"><span>$2,000</span></div>
+    <div><input class = "ctcAmount h control" type="checkbox" value="h" checked="checked"><span>$2,000</span></div>
   </div>
 
 
@@ -101,4 +101,4 @@
 
     <script src="https://d3js.org/d3.v4.min.js"></script>
 
-<script src = "js/main.js"></script>
+<script src = "js/prototype.js"></script>
