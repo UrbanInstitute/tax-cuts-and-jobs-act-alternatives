@@ -12,6 +12,8 @@ body{
 
 canvas {
   position: absolute;
+top: 30px;
+    left: 9px;
 }
 
 svg {
@@ -47,4 +49,17 @@ circle {
 
 div.tempHighlight{
   background: #fdbf11;
+}
+
+#revdisp{
+  font-weight: bold;
+  position: fixed;
+    top: 10px;
+    left: 796px;
+}
+#incdisp{
+  font-weight: bold;
+  position: fixed;
+    top: 40px;
+    left: 796px;
 }

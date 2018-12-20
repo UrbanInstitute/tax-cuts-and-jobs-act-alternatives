@@ -127,17 +127,26 @@ for row in cr:
 			byParam[param][categoryDict[category] + "8"] = float(row[h["pctchginafttaxincpercent_pct_16"]])
 			byParam[param][categoryDict[category] + "9"] = float(row[h["pctchginafttaxincpercent_pct_17"]])
 
+	tcja = float(row[h["tcja_dummy"]])
+	if tcja == 1:
+		byParam[param]["tcja"] = True
+
 dataOut = []
+tcjaOut = False
 for d in byParam:
-# TO BE REMOVED, DEBUGGER
-	# print byParam[d]["count"]
-	# if(byParam[d]["count"] < 500):
-		# print count
-#######
 	dataOut.append(byParam[d])	
+	if "tcja" in byParam[d]:
+		tcjaOut = byParam[d]
+
 
 with open('data/pretty.json', 'wt') as out:
     res = json.dump(dataOut, out, sort_keys=True, indent=4, separators=(',', ': '))
+
+with open('data/tcja.js', 'wt') as out:
+    # res =  json.dump(tcjaOut, out, sort_keys=True, indent=4, separators=(',', ': '))
+    out.write("var TCJA = {" + ', '.join("\"%s\":%r" % (key,val) for (key,val) in tcjaOut.iteritems()) + "}") 
+
+
 
 
 with open('data/data.json', 'wt') as out:
