@@ -44,12 +44,15 @@ for row in cr:
 		byParam[param]["rates"] = "a"
 	elif rates == .12:
 		byParam[param]["rates"] = "b"
-	elif rates == .13:
+	elif rates == .132:
 		byParam[param]["rates"] = "c"
-	elif rates == .14:
+	elif rates == .144:
 		byParam[param]["rates"] = "d"
+	elif rates == .13:
+		byParam[param]["rates"] = "e"
 	else:
 		print "uncategoried rate"
+		print rates
 
 	amtThreshold = float(row[h["amthrsh1"]])
 	if amtThreshold == 123300:
