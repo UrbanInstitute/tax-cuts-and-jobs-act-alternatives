@@ -25,7 +25,7 @@ for row in cr:
 	#####
 	
 
-	byParam[param]["burden"] = float(row[h["rev_chg"]])
+	byParam[param]["burden"] = float(row[h["rev_chg"]]) * 1000000000
 	standard = float(row[h["standard1"]])
 	if standard == 6500:
 		byParam[param]["standard"] = "l"
@@ -39,7 +39,7 @@ for row in cr:
 		print "uncategorized rate"
 
 # pretty brittle, but 4 rate structures all have different vals for 2nd bracket, so for now this is working
-	rates = float(row[h["rates2"]])
+	rates = round(float(row[h["rates2"]]), 3)
 	if rates == .15:
 		byParam[param]["rates"] = "a"
 	elif rates == .12:
@@ -132,7 +132,7 @@ for row in cr:
 
 	tcja = float(row[h["tcja_dummy"]])
 	if tcja == 1:
-		byParam[param]["tcja"] = True
+		byParam[param]["tcja"] = "True"
 
 dataOut = []
 tcjaOut = False
@@ -140,6 +140,30 @@ for d in byParam:
 	dataOut.append(byParam[d])	
 	if "tcja" in byParam[d]:
 		tcjaOut = byParam[d]
+
+
+# print dataOut
+
+for o in dataOut:
+	if o["a1"] > tcjaOut["a1"] and o["burden"] > tcjaOut["burden"]:
+		o["q1"] = "1"
+	else:
+		o["q1"] = "0"
+
+	if o["a1"] > tcjaOut["a1"] and o["a2"] > tcjaOut["a2"] and o["burden"] > tcjaOut["burden"]:
+		o["q2"] = "1"
+	else:
+		o["q2"] = "0"
+
+	if o["a1"] > tcjaOut["a1"] and o["a2"] > tcjaOut["a2"] and o["a3"] > tcjaOut["a3"] and o["burden"] > tcjaOut["burden"]:
+		o["q3"] = "1"
+	else:
+		o["q3"] = "0"
+
+	if o["a1"] > tcjaOut["a1"] and o["a2"] > tcjaOut["a2"] and o["a3"] > tcjaOut["a3"] and o["a4"] > tcjaOut["a4"] and o["burden"] > tcjaOut["burden"]:
+		o["q4"] = "1"
+	else:
+		o["q4"] = "0"
 
 
 with open('data/pretty.json', 'wt') as out:

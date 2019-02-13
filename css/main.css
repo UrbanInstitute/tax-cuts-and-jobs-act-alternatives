@@ -1,3 +1,62 @@
+.axisLine{
+  stroke-dasharray: 4 4;
+  stroke-width: 2px;
+}
+.axisLine.zero{
+  stroke: #000;
+}
+.axisLine.tcja{
+  stroke: #f0573e;
+}
+.tick line{
+  stroke: #bcbec0;
+  /*stroke-width: 2px;*/
+  opacity: .8;
+}
+
+
+.axisLabel{
+  font-size: 14px;
+  font-style: italic;
+}
+.y.axisLabel{
+    position: absolute;
+    top: -30px;
+    left: -30px;
+}
+
+.x.axisLabel{
+    position: relative;
+    top: 27px;
+    left: calc(50% - 120px);
+    width: 240px;
+    text-align: center;
+}
+
+
+.quadGroup text{
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  text-anchor: middle;
+}
+
+
+
+
+#legendBg{
+  fill: rgba(255,255,255,.8);
+  stroke: none;
+}
+#legendTitle{
+  font-size: 16px;
+  font-weight: bold;
+}
+.legendText{
+  font-size: 14px;
+  font-weight: normal;
+}
 /************************************************************/
 /******************** PROTOTYPE CANVAS **********************/
 /************************************************************/
@@ -16,17 +75,21 @@ svg {
   /*pointer-events: none;*/
 }
 
-.axis path,
-.axis line {
+.axis path{
   fill: none;
   stroke: #000;
   stroke-width: 1px;
 }
 
-circle {
+circle.highlightDot {
   stroke-width: 4px;
-  stroke: #fdbf11;
-  fill: #fdbf11;
+  stroke: #174a7c;
+  fill: #174a7c;
+}
+circle.tcjaDot, circle.tcjaLegendDot{
+  stroke-width: 4px;
+  stroke: #f0573e;
+  fill: #f0573e;
 }
 
 .hidden {
@@ -57,8 +120,8 @@ div.tempHighlight{
 }
 */
 
-body{
-  font-family: "Lato";
+body, svg text{
+  font-family: "Avenir LT W01_55 Roman1475520","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 .container {
   width: 1180px;
@@ -110,7 +173,7 @@ p{
 
 .step {
   margin-bottom: 200px;
-  font-family: "Lato";
+  font-family: "Avenir LT W01_55 Roman1475520","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 16px;
   line-height: 23px;
   color: #000;
@@ -151,6 +214,8 @@ p{
 }
 #vis svg{
   cursor: pointer;
+position: absolute;
+    left: 0px;
 }
 #vis svg.nonInteractive{
   cursor: auto;
@@ -161,9 +226,10 @@ p{
   padding-left: 10px;
 }
 #vis.posRelTop{
-  position: relative;
-  float: right;
-  padding-left: 10px;
+    position: relative;
+    float: left;
+    display: inline-block;
+    margin-left: 400px;
 }
 #vis.posRelBottom{
   position: relative;
@@ -194,18 +260,13 @@ p{
   background: rgba(255,255,255,.9);
   padding: 10px;
 }
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #666;
-  shape-rendering: crispEdges;
-}
+
 #dotChartYAxis path, #dotChartYAxis line{
   display: none;
 }
 .tick text{
   font-size: 12px;
-  font-family: "Lato";
+  font-family: "Avenir LT W01_55 Roman1475520","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 .largeChartLabel, .largeScatterplotLabel{
   font-weight: bold;
@@ -217,7 +278,7 @@ p{
   letter-spacing: 3px;
 }
 text.dotChartLegend{
-  font-family: "Lato";
+  font-family: "Avenir LT W01_55 Roman1475520","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 12px;
 }
 .dotHoverRect{
@@ -254,10 +315,8 @@ g.dotChartSelected .dotHoverText.hidden, g.dotChartSelected .dotSumLine.hidden {
 #scatterPlotXAxis path, #scatterPlotYAxis path, #histXAxis path, #histYAxis path{
   display: none;
 }
-.axisLabel, .scatterAxisLabel{
-  font-size: 14px;
-  font-style: italic;
-}
+
+
 .note{
   font-size: 11px;
 }

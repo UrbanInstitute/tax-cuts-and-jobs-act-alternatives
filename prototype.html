@@ -428,6 +428,7 @@ function filterPoints(filters){
 }
 
 function animateLayout(income, group) {
+  d3.timerFlush()
   // store the source position
   points.forEach(function(point){
     point.sx = point.x;

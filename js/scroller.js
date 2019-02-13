@@ -123,7 +123,7 @@ function scroller() {
             .classed("posRelBottom", false)
             .classed("posRelTop", false)
             .classed("posFixed", true)
-            .style("top", "20px")  
+            .style("top", "80px")  
           d3.select("#sections")
             .style("z-index",90)
 
@@ -172,7 +172,7 @@ function scroller() {
               .classed("posRelBottom", false)
               .classed("posRelTop", false)
               .classed("posFixed", true)
-              .style("top", "20px")  
+              .style("top", "80px")  
             d3.select("#sections")
               .style("z-index",90)
           }

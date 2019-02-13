@@ -63,63 +63,72 @@ var histMargin = (IS_PHONE()) ? phoneHistMargin : desktopHistMargin;
 var histWidth = (IS_PHONE()) ? phoneHistWidth : desktopHistWidth;
 var histHeight = (IS_PHONE()) ? phoneHistHeight : desktopHistHeight;
 
-var fullNames = {
-  "AL": "Alabama",
-  "AK": "Alaska",
-  "AZ": "Arizona",
-  "AR": "Arkansas",
-  "CA": "California",
-  "CO": "Colorado",
-  "CT": "Connecticut",
-  "DE": "Delaware",
-  "DC": "District of Columbia",
-  "FL": "Florida",
-  "GA": "Georgia",
-  "HI": "Hawaii",
-  "ID": "Idaho",
-  "IL": "Illinois",
-  "IN": "Indiana",
-  "IA": "Iowa",
-  "KS": "Kansas",
-  "KY": "Kentucky",
-  "LA": "Louisiana",
-  "ME": "Maine",
-  "MD": "Maryland",
-  "MA": "Massachusetts",
-  "MI": "Michigan",
-  "MN": "Minnesota",
-  "MS": "Mississippi",
-  "MO": "Missouri",
-  "MT": "Montana",
-  "NE": "Nebraska",
-  "NV": "Nevada",
-  "NH": "New Hampshire",
-  "NJ": "New Jersey",
-  "NM": "New Mexico",
-  "NY": "New York",
-  "NC": "North Carolina",
-  "ND": "North Dakota",
-  "OH": "Ohio",
-  "OK": "Oklahoma",
-  "OR": "Oregon",
-  "PA": "Pennsylvania",
-  "RI": "Rhode Island",
-  "SC": "South Carolina",
-  "SD": "South Dakota",
-  "TN": "Tennessee",
-  "TX": "Texas",
-  "UT": "Utah",
-  "VT": "Vermont",
-  "VA": "Virginia",
-  "WA": "Washington",
-  "WV": "West Virginia",
-  "WI": "Wisconsin",
-  "WY": "Wyoming"
-}
 
 var mapColor = d3.scaleThreshold()
     .domain([0,.05, .1, .15, .2, .25, .3,.35,.4])
     .range(["#9d9d9d","#cfe8f3","#a2d4ec","#73bfe2","#46abdb","#1696d2","#12719e","#0a4c6a","#062635","#000"]);
 
-var DOLLARS = d3.format("$,.0f")
+var DOLLARS = d3.format("$.0s")
 var RATIOS = d3.format(".2f")
+
+
+var DOT_COLOR = "rgba(0,139,176,0.3)"
+var COLOR_1 = "rgba(23,74,124,0.3)"
+var COLOR_2 = "rgba(252,182,75,0.3)"
+var COLOR_3 = "rgba(85,183,72,0.3)"
+var COLOR_4 = "rgba(236,0,139,0.3)"
+var COLOR_5 = "rgba(22,150,210,0.3)"
+
+var SEQ_1 = "rgba(176,208,219,0.3)"
+var SEQ_2 = "rgba(117,173,192,0.3)"
+var SEQ_3 = "rgba(0,139,176,0.3)"
+
+
+
+var xMin = -3.50,
+    xMax = 5.5,
+    yMin = -550000000000,
+    yMax = 300000000000;
+
+
+
+var quadTextWidth = 280,
+  quadTextLineHeight = 20
+  legendWidth = 200,
+  legendHeight = 20;
+
+
+var paramaterText = {
+  "ctcAmount" : {
+    "label": "CTCrefundable portion",
+    "l" : "50%",
+    "medium": "70%",
+    "h": "100%"
+  }
+}
+
+
+function wrap(text, width) {
+  text.each(function() {
+    var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = quadTextLineHeight, // px
+        y = text.attr("y"),
+        dy = parseFloat(text.attr("dy")),
+        dx = parseFloat(text.attr("dx")),
+        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "px").attr("dx", dx + "px");
+    while (word = words.pop()) {
+      line.push(word);
+      tspan.text(line.join(" "));
+      if (tspan.node().getComputedTextLength() > width) {
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "px").attr("dx", dx + "px").text(word);
+      }
+    }
+  });
+}
