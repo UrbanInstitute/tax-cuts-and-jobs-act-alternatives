@@ -28,7 +28,7 @@ var scrollVis = function () {
     h = 700;
   }
 
-  var margin = {top: 20, right: 10, bottom: 30, left: 60},
+  var margin = {top: 20, right: 10, bottom: 30, left: 120},
   width = w - margin.left - margin.right,
   height = h - margin.top - margin.bottom;
 
@@ -36,7 +36,7 @@ var scrollVis = function () {
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
-      .attr("transform", "translate(" + margin.left + " " + margin.top + ")");
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   var x = d3.scaleLinear()
     .range([0, width])
@@ -49,11 +49,16 @@ var scrollVis = function () {
   var xAxis = d3.axisBottom()
     .scale(x)
     .tickSize(-height)
+    .tickSizeOuter(0)
+    .tickPadding(10)
 
   var yAxis = d3.axisLeft()
     .scale(y)
     .tickFormat(function(d){ return DOLLARS(d).replace("G","") })
     .tickSize(-width)
+    .tickSizeOuter(0)
+    .tickPadding(10)
+
 
 
   var xg = svg.append("g")
@@ -99,6 +104,25 @@ var scrollVis = function () {
     .attr("class", "x axisLabelText")
 
 
+
+  var catLabels = d3.select("#vis").append("div")
+    .attr("id", "catLabels")
+
+  var filingGroup = catLabels.append("div")
+    .attr("class", "catLabel filing")
+  filingGroup.append("div")
+    .attr("class", "catDesc filing")
+    .text("Filing group:")
+  filingGroup.append("div")
+    .attr("class", "catName filing")
+
+  var incomeGroup = catLabels.append("div")
+    .attr("class", "catLabel income")
+  incomeGroup.append("div")
+    .attr("class", "catDesc income")
+    .text("Income group:")
+  incomeGroup.append("div")
+    .attr("class", "catName income")
 
 
 
@@ -233,6 +257,31 @@ var scrollVis = function () {
     .call(wrap, quadTextWidth)
 
 
+  var quadO = svg.append("g")
+    .attr("class", "quadGroupOverlap")
+    .attr("transform", "translate(" + x(TCJA["a2"]) + ",0)")
+    .style("opacity", 0)
+
+  quadO.append("rect")
+    .attr("fill","rgba(252,182,75,.1)")
+    .attr("x",0)
+    .attr("y", 0)
+    .attr("width", width - x(TCJA["a2"]))
+    .attr("height",y(TCJA["burden"]))
+
+  quadO.append("text")
+    .text("Benefits the second quintle")
+    .attr("y", function(){
+      return (.5 * ( height - y(TCJA["burden"]) -2*quadTextLineHeight) + "px")
+    })
+    .attr("dx", function(){
+      return (.5 * (width - x(TCJA["a2"]) ) + "px")
+    })
+    .attr("dy", "0px")
+    .call(wrap, quadTextWidth)
+
+
+
   overlaySvg.append("line")
     .attr("class", "axisLine tcja horizontal")
     .attr("x1", x(xMin))
@@ -319,6 +368,26 @@ var scrollVis = function () {
     return [TCJA[xkey], TCJA["burden"]]
   }
 
+  function moveQuadO(number, word){
+    quadO
+    .transition()
+    .delay(longLag + duration + lag)
+    .duration(duration)
+    .attr("transform", "translate(" + x(TCJA["a" + number]) + ",0)")
+    .style("opacity",1)
+
+    quadO.select("rect")
+    .transition()
+    .delay(longLag + duration + lag)
+    .duration(duration)
+    .attr("width", width - x(TCJA["a" + number]))
+    .on("start", function(){
+    quadO.select("text")
+    .text("Benefits the " + word + " quintile")
+    })
+
+  }
+
   function moveTCJA(vals){
   d3.selectAll(".tick line")
     .style("opacity", function(d){
@@ -331,7 +400,7 @@ var scrollVis = function () {
     //animate some svg dot/lines for the TCJA dot
     tcjaDot.classed("hidden", false)
         .transition()
-        .delay(900)
+        .delay(longLag)
         // .ease(ease)
         .duration(duration)
         .attr("cx", x(tx))
@@ -339,37 +408,108 @@ var scrollVis = function () {
 
     tcjaLine
     .transition()
-    .delay(900)
+    .delay(longLag)
     .duration(duration)
     .attr("x1", x(tx))
     .attr("x2", x(tx))
 
   }
 
-  function updateLegend(key, colors){
-
-  d3.selectAll(".lrow.temp")
+  function updateLegend(origKey, colors){
+    var key;
+    if(origKey == "ct1" || origKey == "ct2" || origKey == "ct3"){
+    key = "ctcAmount"
+    }else{
+    key = origKey
+    }
+    d3.selectAll(".lrow.temp")
     .transition()
     .duration(500)
     .style("opacity",0)
     .on("end", function(){
-      d3.select(this).remove()
+    d3.select(this).remove()
     })
 
-  if(key == "ctcAmount" && colors.l == DOT_COLOR && colors.medium == DOT_COLOR && colors.h == DOT_COLOR){
+    if(key == "ctcAmount" && colors.l == DOT_COLOR && colors.medium == DOT_COLOR && colors.h == DOT_COLOR){
     console.log("no legend")
-  }else{
-    var row = legend.append("g")
-      .attr("class", "lrow temp")
-      .attr("transform", "translate(20, 40)")
+    }
+    else if(paramaterText.hasOwnProperty(key)){
+    var i = 2
+    var h = legend.append("g")
+    .attr("class", "lrow temp")
+    .attr("transform", "translate(20, " + (50 + 20) + ")")
+    h.append("text")
+    .attr("x", 0)
+    .attr("y", 10)
+    // .attr("r", 3)
+    .attr("class", "tcjaLegendText legendText")
+    .text(paramaterText[key]["label"])
+    .style("opacity",0)
+    .transition()
+    .duration(500)
+    .style("opacity",1)
 
-    lrow.append("text")
-      .attr("x", 12)
-      .attr("y", 10)
-      // .attr("r", 3)
-      .attr("class", "tcjaLegendText legendText")
-      .text("TCJA")
-  }
+    for (var c in colors) {
+    if (colors.hasOwnProperty(c) && c != "l0" && c != "m0" && c != "h0" ) {
+    // console.log(key, yourobject[key]);
+    var color = colors[c].replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"),
+    text = paramaterText[key][c][0].replace("<span class = \"tcjaLabel\">","").replace("<span class = \"pretcjaLabel\">","").replace("</span>","")
+
+    var row = legend.append("g")
+    .attr("class", "lrow temp")
+    .attr("transform", "translate(30, " + (50 + i* 20) + ")")
+    .style("opacity",0)
+    row.transition()
+    .duration(500)
+    .style("opacity",1)
+
+    row.append("circle")
+    .attr("cx", 3)
+    .attr("cy", 5)
+    .attr("r", 3)
+    .style("stroke-width", "2px")
+    .style("stroke", color)
+    .style("fill", color)
+    .attr("class", "legendDot")
+    row.append("text")
+    .attr("x", 12)
+    .attr("y", 10)
+    // .attr("r", 3)
+    .attr("class", "legendText legendText")
+    .text(text)
+    i++;
+    }
+    }
+
+
+
+    }else{
+      var color = colors["1"].replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"),
+        text = customLegendText[key]
+    var row = legend.append("g")
+    .attr("class", "lrow temp")
+    .attr("transform", "translate(20, " + (60) + ")")
+    .style("opacity",0)
+    row.transition()
+    .duration(500)
+    .style("opacity",1)
+
+    row.append("circle")
+    .attr("cx", 3)
+    .attr("cy", 5)
+    .attr("r", 3)
+    .style("stroke-width", "4px")
+    .style("stroke", color)
+    .style("fill", color)
+    .attr("class", "legendDot")
+    row.append("text")
+    .attr("x", 12)
+    .attr("y", 10)
+    // .attr("r", 3)
+    .attr("class", "legendText legendText")
+    .text(text)
+
+    }
 
   }
 
@@ -506,6 +646,11 @@ function loopAnimate (points, moveY) {           //  create a loop function
     moveTCJA(getTcjaVals(income, group))
     updateLegend(key, colors)
 
+
+    if(income != "tcja"){
+      d3.select(".catName.filing").text(d3.select("option[value=\'" + group + "\']").text())
+      d3.select(".catName.income").text(d3.select("option[value=\'" + income + "\']").text())
+    }
 
     points[0].forEach(function(point){
       point.sx = point.x;
@@ -668,6 +813,9 @@ function loopAnimate (points, moveY) {           //  create a loop function
       .transition()
       .duration(duration)
       .style("opacity",0)
+    quadO.transition()
+      .style("opacity",0)
+      
     d3.selectAll("#legendG")
       .transition()
       .duration(duration)
@@ -754,14 +902,18 @@ function loopAnimate (points, moveY) {           //  create a loop function
   function compareQ1(points){
     //shade dots based on std deduction 
     //legend
-    animateLayout("1","a", points, false, "q1", {"0": DOT_COLOR, "1": COLOR_2})
+    quadO.transition()
+      .style("opacity",0)
+    animateLayout("1","a", points, false, "q1", {"0": DARK_HIDE, "1": SEQ_1})
 
     console.log(9)
   }
   function compareTop1(points){
     //shade dots based on std deduction 
     //legend
-    animateLayout("8","a", points, false, "t1", {"0": DOT_COLOR, "1": COLOR_2})
+    quadO.transition()
+      .style("opacity",0)
+    animateLayout("8","a", points, false, "t1", {"0": DARK_HIDE, "1": COLOR_2})
 
     console.log(10)
   }
@@ -771,7 +923,25 @@ function loopAnimate (points, moveY) {           //  create a loop function
   function compareQ2(points){
     //shade dots based on std deduction 
     //legend
-    animateLayout("2","a", points, false, "q1", {"0": DOT_COLOR, "1": COLOR_2})
+
+  quadO
+    .transition()
+      .delay(longLag)
+      .duration(duration)
+      .attr("transform", "translate(" + x(TCJA["a2"]) + ",0)")
+      .style("opacity",1)
+
+  quadO.select("rect")
+    .transition()
+      .delay(longLag)
+      .duration(duration)
+    .attr("width", width - x(TCJA["a2"]))
+    .on("start", function(){
+  quadO.select("text")
+    .text("Benefits the second quintle")
+    })
+      
+    animateLayout("2","a", points, false, "q1", {"0": DARK_HIDE, "1": SEQ_1})
 
     console.log(8)
   }
@@ -779,8 +949,14 @@ function loopAnimate (points, moveY) {           //  create a loop function
   function compareQ3(points){
     //shade dots based on std deduction 
     //legend
-    animateLayout("2","a", points, false, "q2", {"0": DOT_COLOR, "1": COLOR_2})
-    setTimeout(function(){ animateLayout("3","a", points, false, "q2", {"0": DOT_COLOR, "1": COLOR_2}) }, duration + lag)
+
+
+    moveQuadO(3, "third")
+
+
+
+    animateLayout("2","a", points, false, "q2", {"0": DARK_HIDE, "1": SEQ_2})
+    setTimeout(function(){ animateLayout("3","a", points, false, "q2", {"0": DARK_HIDE, "1": SEQ_2}) }, duration + lag)
 
     console.log(8)
   }
@@ -788,16 +964,18 @@ function loopAnimate (points, moveY) {           //  create a loop function
   function compareQ4(points){
     //shade dots based on std deduction 
     //legend
-    animateLayout("3","a", points, false, "q3", {"0": DOT_COLOR, "1": COLOR_2})
-    setTimeout(function(){ animateLayout("4","a", points, false, "q3", {"0": DOT_COLOR, "1": COLOR_2}) }, duration + lag)
+    moveQuadO(4, "fourth")
+    animateLayout("3","a", points, false, "q3", {"0": DARK_HIDE, "1": SEQ_3})
+    setTimeout(function(){ animateLayout("4","a", points, false, "q3", {"0": DARK_HIDE, "1": SEQ_3}) }, duration + lag)
 
     console.log(8)
   }
     function compareQ5(points){
     //shade dots based on std deduction 
     //legend
-    animateLayout("4","a", points, false, "q4", {"0": DOT_COLOR, "1": COLOR_2})
-    setTimeout(function(){ animateLayout("5","a", points, false, "q4", {"0": DOT_COLOR, "1": COLOR_2}) }, duration + lag)
+    moveQuadO(5, "fifth")
+    animateLayout("4","a", points, false, "q4", {"0": DARK_HIDE, "1": SEQ_4})
+    setTimeout(function(){ animateLayout("5","a", points, false, "q4", {"0": DARK_HIDE, "1": SEQ_4}) }, duration + lag)
 
     console.log(8)
   }

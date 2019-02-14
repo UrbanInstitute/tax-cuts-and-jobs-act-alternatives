@@ -21,8 +21,9 @@
 }
 .y.axisLabel{
     position: absolute;
-    top: -30px;
-    left: -30px;
+    top: 286px;
+    left: -162px;
+    transform: rotate(-90deg);
 }
 
 .x.axisLabel{
@@ -57,6 +58,31 @@
   font-size: 14px;
   font-weight: normal;
 }
+
+
+
+#catLabels{
+    position: absolute;
+    top: -12px;
+    left: 80px;
+    width: 810px;
+}
+.catLabel{
+  display: inline-block;
+  font-size: 18px;
+}
+.catDesc{
+  font-weight: bold;
+  display: inline-block;
+
+}
+.catName{
+  display: inline-block;
+  margin-left: 5px;
+}
+.catName.filing{
+  margin-right: 20px;
+}
 /************************************************************/
 /******************** PROTOTYPE CANVAS **********************/
 /************************************************************/
@@ -79,6 +105,12 @@ svg {
   fill: none;
   stroke: #000;
   stroke-width: 1px;
+}
+.y.axis path{
+  display: none;
+}
+.x.axis path{
+  stroke-width: 2px;
 }
 
 circle.highlightDot {

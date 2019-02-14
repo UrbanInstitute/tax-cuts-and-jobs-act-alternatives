@@ -1,1 +1,12 @@
-TO DO
+- legend population
+- ctc highlight slide
+- style explore section!
+- mouseover throughout?
+- color updates
+- header img
+- footer content
+- ...mobile
+- y axis label tooltip text
+- header, w explore button
+- links to explore section
+- mouseover on explore section
