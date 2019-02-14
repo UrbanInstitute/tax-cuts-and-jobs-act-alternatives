@@ -7,8 +7,7 @@
 var scrollVis = function () {
   var shown;
 
-  const duration = 700;
-  const increment = 50;
+
   const ease = d3.easeCubic;
   // let timer;
 
@@ -252,7 +251,7 @@ var scrollVis = function () {
 
 
   var legend = overlaySvg.append("g")
-    .attr("transform", "translate(" + (width - legendWidth - 20) + ",20)")
+    .attr("transform", "translate(20,20)")
     .attr("id", "legendG")
     .style("opacity",0)
 
@@ -349,16 +348,28 @@ var scrollVis = function () {
 
   function updateLegend(key, colors){
 
-  // var lrow = legend.append("g")
-  //   .attr("class", "lrow")
-  //   .attr("transform", "translate(20, 40)")
+  d3.selectAll(".lrow.temp")
+    .transition()
+    .duration(500)
+    .style("opacity",0)
+    .on("end", function(){
+      d3.select(this).remove()
+    })
 
-  // lrow.append("text")
-  //   .attr("x", 12)
-  //   .attr("y", 10)
-  //   // .attr("r", 3)
-  //   .attr("class", "tcjaLegendText legendText")
-  //   .text("TCJA")
+  if(key == "ctcAmount" && colors.l == DOT_COLOR && colors.medium == DOT_COLOR && colors.h == DOT_COLOR){
+    console.log("no legend")
+  }else{
+    var row = legend.append("g")
+      .attr("class", "lrow temp")
+      .attr("transform", "translate(20, 40)")
+
+    lrow.append("text")
+      .attr("x", 12)
+      .attr("y", 10)
+      // .attr("r", 3)
+      .attr("class", "tcjaLegendText legendText")
+      .text("TCJA")
+  }
 
   }
 
@@ -441,7 +452,7 @@ function interpolateRGBAColors(c1, c2, t){
   rgb1 = c1.replace("rgba(","").replace(")","").split(",")
   rgb2 = c2.replace("rgba(","").replace(")","").split(",")
 
-  return "rgba(" + interpolateVal(+(rgb1[0]), +(rgb2[0]), t) + "," + interpolateVal(+(rgb1[1]), +(rgb2[1]), t) + "," + interpolateVal(+(rgb1[2]), (rgb2[2]), t) + "," + rgb1[3] + ")"
+  return "rgba(" + interpolateVal(+(rgb1[0]), +(rgb2[0]), t) + "," + interpolateVal(+(rgb1[1]), +(rgb2[1]), t) + "," + interpolateVal(+(rgb1[2]), (rgb2[2]), t) + "," + interpolateVal(+(rgb1[3]), (rgb2[3]), t) + ")"
 
 }
 
@@ -498,7 +509,7 @@ function loopAnimate (points, moveY) {           //  create a loop function
 
     points[0].forEach(function(point){
       point.sx = point.x;
-      point.sc = colors[point[key]]
+      point.sc = point.color
       point.tc = colors[point[key]]
     });
 
@@ -611,7 +622,7 @@ function loopAnimate (points, moveY) {           //  create a loop function
         context.fill();
         tree.add(p)
       }else{
-        context.fillStyle = "rgba(0, 0, 0, 0.008)";
+        context.fillStyle = COLOR_HIDE;
         context.fill();
       }
     });
@@ -689,14 +700,33 @@ function loopAnimate (points, moveY) {           //  create a loop function
     console.log(4)
   }
 
-  function showMarriedKidsTwo(points){
+  function showMarriedKidsFilter1(points){
     //shade dots based on CTC threshold
     //legend
     // recolorPoints("ctcThreshold", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3}, points)
-    animateLayout("1","g", points, false, "ctcThreshold", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3})
+    animateLayout("1","g", points, false, "ct1", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3, "l0": HIDE_1, "m0": HIDE_2, "h0": HIDE_3})
 
     console.log(5)
   }
+
+  function showMarriedKidsFilter2(points){
+    //shade dots based on CTC threshold
+    //legend
+    // recolorPoints("ctcThreshold", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3}, points)
+    animateLayout("1","g", points, false, "ct2", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3, "l0": HIDE_1, "m0": HIDE_2, "h0": HIDE_3})
+
+    console.log(5)
+  }
+
+    function showMarriedKidsFilter3(points){
+    //shade dots based on CTC threshold
+    //legend
+    // recolorPoints("ctcThreshold", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3}, points)
+    animateLayout("1","g", points, false, "ct3", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3, "l0": HIDE_1, "m0": HIDE_2, "h0": HIDE_3})
+
+    console.log(5)
+  }
+
 
   function showQ1_PersonalExcemption(points){
     //shade dots based on personal exemption 
@@ -717,7 +747,7 @@ function loopAnimate (points, moveY) {           //  create a loop function
   function showTop5_Rates(points){
     //shade dots based on std deduction 
     //legend
-    animateLayout("8","a", points, false, "rates", {"a": COLOR_1, "b": COLOR_2, "c": COLOR_3, "d": COLOR_4, "e": COLOR_5})
+    animateLayout("8","a", points, false, "rates", {"a": COLOR_1, "b": COLOR_2, "c": COLOR_3, "d": COLOR_4})
 
     console.log(8)
   }
@@ -726,8 +756,16 @@ function loopAnimate (points, moveY) {           //  create a loop function
     //legend
     animateLayout("1","a", points, false, "q1", {"0": DOT_COLOR, "1": COLOR_2})
 
-    console.log(8)
+    console.log(9)
   }
+  function compareTop1(points){
+    //shade dots based on std deduction 
+    //legend
+    animateLayout("8","a", points, false, "t1", {"0": DOT_COLOR, "1": COLOR_2})
+
+    console.log(10)
+  }
+
 
 
   function compareQ2(points){
@@ -741,7 +779,8 @@ function loopAnimate (points, moveY) {           //  create a loop function
   function compareQ3(points){
     //shade dots based on std deduction 
     //legend
-    animateLayout("3","a", points, false, "q2", {"0": DOT_COLOR, "1": COLOR_2})
+    animateLayout("2","a", points, false, "q2", {"0": DOT_COLOR, "1": COLOR_2})
+    setTimeout(function(){ animateLayout("3","a", points, false, "q2", {"0": DOT_COLOR, "1": COLOR_2}) }, duration + lag)
 
     console.log(8)
   }
@@ -749,14 +788,16 @@ function loopAnimate (points, moveY) {           //  create a loop function
   function compareQ4(points){
     //shade dots based on std deduction 
     //legend
-    animateLayout("4","a", points, false, "q3", {"0": DOT_COLOR, "1": COLOR_2})
+    animateLayout("3","a", points, false, "q3", {"0": DOT_COLOR, "1": COLOR_2})
+    setTimeout(function(){ animateLayout("4","a", points, false, "q3", {"0": DOT_COLOR, "1": COLOR_2}) }, duration + lag)
 
     console.log(8)
   }
     function compareQ5(points){
     //shade dots based on std deduction 
     //legend
-    animateLayout("5","a", points, false, "q4", {"0": DOT_COLOR, "1": COLOR_2})
+    animateLayout("4","a", points, false, "q4", {"0": DOT_COLOR, "1": COLOR_2})
+    setTimeout(function(){ animateLayout("5","a", points, false, "q4", {"0": DOT_COLOR, "1": COLOR_2}) }, duration + lag)
 
     console.log(8)
   }
@@ -771,16 +812,20 @@ function loopAnimate (points, moveY) {           //  create a loop function
     activateFunctions[2] = function(){ showQ1(points) };
     activateFunctions[3] = function(){ showQ1_CTC(points) };
     activateFunctions[4] = function(){ showMarriedKids(points); };
-    activateFunctions[5] = function(){ showMarriedKidsTwo(points) };
-    activateFunctions[6] = function(){ showQ1_PersonalExcemption(points); };
-    activateFunctions[7] = function(){ showQ1_StandardDeduction(points); };
-    activateFunctions[8] = function(){ showTop5_Rates(points); };
-    activateFunctions[9] = function(){ compareQ1(points); };
-    activateFunctions[10] = function(){ compareQ2(points); };
-    activateFunctions[11] = function(){ compareQ3(points); };
-    activateFunctions[12] = function(){ compareQ4(points); };
-    activateFunctions[13] = function(){ compareQ5(points); };
-    activateFunctions[14] = function(){ compareQ5(points); };
+    activateFunctions[5] = function(){ showMarriedKidsFilter1(points) };
+    activateFunctions[6] = function(){ showMarriedKidsFilter2(points) };
+    activateFunctions[7] = function(){ showMarriedKidsFilter3(points) };
+    activateFunctions[8] = function(){ showQ1_PersonalExcemption(points); };
+    activateFunctions[9] = function(){ showQ1_StandardDeduction(points); };
+    activateFunctions[10] = function(){ showTop5_Rates(points); };
+    activateFunctions[11] = function(){ compareQ1(points); };
+    activateFunctions[12] = function(){ compareTop1(points); };
+    activateFunctions[13] = function(){ compareQ1(points); };
+    activateFunctions[14] = function(){ compareQ2(points); };
+    activateFunctions[15] = function(){ compareQ3(points); };
+    activateFunctions[16] = function(){ compareQ4(points); };
+    activateFunctions[17] = function(){ compareQ5(points); };
+    activateFunctions[18] = function(){ showAllAll(points); };
 
 
     d3.select("#groupMenu").on("input", function(){

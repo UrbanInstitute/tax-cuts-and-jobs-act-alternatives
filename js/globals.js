@@ -79,9 +79,17 @@ var COLOR_3 = "rgba(85,183,72,0.3)"
 var COLOR_4 = "rgba(236,0,139,0.3)"
 var COLOR_5 = "rgba(22,150,210,0.3)"
 
+
+var HIDE_1 = "rgba(23,74,124,0.008)"
+var HIDE_2 = "rgba(252,182,75,0.008)"
+var HIDE_3 = "rgba(85,183,72,0.008)"
+
+var COLOR_HIDE = "rgba(0, 0, 0, 0.008)"
+
 var SEQ_1 = "rgba(176,208,219,0.3)"
 var SEQ_2 = "rgba(117,173,192,0.3)"
 var SEQ_3 = "rgba(0,139,176,0.3)"
+
 
 
 
@@ -92,10 +100,15 @@ var xMin = -3.50,
 
 
 
+const duration = 700;
+const increment = 50;
+const lag = 500;
+
+
 var quadTextWidth = 280,
   quadTextLineHeight = 20
   legendWidth = 200,
-  legendHeight = 20;
+  legendHeight = 100;
 
 
 var paramaterText = {

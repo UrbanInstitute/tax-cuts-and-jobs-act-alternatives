@@ -46,10 +46,8 @@ for row in cr:
 		byParam[param]["rates"] = "b"
 	elif rates == .132:
 		byParam[param]["rates"] = "c"
-	elif rates == .144:
-		byParam[param]["rates"] = "d"
 	elif rates == .13:
-		byParam[param]["rates"] = "e"
+		byParam[param]["rates"] = "d"
 	else:
 		print "uncategoried rate"
 		print rates
@@ -115,6 +113,53 @@ for row in cr:
 		print "uncategoried ctc amount"
 
 
+	if ctcThreshold == 2500:
+		if ctcAmount == 1000:
+			byParam[param]["ct1"] = "l"
+			byParam[param]["ct2"] = "l0"
+			byParam[param]["ct3"] = "l0"
+		elif ctcAmount == 1400:
+			byParam[param]["ct1"] = "medium"
+			byParam[param]["ct2"] = "m0"
+			byParam[param]["ct3"] = "m0"
+		elif ctcAmount == 2000:
+			byParam[param]["ct1"] = "h"
+			byParam[param]["ct2"] = "h0"
+			byParam[param]["ct3"] = "h0"
+
+	if ctcThreshold == 1250:
+		if ctcAmount == 1000:
+			byParam[param]["ct1"] = "l0"
+			byParam[param]["ct2"] = "l"
+			byParam[param]["ct3"] = "l0"
+		elif ctcAmount == 1400:
+			byParam[param]["ct1"] = "m0"
+			byParam[param]["ct2"] = "medium"
+			byParam[param]["ct3"] = "m0"
+		elif ctcAmount == 2000:
+			byParam[param]["ct1"] = "h0"
+			byParam[param]["ct2"] = "h"
+			byParam[param]["ct3"] = "h0"
+
+	if ctcThreshold == 0:
+		if ctcAmount == 1000:
+			byParam[param]["ct1"] = "l0"
+			byParam[param]["ct2"] = "l0"
+			byParam[param]["ct3"] = "l"
+		elif ctcAmount == 1400:
+			byParam[param]["ct1"] = "m0"
+			byParam[param]["ct2"] = "m0"
+			byParam[param]["ct3"] = "medium"
+		elif ctcAmount == 2000:
+			byParam[param]["ct1"] = "h0"
+			byParam[param]["ct2"] = "h0"
+			byParam[param]["ct3"] = "h"
+
+
+
+
+
+
 	categories = ["all","elderly","hoh","kids","mfj","mfs","mkids","mminorkids","myoungkids","nokids","notelderly","single"]
 	categoryDict = {"all": "a","elderly":"b","hoh":"c","kids":"d","mfj":"e","mfs":"f","mkids":"g","mminorkids":"h","myoungkids":"i","nokids":"j","notelderly":"k","single":"l"}
 	for category in categories:
@@ -164,6 +209,11 @@ for o in dataOut:
 		o["q4"] = "1"
 	else:
 		o["q4"] = "0"
+
+	if o["a8"] > tcjaOut["a8"] and o["burden"] > tcjaOut["burden"]:
+		o["t1"] = "1"
+	else:
+		o["t1"] = "0"
 
 
 with open('data/pretty.json', 'wt') as out:
