@@ -275,10 +275,22 @@ var scrollVis = function () {
       return (.5 * ( height - y(TCJA["burden"]) -2*quadTextLineHeight) + "px")
     })
     .attr("dx", function(){
-      return (.5 * (width - x(TCJA["a2"]) ) + "px")
+      return "20px"
     })
     .attr("dy", "0px")
     .call(wrap, quadTextWidth)
+
+
+highlightEllipse = svg.append("ellipse")
+    .attr("class", "highlightEllipse")
+    // .style("opacity", 1)
+    .attr("fill","rgba(252,182,75,.8)")
+    .attr("cx", x(-.43))
+    .attr("cy", y(102 * 1000000000))
+    .attr("rx", 28)
+    .attr("ry", 15)
+    .style("opacity",0)
+
 
 
 
@@ -808,6 +820,17 @@ function loopAnimate (points, moveY) {           //  create a loop function
   }
 
   function showAllAll(points){
+
+
+
+// d3.select(".highlightEllipse")
+//     .transition()
+//     .duration(duration)
+//     .delay(lag)
+//     .attr("cx", x(-.88))
+//     .attr("rx", 15)
+//     .style("opacity",0)
+
     animateLayout("0","a", points, true, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
     d3.selectAll(".quadGroup")
       .transition()
@@ -815,7 +838,7 @@ function loopAnimate (points, moveY) {           //  create a loop function
       .style("opacity",0)
     quadO.transition()
       .style("opacity",0)
-      
+
     d3.selectAll("#legendG")
       .transition()
       .duration(duration)
@@ -825,12 +848,26 @@ function loopAnimate (points, moveY) {           //  create a loop function
   }
 
   function showQ1(points){
+d3.select(".highlightEllipse")
+    .transition()
+    .style("opacity",0)
+
     animateLayout("1","a", points, false, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
 
     console.log(2)
   }
 
   function showQ1_CTC(points){
+
+
+d3.select(".highlightEllipse")
+    .transition()
+    .duration(duration + 300)
+    .delay(lag)
+    .attr("cx", x(-.43))
+    .attr("rx", 28)
+    .style("opacity",1)
+
     animateLayout("1","a", points, false, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
     //highlight the ctc points in upper left
     //direct label
@@ -843,6 +880,25 @@ function loopAnimate (points, moveY) {           //  create a loop function
     //shade dots based on refundable portion of CTC
     // recolorPoints("ctcAmount", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3}, points)
     //legend
+d3.select(".highlightEllipse")
+    .transition()
+    .duration(duration + 300)
+    .delay(lag)
+    .ease(d3.easeLinear)
+    .attr("cx", x(.25))
+    .attr("rx", 49)
+    .on("end", function(){
+      d3.select(this)
+        .transition()
+        .duration(500)
+        .ease(d3.easeLinear)
+        .style("opacity",0)
+        .attr("cx", x(.75))
+        .attr("rx", 99)
+    })
+    // .style("opacity",0)
+
+
     animateLayout("1","g", points, false, "ctcAmount", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3})
 
     console.log(4)
