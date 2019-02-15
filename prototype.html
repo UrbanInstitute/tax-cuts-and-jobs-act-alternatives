@@ -403,6 +403,7 @@ function getFilterVals(){
 }
 
 function filterPoints(filters){
+  console.log(filters)
   points.forEach(function(point){
     point.hide = false;
     for(var filter in filters){

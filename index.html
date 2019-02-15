@@ -10,6 +10,8 @@
   <link rel="stylesheet" type="text/css" href="css/main.css"/>
   <link rel="stylesheet" type="text/css" href="css/urban.css"/>
   <link rel="stylesheet" type="text/css" href="css/urban-header.css"/>
+  <link rel="stylesheet" type="text/css" href="css/vendor/jquery-ui.css">
+
   <script type="text/javascript" src="https://fast.fonts.net/jsapi/42baf963-f465-4c7a-8681-0da65887adaa.js"></script>
 
 
@@ -255,11 +257,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
       <section class="step lastStep">
-        <div class="title">Explore section</div>
+        <div class="title">Explore</div>
         <p>
           All tax plans come with trade-offs for certain groups. Understanding these trade-offs, both in terms of revenue and people’s after-tax income, is critical to creating sound, evidence-based tax policy. In our report, we look at a few alternative plans that would lose less adjusted revenue than the TCJA and more evenly distribute after-tax income. Below, see for yourself how changing tax policy parameters affects adjusted revenue and after-tax income for different groups.
         </p>
 
+
+        <div id = "controls">
+
+
+<div id = "groupContainer">
+<div class = "menuTitle">Income group:</div>
+<select id = "incomeMenu">
+<option value = "0">All</option>
+<option value = "1">1st quintile</option>
+<option value = "2">2nd quintile</option>
+<option value = "3">3rd quintile</option>
+<option value = "4">4th quintile</option>
+<option value = "5">5th quintile</option>
+<option value = "6">Top 10%</option>
+<option value = "7">Top 5%</option>
+<option value = "8">Top 1%</option>
+<option value = "9">Top 0.5%</option>
+</select>
+</div>
+
+
+
+<div id = "groupContainer">
+<div class = "menuTitle">Filing group:</div>
 <select id = "groupMenu">
 <option value = "a">All</option>
 <option value = "b">Older than 65</option>
@@ -273,27 +299,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <option value = "g">Married with kids</option>
 <option value = "h">Married with kids younger than 17</option>
 <option value = "i">Married with kids younger than 6</option>
-
-
-
 </select>
-
-<select id = "incomeMenu">
-<option value = "0">All</option>
-<option value = "1">1st quintile</option>
-<option value = "2">2nd quintile</option>
-<option value = "3">3rd quintile</option>
-<option value = "4">4th quintile</option>
-<option value = "5">5th quintile</option>
-<option value = "6">Top 10%</option>
-<option value = "7">Top 5%</option>
-<option value = "8">Top 1%</option>
-<option value = "9">Top 0.5%</option>
-</select>
+</div>
 
 
 
-  <div class = "controlContainer">
+
+
+<!--   <div class = "controlContainer">
     <div>Marginal rates</div>
     <div><input class = "rates a control" type="checkbox" value="a" checked="checked"><span>Pre TCJA</span></div>
     <div><input class = "rates e control" type="checkbox" value="e" checked="checked"><span>Midway</span></div>
@@ -351,6 +364,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div><input class = "ctcAmount l control" type="checkbox" value="l" checked="checked"><span>$1,000</span></div>
     <div><input class = "ctcAmount medium control" type="checkbox" value="medium" checked="checked"><span>$1,400</span></div>
     <div><input class = "ctcAmount h control" type="checkbox" value="h" checked="checked"><span>$2,000</span></div>
+  </div> -->
+
   </div>
 
       </section>
@@ -421,6 +436,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- <script src="lib/d3.js"></script> -->
 <script src="https://d3js.org/d3.v4.js"></script>
 <script src="js/jquery-2.2.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
 <!-- <script src="lib/d3-voronoi.min.js"></script> -->
 <!-- <script src="js/state_svgs.js"></script> -->
 <!-- <script src="js/shapeMorph.js"></script> -->

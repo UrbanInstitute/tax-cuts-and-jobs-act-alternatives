@@ -4,6 +4,65 @@
 * using reusable charts pattern:
 * http://bost.ocks.org/mike/chart/
 */
+
+  function getFilterVals(){
+    // var returned = {}
+    // var filterVars = ["standard", "rates", "amtThreshold", "amtAmount", "personal","salt", "ctcAmount", "ctcThreshold"]
+    // for(var i = 0; i < filterVars.length; i++){
+    //   var vals = []
+    //   var filterVar = filterVars[i]
+    //   d3.selectAll(".control." + filterVar).each(function(){
+    //     if(this.checked){ vals.push(this.value) }
+    //   })
+    //   returned[filterVar] = vals
+    // }
+    // return returned
+    // var cs = d3.selectAll(".rangeDot").data(),
+    out = {
+      "rates": [],
+      "standard": [],
+      "amtThreshold": [],
+      "amtAmount": [],
+      "personal": [],
+      "salt": [],
+      "ctcThreshold": [],
+      "ctcAmount": []
+    }
+
+    d3.selectAll(".rangeDot.active").each(function(o){
+      var classes = this.classList,
+        targetClass;
+      for(var i = 0; i< classes.length; i++){
+        if(classes[i].indexOf("_") != -1){
+          targetClass = classes[i]
+        }
+      }
+      var k = targetClass.split("_")[0],
+          v = targetClass.split("_")[1]
+
+      out[k].push(v)
+    })
+
+    // console.log(out)
+
+    // for(var i = 0; i< cs.length; i++){
+    //   var d = cs[i]
+    //   // console.log(d)
+    //   if(out.hasOwnProperty(d[1]) ){
+    //     if(d3.select(".rangeDot." + d[1] + "_" + d[0] ).classed("active") ){
+    //       out[ d[1] ].push(d[0])  
+    //     }
+    //   }else{
+    //     out[ d[1] ] = [ d[0] ]
+    //   }
+
+    // }
+    // console.log(out)
+
+    return out;
+  }
+
+
 var scrollVis = function () {
   var shown;
 
@@ -35,6 +94,7 @@ var scrollVis = function () {
   var svg = d3.select("#vis").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+    .attr("class", "resizeRemove")
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -48,6 +108,7 @@ var scrollVis = function () {
 
   var xAxis = d3.axisBottom()
     .scale(x)
+    .tickFormat(function(d){ return d + "%" })
     .tickSize(-height)
     .tickSizeOuter(0)
     .tickPadding(10)
@@ -81,6 +142,7 @@ var scrollVis = function () {
     .style("position", "absolute")
 
   var canvas = chartArea.append("canvas")
+    .attr("class", "resizeRemove")
     .attr("width", width)
     .attr("height", height);
 
@@ -129,6 +191,7 @@ var scrollVis = function () {
   var context = canvas.node().getContext("2d");
 
   var overlaySvg = chartArea.append("svg")
+    .attr("class", "resizeRemove")
     .attr("width", width)
     .attr("height", height)
     .style("position", "absolute")
@@ -353,8 +416,9 @@ highlightEllipse = svg.append("ellipse")
 
   var chart = function (selection) {
     selection.each(function (points) {
-      setupSections(points)
       init(points);
+      setupSections(points)
+      
       draw(points);
     });
   };
@@ -443,7 +507,7 @@ highlightEllipse = svg.append("ellipse")
     })
 
     if(key == "ctcAmount" && colors.l == DOT_COLOR && colors.medium == DOT_COLOR && colors.h == DOT_COLOR){
-    console.log("no legend")
+    // console.log("no legend")
     }
     else if(paramaterText.hasOwnProperty(key)){
     var i = 2
@@ -525,21 +589,10 @@ highlightEllipse = svg.append("ellipse")
 
   }
 
-  function getFilterVals(){
-    var returned = {}
-    var filterVars = ["standard", "rates", "amtThreshold", "amtAmount", "personal","salt", "ctcAmount", "ctcThreshold"]
-    for(var i = 0; i < filterVars.length; i++){
-      var vals = []
-      var filterVar = filterVars[i]
-      d3.selectAll(".control." + filterVar).each(function(){
-        if(this.checked){ vals.push(this.value) }
-      })
-      returned[filterVar] = vals
-    }
-    return returned
-  }
+
 
   function filterPoints(filters, points){
+    // console.log(filters, points)
     points[0].forEach(function(point){
       point.hide = false;
       for(var filter in filters){
@@ -560,6 +613,7 @@ highlightEllipse = svg.append("ellipse")
     })
     shown = points[0].filter(function(p){ return p.hide == false })
       .map(function(p){ return [p.x, p.y] })
+    // d3.select("#vis").datum([points])
     draw(points);
 
 
@@ -738,6 +792,42 @@ function loopAnimate (points, moveY) {           //  create a loop function
   }
 
 
+function showExploreTooltip(point){
+// d3.select("#revdisp span").text(d3.format("$.4s")(point.burden).replace(/G/,"B"))
+
+// d3.select("#incdisp span").text(point[d3.select("#groupMenu").node().value + d3.select("#incomeMenu").node().value] + "%")
+
+
+
+//   for(property in point){
+//     if(point.hasOwnProperty(property)){
+
+//       if(d3.select(".control." + property).node() != null){
+//         console.log(property, point[property])
+//         d3.selectAll(".control." + property).nodes().forEach(function(n){
+//           d3.select(n.parentNode).classed("tempHighlight", false)
+//         })
+
+          
+//         d3.select(d3.select(".control." + property + "." + point[property]).node().parentNode).classed("tempHighlight", true)
+//       }
+//     }
+//   }
+       highlight.classed("hidden", false)
+        .attr("cx", x(point.x))
+        .attr("cy", y(point.y));
+// console.log(point)
+}
+
+function hideExploreTooltip(){
+  highlight.classed("hidden", true)
+  // d3.selectAll(".tempHighlight").classed("tempHighlight", false)
+
+  console.log("hide")
+}
+
+
+
   function init(points){
     points[0].forEach(function(p,i){
       p.x = TCJA["a0"]
@@ -745,6 +835,7 @@ function loopAnimate (points, moveY) {           //  create a loop function
       p.color = DOT_COLOR
     })
     // console.log(points.filter(function(p){ return p.tcja ==  true}))
+    
     shown = points.map(function(p){ return [p.x, p.y] })
   }
 
@@ -784,7 +875,7 @@ function loopAnimate (points, moveY) {           //  create a loop function
       }
     });
 
-    canvas.on("mousemove",function(){
+    overlaySvg.on("mousemove",function(){
       var mouse = d3.mouse(this),
       closest = tree.find(mouse[0], mouse[1]);
       if(typeof(closest) != "undefined"){
@@ -794,13 +885,15 @@ function loopAnimate (points, moveY) {           //  create a loop function
       }
     });
 
-    canvas.on("mouseover",function(){
+    overlaySvg.on("mouseover",function(){
       highlight.classed("hidden", false);
     });
 
-    canvas.on("mouseout",function(){
+    overlaySvg.on("mouseout",function(){
       hideExploreTooltip()
     });
+
+    // d3.select("#vis").datum([points])
   }
 
   function showTcjaDot(points){
@@ -816,7 +909,7 @@ function loopAnimate (points, moveY) {           //  create a loop function
       .transition()
       .duration(duration)
       .style("opacity",0)
-    console.log(0);
+    console.log(0, activeIndex)
   }
 
   function showAllAll(points){
@@ -844,7 +937,7 @@ function loopAnimate (points, moveY) {           //  create a loop function
       .duration(duration)
       .style("opacity",1)
 
-    console.log(1)
+    console.log(1, activeIndex)
   }
 
   function showQ1(points){
@@ -854,7 +947,7 @@ d3.select(".highlightEllipse")
 
     animateLayout("1","a", points, false, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
 
-    console.log(2)
+    console.log(2, activeIndex)
   }
 
   function showQ1_CTC(points){
@@ -873,7 +966,7 @@ d3.select(".highlightEllipse")
     //direct label
     //mouseover show both ctc parameters??
     // recolorPoints("ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR}, points)
-    console.log(3)
+    console.log(3, activeIndex)
   }
 
   function showMarriedKids(points){
@@ -901,7 +994,7 @@ d3.select(".highlightEllipse")
 
     animateLayout("1","g", points, false, "ctcAmount", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3})
 
-    console.log(4)
+    console.log(4, activeIndex)
   }
 
   function showMarriedKidsFilter1(points){
@@ -910,7 +1003,7 @@ d3.select(".highlightEllipse")
     // recolorPoints("ctcThreshold", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3}, points)
     animateLayout("1","g", points, false, "ct1", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3, "l0": HIDE_1, "m0": HIDE_2, "h0": HIDE_3})
 
-    console.log(5)
+    console.log(5, activeIndex)
   }
 
   function showMarriedKidsFilter2(points){
@@ -919,7 +1012,7 @@ d3.select(".highlightEllipse")
     // recolorPoints("ctcThreshold", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3}, points)
     animateLayout("1","g", points, false, "ct2", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3, "l0": HIDE_1, "m0": HIDE_2, "h0": HIDE_3})
 
-    console.log(5)
+    console.log(6, activeIndex)
   }
 
     function showMarriedKidsFilter3(points){
@@ -928,7 +1021,7 @@ d3.select(".highlightEllipse")
     // recolorPoints("ctcThreshold", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3}, points)
     animateLayout("1","g", points, false, "ct3", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3, "l0": HIDE_1, "m0": HIDE_2, "h0": HIDE_3})
 
-    console.log(5)
+    console.log(7, activeIndex)
   }
 
 
@@ -938,7 +1031,7 @@ d3.select(".highlightEllipse")
     // recolorPoints("personal", {"l": COLOR_1, "ml": COLOR_2, "mh": COLOR_3, "h": COLOR_4}, points)
     animateLayout("1","a", points, false, "personal", {"l": COLOR_1, "ml": COLOR_2, "mh": COLOR_3, "h": COLOR_4})
 
-    console.log(6)
+    console.log(8, activeIndex)
   }
   function showQ1_StandardDeduction(points){
     //shade dots based on std deduction 
@@ -946,14 +1039,14 @@ d3.select(".highlightEllipse")
     // recolorPoints("standard", {"l": COLOR_1, "ml": COLOR_2, "mh": COLOR_3, "h": COLOR_4}, points)
     animateLayout("1","a", points, false, "standard", {"l": COLOR_1, "ml": COLOR_2, "mh": COLOR_3, "h": COLOR_4})
 
-    console.log(7)
+    console.log(9, activeIndex)
   }
   function showTop5_Rates(points){
     //shade dots based on std deduction 
     //legend
-    animateLayout("8","a", points, false, "rates", {"a": COLOR_1, "b": COLOR_2, "c": COLOR_3, "d": COLOR_4})
+    animateLayout("8","a", points, false, "rates", {"b": COLOR_1, "d": COLOR_2, "a": COLOR_3, "c": COLOR_4})
 
-    console.log(8)
+    console.log(10, activeIndex)
   }
   function compareQ1(points){
     //shade dots based on std deduction 
@@ -962,7 +1055,7 @@ d3.select(".highlightEllipse")
       .style("opacity",0)
     animateLayout("1","a", points, false, "q1", {"0": DARK_HIDE, "1": SEQ_1})
 
-    console.log(9)
+    console.log(11, activeIndex)
   }
   function compareTop1(points){
     //shade dots based on std deduction 
@@ -971,7 +1064,7 @@ d3.select(".highlightEllipse")
       .style("opacity",0)
     animateLayout("8","a", points, false, "t1", {"0": DARK_HIDE, "1": COLOR_2})
 
-    console.log(10)
+    console.log(12, activeIndex)
   }
 
 
@@ -999,7 +1092,7 @@ d3.select(".highlightEllipse")
       
     animateLayout("2","a", points, false, "q1", {"0": DARK_HIDE, "1": SEQ_1})
 
-    console.log(8)
+    console.log(13, activeIndex)
   }
 
   function compareQ3(points){
@@ -1012,9 +1105,13 @@ d3.select(".highlightEllipse")
 
 
     animateLayout("2","a", points, false, "q2", {"0": DARK_HIDE, "1": SEQ_2})
-    setTimeout(function(){ animateLayout("3","a", points, false, "q2", {"0": DARK_HIDE, "1": SEQ_2}) }, duration + lag)
+    setTimeout(function(){
+      if(activeIndex == 14){
+        animateLayout("3","a", points, false, "q2", {"0": DARK_HIDE, "1": SEQ_2})
+      }
+    }, duration + lag)
 
-    console.log(8)
+    console.log(14, activeIndex)
   }
 
   function compareQ4(points){
@@ -1022,22 +1119,255 @@ d3.select(".highlightEllipse")
     //legend
     moveQuadO(4, "fourth")
     animateLayout("3","a", points, false, "q3", {"0": DARK_HIDE, "1": SEQ_3})
-    setTimeout(function(){ animateLayout("4","a", points, false, "q3", {"0": DARK_HIDE, "1": SEQ_3}) }, duration + lag)
+    setTimeout(function(){
+      if(activeIndex == 15){
+        animateLayout("4","a", points, false, "q3", {"0": DARK_HIDE, "1": SEQ_3})
+      }
+    }, duration + lag)
 
-    console.log(8)
+    console.log(15, activeIndex)
   }
     function compareQ5(points){
     //shade dots based on std deduction 
     //legend
     moveQuadO(5, "fifth")
     animateLayout("4","a", points, false, "q4", {"0": DARK_HIDE, "1": SEQ_4})
-    setTimeout(function(){ animateLayout("5","a", points, false, "q4", {"0": DARK_HIDE, "1": SEQ_4}) }, duration + lag)
+    setTimeout(function(){
+      if(activeIndex == 16){
+        animateLayout("5","a", points, false, "q4", {"0": DARK_HIDE, "1": SEQ_4})
+      }
+    }, duration + lag)
 
-    console.log(8)
+    console.log(16, activeIndex)
   }
 
 
+function buildCheckboxes(key, vals, numVals, filterVals, points){
+  var container = d3.select("#controls")
+  .append("div")
+  .attr("class", "resizeRemove controlContainer checkboxes " + key)
+  var filters = filterVals[key],
+  w = d3.select(".step.lastStep").node().getBoundingClientRect().width
+  h = 150
 
+  container.append("div")
+  .attr("class", key + " controlTitle")
+  .text(paramaterText[key]["label"] + ":")
+
+  var rsvg = container.append("svg")
+  // .attr("")
+  .attr("width", w + "px")
+  .attr("height", h + "px")
+  .append("g")
+
+  var scale = d3.scaleLinear()
+  .range([25, h-40])
+  .domain([numVals[0], numVals[numVals.length - 1]] )
+
+
+  rsvg
+  .selectAll("circle")
+  .data(numVals.map(function(d, i){ return [d, key, vals[i] ] }))
+  .enter()
+  .append("circle")
+  .attr("class", function(d){
+  var active = (filterVals[key].indexOf( d[2] ) != -1) ? " active" : ""
+  return "rangeDot " + key + "_" + d[2] + active
+  })
+  .attr("cy", function(d){ return scale(d[0]) })
+  .attr("cx", 10)
+  .attr("r", 9)
+  .on("click", function(){
+  if(d3.select(this).classed("active")){
+  d3.select(this)
+  .transition()
+  .duration(200)
+  .style("background", "#fff")
+  .style("stroke", "#cccccc")
+  .on("end", function(d){
+  d3.select(this).classed("active", false)
+  // d3.select(d3.select(this.parentNode().parentNode()).select(".to") )
+  d3.select(".rangeLabel." + d[1] + "_" + d[2] ).classed("active", false)
+  // getFilterVals()
+  filterPoints(getFilterVals(), points)
+  })
+  }else{
+  d3.select(this)
+  .transition()
+  .duration(200)
+  .style("background", "#008bb0")
+  .style("stroke", "#008bb0")
+  .on("end", function(d){
+  d3.select(this).classed("active", true)
+  d3.select(".rangeLabel." + d[1] + "_" + d[2] ).classed("active", true)
+  // getFilterVals()
+  filterPoints(getFilterVals(), points)
+  })
+
+  }
+
+  })
+
+
+  var labelContainer = container
+  .selectAll(".rangeLabel")
+  .data(numVals.map(function(d, i){ return [d, key, vals[i] ] }))
+  .enter()
+  .append("div")
+  .attr("class", function(d){
+  var active = (filterVals[key].indexOf( d[2] ) != -1) ? " active" : ""
+  return "rangeLabel checkboxes " +  key + "_" + d[2] + active
+  })
+  .style("top", function(d){ return (scale(d[0]) - 11) + "px" } )
+  .html(function(d){
+  return paramaterText[key][ d[2] ][0]
+  })
+
+  // labelContainer.append("div")
+  // .attr("class", function(d){
+  // return "bottomLabel " + paramaterText[key][ d[2] ][2] 
+  // })
+  // .html(function(d){
+  // var bl = paramaterText[key][ d[2] ][2];
+  // if(bl == "tcja") return "TCJA"
+  // else if(bl == "pretcja") return "Pre-TCJA"
+  // else return ""
+  // })
+
+
+}
+function buildRange(key, vals, numVals, filterVals, points){
+
+  var container = d3.select("#controls")
+  .append("div")
+  .attr("class", "resizeRemove controlContainer " + key)
+  var filters = filterVals[key],
+  w = d3.select(".step.lastStep").node().getBoundingClientRect().width
+  h = 80
+
+  container.append("div")
+  .attr("class", key + " controlTitle")
+  .text(paramaterText[key]["label"] + ":")
+
+  var rsvg = container.append("svg")
+  // .attr("")
+  .attr("width", w + "px")
+  .attr("height", 80 + "px")
+  .append("g")
+
+  var scale = d3.scaleLinear()
+  .range([10, w-40])
+  .domain([numVals[0], numVals[numVals.length - 1]] )
+
+  rsvg.append("line")
+  .attr("class", "rangeLine")
+  .attr("x1", 0)
+  .attr("x2", w-35)
+  .attr("y1", h/2)
+  .attr("y2", h/2)
+
+  rsvg
+  .selectAll("circle")
+  .data(numVals.map(function(d, i){ return [d, key, vals[i] ] }))
+  .enter()
+  .append("circle")
+  .attr("class", function(d){
+  var active = (filterVals[key].indexOf( d[2] ) != -1) ? " active" : ""
+  return "rangeDot " + key + "_" + d[2] + active
+  })
+  .attr("cx", function(d){ return scale(d[0]) })
+  .attr("cy", h/2)
+  .attr("r", 9)
+  .on("click", function(){
+  if(d3.select(this).classed("active")){
+  d3.select(this)
+  .transition()
+  .duration(200)
+  .style("background", "#fff")
+  .style("stroke", "#cccccc")
+  .on("end", function(d){
+  d3.select(this).classed("active", false)
+  // d3.select(d3.select(this.parentNode().parentNode()).select(".to") )
+  d3.select(".rangeLabel." + d[1] + "_" + d[2] ).classed("active", false)
+  // getFilterVals()
+  filterPoints(getFilterVals(), points)
+  })
+  }else{
+  d3.select(this)
+  .transition()
+  .duration(200)
+  .style("background", "#008bb0")
+  .style("stroke", "#008bb0")
+  .on("end", function(d){
+  d3.select(this).classed("active", true)
+  d3.select(".rangeLabel." + d[1] + "_" + d[2] ).classed("active", true)
+  // getFilterVals()
+  filterPoints(getFilterVals(), points)
+  })
+
+  }
+
+  })
+
+
+  var labelContainer = container
+  .selectAll(".rangeLabel")
+  .data(numVals.map(function(d, i){ return [d, key, vals[i] ] }))
+  .enter()
+  .append("div")
+  .attr("class", function(d){
+  var active = (filterVals[key].indexOf( d[2] ) != -1) ? " active" : ""
+  return "rangeLabel " +  key + "_" + d[2] + active
+  })
+  .style("left", function(d){ return (scale(d[0])-50) + "px" } )
+  // .attr("x", function(d){ return scale(d) })
+  // .attr("y", 10)
+
+  labelContainer.append("div")
+  .attr("class", "topLabel")
+  .html(function(d){
+  return paramaterText[key][ d[2] ][0]
+  })
+
+  labelContainer.append("div")
+  .attr("class", function(d){
+  return "bottomLabel " + paramaterText[key][ d[2] ][2] 
+  })
+  .html(function(d){
+  var bl = paramaterText[key][ d[2] ][2];
+  if(bl == "tcja") return "TCJA"
+  else if(bl == "pretcja") return "Pre-TCJA"
+  else return ""
+  })
+
+
+
+}
+
+function buildExploreSection(filterVals, points){
+  buildCheckboxes("rates", ["b", "d", "a", "c"], [0, 1, 2, 3], filterVals, points)
+  buildRange("standard", ["l", "ml", "mh", "h"], [0, 1, 2, 3], filterVals, points)
+  buildRange("amtThreshold", ["l", "h"], [0, 1], filterVals, points)
+  buildRange("amtAmount", ["l", "h"], [0, 1], filterVals, points)
+  buildRange("personal", ["l", "ml", "mh", "h"], [0, 2050, 4150, 5500], filterVals, points)
+  buildRange("salt", ["l", "ml", "mh", "h"], [0, 10, 15, 20], filterVals, points)
+  buildRange("ctcThreshold", ["l", "medium", "h"], [0, 1250, 2500], filterVals, points)
+  buildRange("ctcAmount", ["l", "medium", "h"], [50, 70, 100], filterVals, points)
+
+   $("#groupMenu" ).selectmenu({
+    change: function(event, d){
+      animateLayout(d3.select("#incomeMenu").node().value,d.item.value, points, false, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
+    }
+  })
+
+   $("#incomeMenu" ).selectmenu({
+    change: function(event, d){
+      animateLayout(d.item.value, d3.select("#groupMenu").node().value, points, false, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
+    }
+  })
+
+
+}
 
 
   var setupSections = function (points) {
@@ -1071,10 +1401,14 @@ d3.select(".highlightEllipse")
     })
 
 
-    d3.selectAll(".control")
-      .on("input", function(){
-        filterPoints(getFilterVals(), points)
-    })
+    // d3.selectAll(".control")
+    //   .on("input", function(){
+    //     filterPoints(getFilterVals(), points)
+    // })
+    buildExploreSection(DEFAULT_FILTERS, points)
+    // d3.selectAll(".rangeDot")
+
+
   };
 
 
@@ -1090,6 +1424,8 @@ d3.select(".highlightEllipse")
 
   return chart;
 };
+
+
 
 
 function display(points) {
@@ -1119,8 +1455,8 @@ function display(points) {
   scroll(d3.selectAll('.step'));
 
   scroll.on('resized', function(){
-    d3.selectAll("svg").remove()
-    d3.selectAll("canvas").remove()
+    var filterVals = getFilterVals()
+    d3.selectAll(".resizeRemove").remove()
     display(points)
   })
 

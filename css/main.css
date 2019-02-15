@@ -83,6 +83,79 @@
 .catName.filing{
   margin-right: 20px;
 }
+
+.controlContainer{
+  position: relative;
+  height: 100px;
+}
+.controlContainer.checkboxes{
+  position: relative;
+  height: 150px;
+}
+.controlTitle{
+  font-size: 14px;
+  position: absolute;
+  top: -10px;
+  color: #373a3c;
+  font-weight: bold;
+}
+.rangeLine{
+  stroke: #c1c1c1;
+  fill: none;
+  stroke-width: 2px;
+}
+.rangeDot.active{
+  fill: #008bb0;
+  stroke: #008bb0;
+}
+.rangeDot{
+  stroke-width: 2px;
+  cursor: pointer;
+  fill: #fff;
+  stroke: #cccccc;
+}
+.rangeLabel{
+  position: absolute;
+  top: 8px;
+  font-size: 12px;
+  width: 100px;
+  text-align: center;
+  z-index: -1;
+}
+.rangeLabel.checkboxes{
+    width: 220px;
+    text-align: left;
+    left: 24px;
+    color: #cccccc;
+}
+
+
+.rangeLabel.active .topLabel, .rangeLabel.checkboxes.active{
+  color: #008bb0;
+}
+.rangeLabel .topLabel{
+  color: #cccccc;
+}
+.bottomLabel{
+  top: 17px;
+  position: relative;
+  font-weight: bold;
+}
+.bottomLabel.tcja, .tcjaLabel{
+  color: #f0573e;
+}
+.pretcjaLabel{
+  color: #000;
+}
+
+
+
+
+
+select{
+  display: none;
+}
+
 /************************************************************/
 /******************** PROTOTYPE CANVAS **********************/
 /************************************************************/
@@ -133,9 +206,9 @@ circle.tcjaDot, circle.tcjaLegendDot{
   display: block;
 }
 .controlContainer{
-  display: inline-block;
+/*  display: inline-block;
   margin-right: 40px;
-  margin-top: 20px;
+  margin-top: 20px;*/
 }
 
 div.tempHighlight{
@@ -211,7 +284,7 @@ p{
   color: #000;
 }
 .smallStep{
-  /*margin-bottom: 400px;*/
+  margin-bottom: 400px;
 }
 .title{
   font-size:18px;

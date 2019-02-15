@@ -81,9 +81,9 @@ var COLOR_5 = "rgba(22,150,210,0.3)"
 var COLOR_6 = "rgba(202,88,0,0.3)"
 
 
-var HIDE_1 = "rgba(23,74,124,0.008)"
-var HIDE_2 = "rgba(252,182,75,0.008)"
-var HIDE_3 = "rgba(85,183,72,0.008)"
+var HIDE_1 = "rgba(23,74,124,0.01)"
+var HIDE_2 = "rgba(252,182,75,0.01)"
+var HIDE_3 = "rgba(85,183,72,0.01)"
 
 var COLOR_HIDE = "rgba(0, 0, 0, 0.008)"
 var DARK_HIDE = "rgba(0, 0, 0, 0.01)"
@@ -128,44 +128,44 @@ var paramaterText = {
   "rates": {
     "label": "Marginal tax rates",
     "info": ["Average tax rates measure tax burden; marginal tax rates measure the taxes&rsquo; effect on incentives to earn, save, invest, or spend. The TCJA reduced tax rates at almost all levels of taxable income and shifted the thresholds for several income tax brackets.", false],
-    "a" : ["<span class = \"pretcjaLabel\">Pre-TCJA</span>","Tax rates for each tax bracket are as follows: 10% (first bracket), 15% (second bracket), 25% (third bracket), 28% (fourth bracket), 33% (fifth bracket), 35% (sixth bracket), 39.6% (seventh bracket)","pretcja"],
     "b": ["<span class = \"tcjaLabel\">TCJA</span>", "Tax rates for each tax bracket are as follows: 10% (first bracket), 12% (second bracket), 22% (third bracket), 24% (fourth bracket), 32% (fifth bracket), 35% (sixth bracket), 37% (seventh bracket)", "tcja"],
-    "c": ["10 percent higher than TCJA","$Tax rates for each tax bracket are as follows: 11% (first bracket), 13.2% (second bracket), 24.2% (third bracket), 26.4% (fourth bracket), 35.2% (fifth bracket), 38.5% (sixth bracket), 40.7% (seventh bracket)", false],
-    "d": ["High","$13,200 (single), $26,400 (married filing jointly), $21,600 (head of household), $13,200 (married filing separately)", false]
+    "d": ["Between TCJA and pre-TCJA ","$13,200 (single), $26,400 (married filing jointly), $21,600 (head of household), $13,200 (married filing separately)", false],
+    "a" : ["<span class = \"pretcjaLabel\">Pre-TCJA</span>","Tax rates for each tax bracket are as follows: 10% (first bracket), 15% (second bracket), 25% (third bracket), 28% (fourth bracket), 33% (fifth bracket), 35% (sixth bracket), 39.6% (seventh bracket)","pretcja"],
+    "c": ["10 percent higher than TCJA","$Tax rates for each tax bracket are as follows: 11% (first bracket), 13.2% (second bracket), 24.2% (third bracket), 26.4% (fourth bracket), 35.2% (fifth bracket), 38.5% (sixth bracket), 40.7% (seventh bracket)", false]
   },
   "standard": {
     "label": "Standard deduction",
     "info": ["Tax filers can choose to claim a standard deduction based on their filing status or to itemize their deductions. The TCJA nearly doubled the standard deduction, which is expected to substantially reduce the number of taxpayers choosing to itemize their deductions.", false],
-    "l" : ["Low <span class = \"pretcjaLabel\">(Pre-TCJA)</span>","$6,500 (single), $13,000 (married filing jointly), $9,550 (head of household), $6,500 (married filing separately)", "pretcja"],
+    "l" : ["Low","$6,500 (single), $13,000 (married filing jointly), $9,550 (head of household), $6,500 (married filing separately)", "pretcja"],
     "ml": ["Medium low", "$9,250 (single), $18,500 (married filing jointly), $13,775 (head of household), $9,250 (married filing separately)", false],
-    "mh": ["Medium high <span class = \"tcjaLabel\">(TCJA)</span>","$12,000 (single), $24,000 (married filing jointly), $18,000 (head of household), $12,000 (married filing separately)", "tcja"],
+    "mh": ["Medium high","$12,000 (single), $24,000 (married filing jointly), $18,000 (head of household), $12,000 (married filing separately)", "tcja"],
     "h": ["High","$13,200 (single), $26,400 (married filing jointly), $21,600 (head of household), $13,200 (married filing separately)", false]
   },
   "amtThreshold": {
     "label": "Alternative minimum tax exemption phase-out threshold",
     "info": ["The individual alternative minimum tax, or AMT, operates alongside the regular income tax. It requires some taxpayers to calculate their liability twice&mdash;once under the rules for the regular income tax and once under the AMT rules&mdash;and pay the higher amount. The TCJA raised the income threshold at which the AMT exemption phases out, which will significantly reduce the number of taxpayers subject to the AMT.", false],
-    "l" : ["Low <span class = \"pretcjaLabel\">(Pre-TCJA)</span>","Phases out at adjusted gross income above $123,100 (single) or $164,100 (joint)", "pretcja"],
-    "h": ["High <span class = \"tcjaLabel\">(TCJA)</span>","Phases out at adjusted gross income above $500,000 (single) or $1,000,000 (joint)", "tcja"],
+    "l" : ["Low","Phases out at adjusted gross income above $123,100 (single) or $164,100 (joint)", "pretcja"],
+    "h": ["High","Phases out at adjusted gross income above $500,000 (single) or $1,000,000 (joint)", "tcja"],
   },
   "amtAmount": {
     "label": "Alternative minimum tax exemption amount",
     "info": ["The individual alternative minimum tax, or AMT, operates alongside the regular income tax. It requires some taxpayers to calculate their liability twice&mdash;once under the rules for the regular income tax and once under the AMT rules&mdash;and pay the higher amount. The AMT exemption is an amount that taxpayers can deduct from their AMT-taxable income before calculating their AMT liability. The TCJA increased the AMT exemption, reducing the number of middle-income households subject to the AMT.", false],
-    "l" : ["Low <span class = \"pretcjaLabel\">(Pre-TCJA)</span>","$55,400 (single); $86,200 (joint)", "pretcja"],
-    "h": ["High <span class = \"tcjaLabel\">(TCJA)</span>","$70,300 (single); $109,400 (joint)", "tcja"],
+    "l" : ["Low","$55,400 (single); $86,200 (joint)", "pretcja"],
+    "h": ["High","$70,300 (single); $109,400 (joint)", "tcja"],
   },
   "personal": {
     "label": "Personal exemption amount",
     "info": ["Under prior law, taxpayers could deduct the personal exemption for themselves and for their dependents. The amount was the same for all filing statuses. The TCJA repealed personal and dependent exemptions. In place of personal exemptions, the TCJA increased the standard deduction. And in place of dependent exemptions, the TCJA increased the CTC and created a new $500 tax credit for dependents not eligible for the CTC.", false],
-    "l" : ["$0 <span class = \"tcjaLabel\">(TCJA)</span>",false, "tcja"],
+    "l" : ["$0",false, "tcja"],
     "ml": ["$2,050", false, false],
-    "mh": ["$4,150 <span class = \"pretcjaLabel\">(Pre-TCJA)</span>",false, "pretcja"],
+    "mh": ["$4,150",false, "pretcja"],
     "h": ["$5,500",false, false]
   },
   "salt": {
     "label": "State and local tax deduction cap",
     "info": ["Under prior law, taxpayers who itemized their deductions could, with no cap, deduct from their taxable income all their state and local property tax as well as either their income or sales taxes. The TCJA capped the total state and local tax (SALT) deduction at $10,000, leading to a steep drop in the share of taxpayers with a tax benefit from the SALT deduction.", "Under prior law, there was no limit to the SALT deduction. We did not simulate &ldquo;no limit&rdquo; in our data."],
     "l" : ["$0","A $0 cap means the SALT deduction is repealed", false],
-    "ml": ["$10,000 <span class = \"tcjaLabel\">(TCJA)</span>", false, "tcja"],
+    "ml": ["$10,000", false, "tcja"],
     "mh": ["$15,000",false, false],
     "h": ["$20,000",false, false]
   },
@@ -174,16 +174,28 @@ var paramaterText = {
     "info": ["The TCJA&rsquo;s boost to the CTC offset the loss of personal exemptions for many taxpayers with dependents. The new law increased the CTC from $1,000 to $2,000 and raised the income at which the credit begins to phase out. The TCJA also lowered the refundability threshold from $3,000 to $2,5000, which expands the credit to more households.", "The TCJA increased the CTC from $1,000 to $2,000 per child. Our simulations fix the maximum CTC at the TCJA amount of $2,000 and change other factors. Because prior law had a different CTC amount (and therefore a different reference point for a refundability threshold), we don&rsquo;t include the pre-TCJA value in our options."],
     "l" : ["$0","The refundable portion equals 15 percent of all earnings", false],
     "medium" : ["$1,250","The refundable portion equals 15 percent of earnings above $1,250", false],
-    "h": ["$2,500 <span class = \"tcjaLabel\">(TCJA)</span>","The refundable portion equals 15 percent of earnings above $2,500", "tcja"],
+    "h": ["$2,500","The refundable portion equals 15 percent of earnings above $2,500", "tcja"],
   },
   "ctcAmount": {
     "label": "CTC refundable portion",
     "info": ["The TCJA&rsquo;s boost to the CTC offset the loss of personal exemptions for many taxpayers with dependents. The new law increased the CTC from $1,000 to $2,000 and raised the maximum refundable credit amount. It also introduced a new $500 credit for nonchild dependents (we do not include this credit in our options). The values below are a share of the TCJA&rsquo;s $2,000 CTC credit.", "The TCJA increased the CTC from $1,000 to $2,000 per child. Our simulations hold the maximum CTC at the TCJA amount of $2,000 and change other factors. Because prior law had a different CTC amount (and therefore a different reference point for a refundable portion), we don&rsquo;t include the pre-TCJA value in our options."],
     "l" : ["50%","$1,000", false],
-    "medium" : ["70% <span class = \"tcjaLabel\">(TCJA)</span>","$1,400", "tcja"],
+    "medium" : ["70%","$1,400", "tcja"],
     "h": ["100%","$2,000", false],
   },
 
+}
+
+
+var DEFAULT_FILTERS = {
+  "rates": ["b", "d", "a", "c"],
+  "standard": ["l", "ml", "mh", "h"],
+  "amtThreshold": ["l", "h"],
+  "amtAmount": ["l", "h"],
+  "personal": ["l", "ml", "mh", "h"],
+  "salt": ["l", "ml", "mh", "h"],
+  "ctcThreshold": ["l", "medium", "h"],
+  "ctcAmount": ["l", "medium", "h"]
 }
 
 
