@@ -73,25 +73,26 @@ var RATIOS = d3.format(".2f")
 
 
 var DOT_COLOR = "rgba(0,139,176,0.3)"
-var COLOR_1 = "rgba(23,74,124,0.3)"
-var COLOR_2 = "rgba(252,182,75,0.3)"
-var COLOR_3 = "rgba(85,183,72,0.3)"
-var COLOR_4 = "rgba(236,0,139,0.3)"
+var COLOR_1 = "rgba(23,74,124,0.3)" // dark blue
+var COLOR_2 = "rgba(22,150,210,0.3)" // blue
+var COLOR_3 = "rgba(137,14,202,0.3)" // purple
+var COLOR_4 = "rgba(236,0,139,0.3)" // pink
 var COLOR_5 = "rgba(22,150,210,0.3)"
 var COLOR_6 = "rgba(202,88,0,0.3)"
 
 
-var HIDE_1 = "rgba(23,74,124,0.01)"
-var HIDE_2 = "rgba(252,182,75,0.01)"
-var HIDE_3 = "rgba(85,183,72,0.01)"
+var HIDE_1 = "rgba(23,74,124,0.01)" // dark blue
+var HIDE_2 = "rgba(22,150,210,0.01)" // blue
+var HIDE_3 = "rgba(137,14,202,0.01)" // purple
+
 
 var COLOR_HIDE = "rgba(0, 0, 0, 0.008)"
 var DARK_HIDE = "rgba(0, 0, 0, 0.01)"
 
-var SEQ_1 = "rgba(176,208,219,0.3)"
-var SEQ_2 = "rgba(117,173,192,0.3)"
-var SEQ_3 = "rgba(0,139,176,0.3)"
-var SEQ_4 = "rgba(29,86,105,0.3)"
+var SEQ_1 = "rgba(115,191,226,0.3)"
+var SEQ_2 = "rgba(70,171,219,0.3)"
+var SEQ_3 = "rgba(22,150,210,0.3)"
+var SEQ_4 = "rgba(18,113,158,0.3)"
 
 
 
@@ -136,10 +137,10 @@ var paramaterText = {
   "standard": {
     "label": "Standard deduction",
     "info": ["Tax filers can choose to claim a standard deduction based on their filing status or to itemize their deductions. The TCJA nearly doubled the standard deduction, which is expected to substantially reduce the number of taxpayers choosing to itemize their deductions.", false],
-    "l" : ["Low","$6,500 (single), $13,000 (married filing jointly), $9,550 (head of household), $6,500 (married filing separately)", "pretcja"],
-    "ml": ["Medium low", "$9,250 (single), $18,500 (married filing jointly), $13,775 (head of household), $9,250 (married filing separately)", false],
-    "mh": ["Medium high","$12,000 (single), $24,000 (married filing jointly), $18,000 (head of household), $12,000 (married filing separately)", "tcja"],
-    "h": ["High","$13,200 (single), $26,400 (married filing jointly), $21,600 (head of household), $13,200 (married filing separately)", false]
+    "l" : ["Low","$6,500 (single)<br/>$13,000 (married filing jointly)<br/>$9,550 (head of household)<br/>$6,500 (married filing separately)", "pretcja"],
+    "ml": ["Medium low", "$9,250 (single)<br/>$18,500 (married filing jointly)<br/>$13,775 (head of household)<br/>$9,250 (married filing separately)", false],
+    "mh": ["Medium high","$12,000 (single)<br/>$24,000 (married filing jointly)<br/>$18,000 (head of household)<br/>$12,000 (married filing separately)", "tcja"],
+    "h": ["High","$13,200 (single)<br/>$26,400 (married filing jointly)<br/>$21,600 (head of household)<br/>$13,200 (married filing separately)", false]
   },
   "amtThreshold": {
     "label": "Alternative minimum tax exemption phase-out threshold",
@@ -150,8 +151,8 @@ var paramaterText = {
   "amtAmount": {
     "label": "Alternative minimum tax exemption amount",
     "info": ["The individual alternative minimum tax, or AMT, operates alongside the regular income tax. It requires some taxpayers to calculate their liability twice&mdash;once under the rules for the regular income tax and once under the AMT rules&mdash;and pay the higher amount. The AMT exemption is an amount that taxpayers can deduct from their AMT-taxable income before calculating their AMT liability. The TCJA increased the AMT exemption, reducing the number of middle-income households subject to the AMT.", false],
-    "l" : ["Low","$55,400 (single); $86,200 (joint)", "pretcja"],
-    "h": ["High","$70,300 (single); $109,400 (joint)", "tcja"],
+    "l" : ["Low","$55,400 (single)<br/>$86,200 (joint)", "pretcja"],
+    "h": ["High","$70,300 (single)<br/>$109,400 (joint)", "tcja"],
   },
   "personal": {
     "label": "Personal exemption amount",

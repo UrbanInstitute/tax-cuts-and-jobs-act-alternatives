@@ -6,7 +6,7 @@
   stroke: #000;
 }
 .axisLine.tcja{
-  stroke: #f0573e;
+  stroke: #fcb64b;
 }
 .tick line{
   stroke: #bcbec0;
@@ -84,6 +84,13 @@
   margin-right: 20px;
 }
 
+#incomeContainer{
+  margin-bottom: 10px;
+}
+#filingContainer{
+  margin-bottom: 20px;
+}
+
 .controlContainer{
   position: relative;
   height: 100px;
@@ -97,7 +104,14 @@
   position: absolute;
   top: -10px;
   color: #373a3c;
-  font-weight: bold;
+  font-family: "Avenir LT W01_65 Medium1475532";
+  /*font-family: "Avenir LT W01_95 Black1475556";*/
+}
+.menuTitle{
+  font-size: 14px;
+  color: #373a3c;
+  font-family: "Avenir LT W01_65 Medium1475532";
+  /*font-family: "Avenir LT W01_95 Black1475556";*/
 }
 .rangeLine{
   stroke: #c1c1c1;
@@ -107,6 +121,10 @@
 .rangeDot.active{
   fill: #008bb0;
   stroke: #008bb0;
+}
+.rangeDot.highlight, .rangeDot.highlight.active{
+  stroke: #174a7c !important;
+  stroke-width: 4px;
 }
 .rangeDot{
   stroke-width: 2px;
@@ -142,7 +160,7 @@
   font-weight: bold;
 }
 .bottomLabel.tcja, .tcjaLabel{
-  color: #f0573e;
+  color: #fcb64b;
 }
 .pretcjaLabel{
   color: #000;
@@ -150,11 +168,48 @@
 
 
 
+.input.tooltip{
+  position: absolute;
+  background: #f7f7f9;
+  z-index: 10;
+  padding: 18px;
+  top: -40px;
+  left: 100px;
+  display: table;
+  -webkit-box-shadow: 10px 10px 17px -6px rgba(0,0,0,0.44);
+  -moz-box-shadow: 10px 10px 17px -6px rgba(0,0,0,0.44);
+  box-shadow: 10px 10px 17px -6px rgba(0,0,0,0.44);
+
+}
+
+.input.tooltip::after{
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    margin-left: -0.5em;
+    bottom: -2em;
+    left: 50%;
+    box-sizing: border-box;
+    
+    border: 1em solid black;
+    border-color: transparent transparent #f7f7f9 #f7f7f9;
+    
+    transform-origin: 0 0;
+    transform: rotate(-45deg);
+    
+    box-shadow: -3px 3px 17px 6px rgba(0, 0, 0, 0.44);
+    -moz-box-shadow: -3px 3px 17px 6px rgba(0, 0, 0, 0.44);
+    -webkit-box-shadow: -3px 3px 17px 6px rgba(0, 0, 0, 0.44);
+  }
+
 
 
 select{
   display: none;
 }
+
+
 
 /************************************************************/
 /******************** PROTOTYPE CANVAS **********************/
@@ -193,8 +248,8 @@ circle.highlightDot {
 }
 circle.tcjaDot, circle.tcjaLegendDot{
   stroke-width: 4px;
-  stroke: #f0573e;
-  fill: #f0573e;
+  stroke: #fcb64b;
+  fill: #fcb64b;
 }
 
 .hidden {
@@ -771,7 +826,7 @@ circle.morph{
 }
 
 #heroimage{
-   background-image: url("../images/pencil-header.png");
+   background-image: url("../images/dummy_header.jpg");
      background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
