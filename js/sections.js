@@ -326,7 +326,7 @@ var scrollVis = function () {
     .style("opacity", 0)
 
   quadO.append("rect")
-    .attr("fill","rgba(252,182,75,.1)")
+    .attr("fill","rgba(207,232,243, .6)")
     .attr("x",0)
     .attr("y", 0)
     .attr("width", width - x(TCJA["a2"]))
@@ -347,11 +347,11 @@ var scrollVis = function () {
 highlightEllipse = svg.append("ellipse")
     .attr("class", "highlightEllipse")
     // .style("opacity", 1)
-    .attr("fill","rgba(252,182,75,.8)")
+    .attr("fill","rgb(207,232,243)")
     .attr("cx", x(-.43))
     .attr("cy", y(102 * 1000000000))
-    .attr("rx", 28)
-    .attr("ry", 15)
+    .attr("rx", 34)
+    .attr("ry", 18)
     .style("opacity",0)
 
 
@@ -813,6 +813,18 @@ function showExploreTooltip(point){
 //       }
 //     }
 //   }
+
+// console.log(point)
+d3.selectAll(".rangeDot").classed("highlight", false)
+
+for (var p in DEFAULT_FILTERS) {
+    if (DEFAULT_FILTERS.hasOwnProperty(p)) {
+      d3.select(".rangeDot." + p + "_" + point[p] ).classed("highlight", true)
+    }
+}
+
+
+
        highlight.classed("hidden", false)
         .attr("cx", x(point.x))
         .attr("cy", y(point.y));
@@ -821,9 +833,29 @@ function showExploreTooltip(point){
 
 function hideExploreTooltip(){
   highlight.classed("hidden", true)
+  d3.selectAll(".rangeDot").classed("highlight", false)
   // d3.selectAll(".tempHighlight").classed("tempHighlight", false)
 
   console.log("hide")
+}
+function showInputTooltip(dot, d){
+  if(paramaterText[ d[1] ][ d[2] ][1] == false){
+    hideInputTooltip()
+  }else{
+    var container = d3.select(dot.parentNode.parentNode.parentNode)
+    // console.log(container.node())
+    // console.log(d)
+    var tt = container.append("div")
+      .attr("class", "input tooltip")
+      .style("left", (dot.getBoundingClientRect().left - 50) + "px")
+    tt.append("div")
+      .html(paramaterText[ d[1] ][ d[2] ][1] )
+  }
+    // .html()
+}
+function hideInputTooltip(){
+  // d3.selectAll(".input.tooltip").remove()
+
 }
 
 
@@ -876,10 +908,14 @@ function hideExploreTooltip(){
     });
 
     overlaySvg.on("mousemove",function(){
-      var mouse = d3.mouse(this),
-      closest = tree.find(mouse[0], mouse[1]);
-      if(typeof(closest) != "undefined"){
-        showExploreTooltip(closest)
+      if(activeIndex == 18){
+        var mouse = d3.mouse(this),
+        closest = tree.find(mouse[0], mouse[1]);
+        if(typeof(closest) != "undefined"){
+          showExploreTooltip(closest)
+        }else{
+          hideExploreTooltip()
+        }
       }else{
         hideExploreTooltip()
       }
@@ -958,7 +994,7 @@ d3.select(".highlightEllipse")
     .duration(duration + 300)
     .delay(lag)
     .attr("cx", x(-.43))
-    .attr("rx", 28)
+    .attr("rx", 34)
     .style("opacity",1)
 
     animateLayout("1","a", points, false, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
@@ -979,7 +1015,7 @@ d3.select(".highlightEllipse")
     .delay(lag)
     .ease(d3.easeLinear)
     .attr("cx", x(.25))
-    .attr("rx", 49)
+    .attr("rx", 52)
     .on("end", function(){
       d3.select(this)
         .transition()
@@ -1062,7 +1098,7 @@ d3.select(".highlightEllipse")
     //legend
     quadO.transition()
       .style("opacity",0)
-    animateLayout("8","a", points, false, "t1", {"0": DARK_HIDE, "1": COLOR_2})
+    animateLayout("8","a", points, false, "t1", {"0": DARK_HIDE, "1": COLOR_4})
 
     console.log(12, activeIndex)
   }
@@ -1106,7 +1142,7 @@ d3.select(".highlightEllipse")
 
     animateLayout("2","a", points, false, "q2", {"0": DARK_HIDE, "1": SEQ_2})
     setTimeout(function(){
-      if(activeIndex == 14){
+      if(activeIndex == 15){
         animateLayout("3","a", points, false, "q2", {"0": DARK_HIDE, "1": SEQ_2})
       }
     }, duration + lag)
@@ -1120,7 +1156,7 @@ d3.select(".highlightEllipse")
     moveQuadO(4, "fourth")
     animateLayout("3","a", points, false, "q3", {"0": DARK_HIDE, "1": SEQ_3})
     setTimeout(function(){
-      if(activeIndex == 15){
+      if(activeIndex == 16){
         animateLayout("4","a", points, false, "q3", {"0": DARK_HIDE, "1": SEQ_3})
       }
     }, duration + lag)
@@ -1130,10 +1166,13 @@ d3.select(".highlightEllipse")
     function compareQ5(points){
     //shade dots based on std deduction 
     //legend
+    hideExploreTooltip()
+    filterPoints(DEFAULT_FILTERS, points)
+
     moveQuadO(5, "fifth")
     animateLayout("4","a", points, false, "q4", {"0": DARK_HIDE, "1": SEQ_4})
     setTimeout(function(){
-      if(activeIndex == 16){
+      if(activeIndex == 17){
         animateLayout("5","a", points, false, "q4", {"0": DARK_HIDE, "1": SEQ_4})
       }
     }, duration + lag)
@@ -1175,7 +1214,7 @@ function buildCheckboxes(key, vals, numVals, filterVals, points){
   return "rangeDot " + key + "_" + d[2] + active
   })
   .attr("cy", function(d){ return scale(d[0]) })
-  .attr("cx", 10)
+  .attr("cx", 12)
   .attr("r", 9)
   .on("click", function(){
   if(d3.select(this).classed("active")){
@@ -1256,7 +1295,7 @@ function buildRange(key, vals, numVals, filterVals, points){
   .append("g")
 
   var scale = d3.scaleLinear()
-  .range([10, w-40])
+  .range([12, w-42])
   .domain([numVals[0], numVals[numVals.length - 1]] )
 
   rsvg.append("line")
@@ -1308,6 +1347,10 @@ function buildRange(key, vals, numVals, filterVals, points){
   }
 
   })
+  .on("mouseover", function(d){
+    showInputTooltip(this, d)
+  })
+  .on("mouseout", hideInputTooltip)
 
 
   var labelContainer = container
