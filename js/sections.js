@@ -847,9 +847,15 @@ function showInputTooltip(dot, d){
     // console.log(d)
     var tt = container.append("div")
       .attr("class", "input tooltip")
-      .style("left", (dot.getBoundingClientRect().left - 50) + "px")
+
+
+//make global dict of hardcoded tt widths, apply the width and apply the left offset to 1/2 the width
+      .style("width", ttWidths[d[1]] + "px" )
+      .style("left", (dot.getBoundingClientRect().left  - ttWidths[d[1]] + 50) + "px")
     tt.append("div")
       .html(paramaterText[ d[1] ][ d[2] ][1] )
+    tt.append("div")
+      .attr("class", "ttArrow")
   }
     // .html()
 }
