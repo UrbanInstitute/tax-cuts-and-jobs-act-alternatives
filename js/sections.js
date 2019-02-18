@@ -148,19 +148,30 @@ var scrollVis = function () {
 
 
   var yLabel = chartArea.append("div")
-    .attr("class","y axisLabel")
+    .attr("class","y axisLabel resizeRemove")
   yLabel.append("div")
     .text("Adjusted revenue change ($ billions)")
     .attr("class", "y axisLabelText")
-  yLabel.append("span")
+  yLabel.append("img")
     .attr("class", "y axisLabelTooltip")
+    .attr("src", "images/infoDot.png")
     .on("mouseover", function(){
-      console.log("tooltip y")
+      d3.select(this).attr("src", "images/infoDotHover.png")
+      d3.select("#vis")
+        .append("div")
+        .attr("class", "axis tooltip")
+        .html(yTooltipText)
+        .append("div")
+        .attr("class", "ttArrow")
+    })
+    .on("mouseout", function(){
+      d3.select(this).attr("src", "images/infoDot.png")
+      d3.selectAll(".axis.tooltip").remove()
     })
 
 
   var xLabel = chartArea.append("div")
-    .attr("class","x axisLabel")
+    .attr("class","x axisLabel resizeRemove")
   xLabel.append("div")
     .text("Change in average after-tax income (%)")
     .attr("class", "x axisLabelText")
@@ -169,6 +180,17 @@ var scrollVis = function () {
 
   var catLabels = d3.select("#vis").append("div")
     .attr("id", "catLabels")
+    .attr("class", "resizeRemove")
+
+
+  var incomeGroup = catLabels.append("div")
+    .attr("class", "catLabel income")
+  incomeGroup.append("div")
+    .attr("class", "catDesc income")
+    .text("Income group:")
+  incomeGroup.append("div")
+    .attr("class", "catName income")
+
 
   var filingGroup = catLabels.append("div")
     .attr("class", "catLabel filing")
@@ -178,13 +200,7 @@ var scrollVis = function () {
   filingGroup.append("div")
     .attr("class", "catName filing")
 
-  var incomeGroup = catLabels.append("div")
-    .attr("class", "catLabel income")
-  incomeGroup.append("div")
-    .attr("class", "catDesc income")
-    .text("Income group:")
-  incomeGroup.append("div")
-    .attr("class", "catName income")
+
 
 
 
@@ -426,9 +442,11 @@ highlightEllipse = svg.append("ellipse")
 
 
   function getIncome(){
+    return d3.select("#incomeMenu").node().value
 
   }
   function getGroup(){
+    return d3.select("#groupMenu").node().value
 
   }
   function setIncome(income){
@@ -793,33 +811,33 @@ function loopAnimate (points, moveY) {           //  create a loop function
 
 
 function showExploreTooltip(point){
-// d3.select("#revdisp span").text(d3.format("$.4s")(point.burden).replace(/G/,"B"))
 
-// d3.select("#incdisp span").text(point[d3.select("#groupMenu").node().value + d3.select("#incomeMenu").node().value] + "%")
-
-
-
-//   for(property in point){
-//     if(point.hasOwnProperty(property)){
-
-//       if(d3.select(".control." + property).node() != null){
-//         console.log(property, point[property])
-//         d3.selectAll(".control." + property).nodes().forEach(function(n){
-//           d3.select(n.parentNode).classed("tempHighlight", false)
-//         })
-
-          
-//         d3.select(d3.select(".control." + property + "." + point[property]).node().parentNode).classed("tempHighlight", true)
-//       }
-//     }
-//   }
-
-// console.log(point)
 d3.selectAll(".rangeDot").classed("highlight", false)
+d3.selectAll(".explore.tooltip").remove()
+var tt = d3.select("#vis")
+  .append("div")
+  .attr("class", "explore tooltip")
+
+var xRow = tt.append("div").attr("class", "ttRow x")
+xRow.append("div").attr("class", "ttTitle").text("Change in average after-tax income:")
+xRow.append("div").attr("class", "ttValue").text(RATIOS(point[getGroup() + getIncome()]) + "%" )
+
+var yRow = tt.append("div").attr("class", "ttRow y")
+yRow.append("div").attr("class", "ttTitle").text("Adjusted revenue change:")
+yRow.append("div").attr("class", "ttValue").text(SMALL_DOLLARS(point["burden"]) )
+
+
 
 for (var p in DEFAULT_FILTERS) {
     if (DEFAULT_FILTERS.hasOwnProperty(p)) {
       d3.select(".rangeDot." + p + "_" + point[p] ).classed("highlight", true)
+      var ttRow = tt.append("div").attr("class", "ttRow")
+      ttRow.append("div")
+        .attr("class", "ttTitle")
+        .text(paramaterText[p]["label"] + ":")
+      ttRow.append("div")
+        .attr("class", "ttValue")
+        .html( paramaterText[p][ point[p] ][0].replace("<span class = \"tcjaLabel\">","").replace("<span class = \"pretcjaLabel\">","").replace("</span>",""))
     }
 }
 
@@ -833,6 +851,7 @@ for (var p in DEFAULT_FILTERS) {
 
 function hideExploreTooltip(){
   highlight.classed("hidden", true)
+  d3.selectAll(".explore.tooltip").remove()
   d3.selectAll(".rangeDot").classed("highlight", false)
   // d3.selectAll(".tempHighlight").classed("tempHighlight", false)
 
@@ -844,7 +863,7 @@ function showInputTooltip(dot, d){
   }else{
     var container = d3.select(dot.parentNode.parentNode.parentNode)
 
-    var leftShift = (dot.getBoundingClientRect().left - ttWidths[d[1]]*.5 + 9 < 0) ? -66 : -.5*ttWidths[d[1]] + 9;
+    var leftShift = (dot.getBoundingClientRect().left - ttWidths[d[1]]*.5 + 9 < 0) ? -16 : -.5*ttWidths[d[1]] + 9;
     var leftClass = (dot.getBoundingClientRect().left - ttWidths[d[1]]*.5 + 9 < 0) ? " left" : ""
 
 
@@ -907,7 +926,7 @@ tt.append("div")
 if(paramaterText[ key ][ "info" ][1]){
 tt.append("div")
   .attr("class", "infoTitle where")
-  .html("Where is the Pre-TCJA value?")
+  .html("<img src = \"images/questionDot.png\"/>Where is the Pre-TCJA value?")
 
   tt.append("div")
     .attr("class", "ttContent")
@@ -1243,6 +1262,36 @@ d3.select(".highlightEllipse")
   }
 
 
+function checkDot(dot, points){
+  if(d3.select(dot).classed("active")){
+  d3.select(dot)
+  .transition()
+  .duration(200)
+  .style("background", "#fff")
+  .style("stroke", "#cccccc")
+  .on("end", function(d){
+  d3.select(dot).classed("active", false)
+  // d3.select(d3.select(this.parentNode().parentNode()).select(".to") )
+  d3.select(".rangeLabel." + d[1] + "_" + d[2] ).classed("active", false)
+  // getFilterVals()
+  filterPoints(getFilterVals(), points)
+  })
+  }else{
+  d3.select(dot)
+  .transition()
+  .duration(200)
+  .style("background", "#008bb0")
+  .style("stroke", "#008bb0")
+  .on("end", function(d){
+  d3.select(dot).classed("active", true)
+  d3.select(".rangeLabel." + d[1] + "_" + d[2] ).classed("active", true)
+  // getFilterVals()
+  filterPoints(getFilterVals(), points)
+  })
+
+  }
+}
+
 function buildCheckboxes(key, vals, numVals, filterVals, points){
   var container = d3.select("#controls")
   .append("div")
@@ -1261,6 +1310,13 @@ function buildCheckboxes(key, vals, numVals, filterVals, points){
   info.on("click", function(d){
     showInfoTooltip(this, key)
   })
+  .on("mouseover", function(){
+    d3.select(this).select("img").attr("src", "images/infoDotHover.png")
+  })
+  .on("mouseout", function(){
+    d3.select(this).select("img").attr("src", "images/infoDot.png")
+  })
+
 
   info.append("img").attr("src", "images/infoDot.png")
 
@@ -1288,39 +1344,62 @@ function buildCheckboxes(key, vals, numVals, filterVals, points){
   .attr("cx", 12)
   .attr("r", 9)
   .on("click", function(){
-  if(d3.select(this).classed("active")){
-  d3.select(this)
-  .transition()
-  .duration(200)
-  .style("background", "#fff")
-  .style("stroke", "#cccccc")
-  .on("end", function(d){
-  d3.select(this).classed("active", false)
-  // d3.select(d3.select(this.parentNode().parentNode()).select(".to") )
-  d3.select(".rangeLabel." + d[1] + "_" + d[2] ).classed("active", false)
-  // getFilterVals()
-  filterPoints(getFilterVals(), points)
-  })
-  }else{
-  d3.select(this)
-  .transition()
-  .duration(200)
-  .style("background", "#008bb0")
-  .style("stroke", "#008bb0")
-  .on("end", function(d){
-  d3.select(this).classed("active", true)
-  d3.select(".rangeLabel." + d[1] + "_" + d[2] ).classed("active", true)
-  // getFilterVals()
-  filterPoints(getFilterVals(), points)
-  })
-
-  }
+    checkDot(this, points)
 
   })
     .on("mouseover", function(d){
     showInputTooltip(this, d)
   })
   .on("mouseout", hideInputTooltip)
+
+
+    var lineData = [ { "x": 5,   "y": 9},
+             { "x":9,  "y": 13},
+             { "x": 15,  "y": 4}];
+
+    var lineFunction = d3.line()
+      .x(function(d) { return d.x; })
+      .y(function(d) { return d.y; })
+      // .interpolate("linear");
+
+      rsvg.selectAll("path").remove()
+
+      var path = rsvg
+  .selectAll("path")
+  .data(numVals.map(function(d, i){ return [d, key, vals[i] ] }))
+  .enter()
+  .append("path")
+  .attr("class", function(d){
+  var active = (filterVals[key].indexOf( d[2] ) != -1) ? " active" : ""
+  return "rangeCheck " + key + "_" + d[2] + active
+  })
+
+      .attr("d", lineFunction(lineData))
+      .attr("stroke", "white")
+      .attr("stroke-width", "3")
+      .attr("fill", "none")
+        .attr("transform", function(d){ return  "translate(2," + (scale(d[0])-9.5)  + ")"})
+          .on("mouseover", function(d){
+            // console.log(d3.select(".rangeDot." + d[1] + "_" + d[2]).node())
+    showInputTooltip(d3.select(".rangeDot." + d[1] + "_" + d[2]).node(), d)
+  })
+  .on("click", function(d){
+    checkDot(d3.select(".rangeDot." + d[1] + "_" + d[2]).node(), points)
+  })
+          
+  .on("mouseout", hideInputTooltip)
+  // .attr("cy", h/2)
+
+      var totalLength = path.node().getTotalLength();
+
+      path
+      // .attr("stroke-dasharray", totalLength + " " + totalLength)
+      // .attr("stroke-dashoffset", totalLength)
+      // .transition()
+      // .duration(500)
+      // .ease("linear")
+      .attr("stroke-dashoffset", 0);
+
 
 
   var labelContainer = container
@@ -1369,6 +1448,12 @@ function buildRange(key, vals, numVals, filterVals, points){
   info.on("click", function(d){
     showInfoTooltip(this, key)
   })
+  .on("mouseover", function(){
+    d3.select(this).select("img").attr("src", "images/infoDotHover.png")
+  })
+  .on("mouseout", function(){
+    d3.select(this).select("img").attr("src", "images/infoDot.png")
+  })
 
   info.append("img").attr("src", "images/infoDot.png")
 
@@ -1402,39 +1487,64 @@ function buildRange(key, vals, numVals, filterVals, points){
   .attr("cy", h/2)
   .attr("r", 9)
   .on("click", function(){
-  if(d3.select(this).classed("active")){
-  d3.select(this)
-  .transition()
-  .duration(200)
-  .style("background", "#fff")
-  .style("stroke", "#cccccc")
-  .on("end", function(d){
-  d3.select(this).classed("active", false)
-  // d3.select(d3.select(this.parentNode().parentNode()).select(".to") )
-  d3.select(".rangeLabel." + d[1] + "_" + d[2] ).classed("active", false)
-  // getFilterVals()
-  filterPoints(getFilterVals(), points)
-  })
-  }else{
-  d3.select(this)
-  .transition()
-  .duration(200)
-  .style("background", "#008bb0")
-  .style("stroke", "#008bb0")
-  .on("end", function(d){
-  d3.select(this).classed("active", true)
-  d3.select(".rangeLabel." + d[1] + "_" + d[2] ).classed("active", true)
-  // getFilterVals()
-  filterPoints(getFilterVals(), points)
-  })
-
-  }
+    checkDot(this, points)
 
   })
   .on("mouseover", function(d){
     showInputTooltip(this, d)
   })
   .on("mouseout", hideInputTooltip)
+
+
+
+    var lineData = [ { "x": 5,   "y": 9},
+             { "x":9,  "y": 13},
+             { "x": 15,  "y": 4}];
+
+    var lineFunction = d3.line()
+      .x(function(d) { return d.x; })
+      .y(function(d) { return d.y; })
+      // .interpolate("linear");
+
+      rsvg.selectAll("path").remove()
+
+      var path = rsvg
+  .selectAll("path")
+  .data(numVals.map(function(d, i){ return [d, key, vals[i] ] }))
+  .enter()
+  .append("path")
+  .attr("class", function(d){
+  var active = (filterVals[key].indexOf( d[2] ) != -1) ? " active" : ""
+  return "rangeCheck " + key + "_" + d[2] + active
+  })
+
+      .attr("d", lineFunction(lineData))
+      .attr("stroke", "white")
+      .attr("stroke-width", "3")
+      .attr("fill", "none")
+        .attr("transform", function(d){ return  "translate(" + (scale(d[0])-10.5)  + "," + 31 + ")"})
+          .on("mouseover", function(d){
+            // console.log(d3.select(".rangeDot." + d[1] + "_" + d[2]).node())
+    showInputTooltip(d3.select(".rangeDot." + d[1] + "_" + d[2]).node(), d)
+  })
+  .on("click", function(d){
+    checkDot(d3.select(".rangeDot." + d[1] + "_" + d[2]).node(), points)
+  })
+          
+  .on("mouseout", hideInputTooltip)
+  // .attr("cy", h/2)
+
+      var totalLength = path.node().getTotalLength();
+
+      path
+      // .attr("stroke-dasharray", totalLength + " " + totalLength)
+      // .attr("stroke-dashoffset", totalLength)
+      // .transition()
+      // .duration(500)
+      // .ease("linear")
+      .attr("stroke-dashoffset", 0);
+
+
 
 
   var labelContainer = container
@@ -1483,13 +1593,13 @@ function buildExploreSection(filterVals, points){
 
    $("#groupMenu" ).selectmenu({
     change: function(event, d){
-      animateLayout(d3.select("#incomeMenu").node().value,d.item.value, points, false, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
+      animateLayout(getIncome(), d.item.value, points, false, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
     }
   })
 
    $("#incomeMenu" ).selectmenu({
     change: function(event, d){
-      animateLayout(d.item.value, d3.select("#groupMenu").node().value, points, false, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
+      animateLayout(d.item.value, getGroup(), points, false, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
     }
   })
 

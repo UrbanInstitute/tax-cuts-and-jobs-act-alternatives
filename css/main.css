@@ -22,7 +22,7 @@
 .y.axisLabel{
     position: absolute;
     top: 286px;
-    left: -162px;
+    left: -181px;
     transform: rotate(-90deg);
 }
 
@@ -34,6 +34,17 @@
     text-align: center;
 }
 
+.y.axisLabelText{
+  display: inline-block;
+}
+.y.axisLabelTooltip{
+    width: 16px;
+    display: inline-block;
+    position: relative;
+    left: 7px;
+    top: 4px;
+    cursor: pointer;
+}
 
 .quadGroup text{
   text-transform: uppercase;
@@ -80,7 +91,7 @@
   display: inline-block;
   margin-left: 5px;
 }
-.catName.filing{
+.catName.income{
   margin-right: 20px;
 }
 
@@ -129,6 +140,10 @@
   stroke: #c1c1c1;
   fill: none;
   stroke-width: 2px;
+}
+.rangeCheck{
+  cursor: pointer;
+  pointer-events: none;
 }
 .rangeDot.active{
   fill: #008bb0;
@@ -189,7 +204,7 @@
 
 
 .tooltip{
-    -webkit-box-shadow: 10px 10px 17px -6px rgba(0,0,0,0.44);
+  -webkit-box-shadow: 10px 10px 17px -6px rgba(0,0,0,0.44);
   -moz-box-shadow: 10px 10px 17px -6px rgba(0,0,0,0.44);
   box-shadow: 10px 10px 17px -6px rgba(0,0,0,0.44);
   background: #f7f7f9;
@@ -218,6 +233,13 @@
 .infoTitle.where{
   margin-top: 40px
 }
+.infoTitle.where img{
+    width: 16px;
+    top: 2px;
+    left: 2px;
+    position: relative;
+    margin-right: 7px;
+}
 .info.tooltip{
     z-index: 100;
     position: absolute;
@@ -230,6 +252,16 @@
     display: block;
     width: fit-content;
 }
+.axis.tooltip{
+    width: 260px;
+    top: 20px;
+    left: -10px;
+    padding: 18px;
+    font-size: 14px;
+    z-index: 100;
+    position: absolute;
+    pointer-events: none;
+}
 
 .ttArrow{
       width: 50px;
@@ -241,7 +273,10 @@
     overflow: hidden;
 }
 .ttArrow.left{
-  left: 75px
+  left: 25px;
+}
+.axis.tooltip .ttArrow{
+  left: 73px;
 }
 .ttArrow::after{
      content: "";
@@ -259,8 +294,39 @@
     -webkit-box-shadow: 2px 1px 12px 2px rgba(0, 0, 0, 0.34);
   }
 
-
-
+.explore.tooltip{
+    position: absolute;
+    top: 370px;
+    left: 120px;
+    width: 340px;
+    z-index: 100;
+    padding: 20px;
+    padding-bottom: 10px;
+    font-size: 13px;
+    background: rgba(157,157,157,.4);
+    fill: #000 !important;
+    color: #000 !important;
+    pointer-events: none;
+}
+.ttRow{
+  display: block;
+  margin-bottom: 10px;
+}
+.ttRow.y{
+  margin-bottom: 20px;
+}
+.ttTitle{
+  display: inline-block;
+  font-family: "Avenir LT W01_95 Black1475556";
+}
+.ttValue{
+  display: inline-block;
+  margin-left: 5px;
+  font-family: "Avenir LT W01_55 Roman1475520","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.ttValue.tcjaLabel{
+  color: #000 !important;
+}
 select{
   display: none;
 }

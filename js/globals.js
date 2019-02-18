@@ -69,6 +69,9 @@ var mapColor = d3.scaleThreshold()
     .range(["#9d9d9d","#cfe8f3","#a2d4ec","#73bfe2","#46abdb","#1696d2","#12719e","#0a4c6a","#062635","#000"]);
 
 var DOLLARS = d3.format("$.0s")
+var SMALL_DOLLARS = function(d){
+  return d3.format("$.2f")(d/1000000000) + " billion"
+}
 var RATIOS = d3.format(".2f")
 
 
@@ -123,6 +126,8 @@ var customLegendText = {
   "q3": "Benefits the 1st, 2nd, and 3rd quintiles",
   "q4": "Benefits the 1st, 2nd, 3rd, and 4th quintiles"
 }
+
+var yTooltipText = "Our &ldquo;adjusted revenue&rdquo; measure smooths certain corporate and individual provisions to limit yearly fluctuations in distributional changes. Therefore, it does not match straight revenue change estimates from other organizations."
 
 var paramaterText = {
 //note order should be b, d, a, c

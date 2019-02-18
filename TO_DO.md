@@ -1,12 +1,20 @@
-- legend population
-- ctc highlight slide
-- style explore section!
-- mouseover throughout?
-- color updates
-- header img
 - footer content
 - ...mobile
-- y axis label tooltip text
 - header, w explore button
-- links to explore section
-- mouseover on explore section
+- jump to explore section
+- fix sticky at bottom of page
+- explore fix left align
+- on resize grab filter and menu vals for explore section
+
+
+
+qs for jenny
+
+
+
+qs for emily and researchers
+- should tax rates be checkboxes or slider?
+
+
+
+
