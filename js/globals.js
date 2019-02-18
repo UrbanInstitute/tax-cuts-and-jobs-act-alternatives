@@ -199,6 +199,16 @@ var DEFAULT_FILTERS = {
   "ctcAmount": ["l", "medium", "h"]
 }
 
+var ttWidths = {
+  "rates": 280,
+  "standard": 284,
+  "amtThreshold": 268,
+  "amtAmount": 154,
+  "personal": 0,
+  "salt": 230,
+  "ctcThreshold": 206,
+  "ctcAmount": 50
+}
 
 function wrap(text, width) {
   text.each(function() {
