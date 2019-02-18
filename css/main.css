@@ -193,15 +193,15 @@
   -moz-box-shadow: 10px 10px 17px -6px rgba(0,0,0,0.44);
   box-shadow: 10px 10px 17px -6px rgba(0,0,0,0.44);
   background: #f7f7f9;
-  /*pointer-events: none;*/
+  
 }
 .input.tooltip{
   position: absolute;
   z-index: 10;
   padding: 18px;
   bottom: 108px;
-  /*left: 100px;*/
   display: table;
+  pointer-events: none;
 
 
 }

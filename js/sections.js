@@ -844,7 +844,7 @@ function showInputTooltip(dot, d){
   }else{
     var container = d3.select(dot.parentNode.parentNode.parentNode)
 
-    var leftShift = (dot.getBoundingClientRect().left - ttWidths[d[1]]*.5 + 9 < 0) ? -160 : -.5*ttWidths[d[1]] - 36 - 49;
+    var leftShift = (dot.getBoundingClientRect().left - ttWidths[d[1]]*.5 + 9 < 0) ? -66 : -.5*ttWidths[d[1]] + 9;
     var leftClass = (dot.getBoundingClientRect().left - ttWidths[d[1]]*.5 + 9 < 0) ? " left" : ""
 
 
@@ -852,7 +852,7 @@ function showInputTooltip(dot, d){
     var tt = container.append("div")
       .attr("class", "input tooltip")
       .style("width", ttWidths[d[1]] + "px" )
-      .style("left", (dot.getBoundingClientRect().left  + leftShift) + "px")
+      .style("left", (dot.getBoundingClientRect().left - d3.select("#controls").node().getBoundingClientRect().left + leftShift) + "px")
     
     if(d[1] == "rates"){
       tt.style("top", (dot.getBoundingClientRect().top - d3.select("#controls").node().getBoundingClientRect().top  - 433) + "px")
