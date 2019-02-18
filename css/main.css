@@ -93,22 +93,34 @@
 
 .controlContainer{
   position: relative;
-  height: 100px;
+  height: 117px;
 }
 .controlContainer.checkboxes{
-  position: relative;
-  height: 150px;
+    position: relative;
+    height: 166px;
+    margin-top: 40px;
 }
 .controlTitle{
-  font-size: 14px;
+  font-size: 16px;
   position: absolute;
-  top: -10px;
+  top: -16px;
   color: #373a3c;
   font-family: "Avenir LT W01_65 Medium1475532";
   /*font-family: "Avenir LT W01_95 Black1475556";*/
 }
+.controlTitle span, .controlInfo{
+  display: inline-block;
+}
+.controlInfo img{
+    width: 16px;
+    position: relative;
+    top: 4px;
+    left: 5px;
+    cursor: pointer;
+}
+
 .menuTitle{
-  font-size: 14px;
+  font-size: 16px;
   color: #373a3c;
   font-family: "Avenir LT W01_65 Medium1475532";
   /*font-family: "Avenir LT W01_95 Black1475556";*/
@@ -176,19 +188,47 @@
 
 
 
-
-.input.tooltip{
-  position: absolute;
-  background: #f7f7f9;
-  z-index: 10;
-  padding: 18px;
-  bottom: 88px;
-  /*left: 100px;*/
-  display: table;
-  -webkit-box-shadow: 10px 10px 17px -6px rgba(0,0,0,0.44);
+.tooltip{
+    -webkit-box-shadow: 10px 10px 17px -6px rgba(0,0,0,0.44);
   -moz-box-shadow: 10px 10px 17px -6px rgba(0,0,0,0.44);
   box-shadow: 10px 10px 17px -6px rgba(0,0,0,0.44);
+  background: #f7f7f9;
+  /*pointer-events: none;*/
+}
+.input.tooltip{
+  position: absolute;
+  z-index: 10;
+  padding: 18px;
+  bottom: 108px;
+  /*left: 100px;*/
+  display: table;
 
+
+}
+.infoClose{
+    position: absolute;
+    top: 11px;
+    width: 16px;
+    right: 8px;
+    cursor: pointer;
+}
+.infoTitle{
+  font-family: "Avenir LT W01_95 Black1475556";
+}
+.infoTitle.where{
+  margin-top: 40px
+}
+.info.tooltip{
+    z-index: 100;
+    position: absolute;
+    padding: 20px;
+    top: -20px;
+}
+
+.input.tooltip .ttContent{
+      margin: 0 auto;
+    display: block;
+    width: fit-content;
 }
 
 .ttArrow{
@@ -200,7 +240,9 @@
     transform: translateX(-50%);
     overflow: hidden;
 }
-
+.ttArrow.left{
+  left: 75px
+}
 .ttArrow::after{
      content: "";
      position: absolute;

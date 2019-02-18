@@ -129,10 +129,10 @@ var paramaterText = {
   "rates": {
     "label": "Marginal tax rates",
     "info": ["Average tax rates measure tax burden; marginal tax rates measure the taxes&rsquo; effect on incentives to earn, save, invest, or spend. The TCJA reduced tax rates at almost all levels of taxable income and shifted the thresholds for several income tax brackets.", false],
-    "b": ["<span class = \"tcjaLabel\">TCJA</span>", "Tax rates for each tax bracket are as follows: 10% (first bracket), 12% (second bracket), 22% (third bracket), 24% (fourth bracket), 32% (fifth bracket), 35% (sixth bracket), 37% (seventh bracket)", "tcja"],
-    "d": ["Between TCJA and pre-TCJA ","$13,200 (single), $26,400 (married filing jointly), $21,600 (head of household), $13,200 (married filing separately)", false],
-    "a" : ["<span class = \"pretcjaLabel\">Pre-TCJA</span>","Tax rates for each tax bracket are as follows: 10% (first bracket), 15% (second bracket), 25% (third bracket), 28% (fourth bracket), 33% (fifth bracket), 35% (sixth bracket), 39.6% (seventh bracket)","pretcja"],
-    "c": ["10 percent higher than TCJA","$Tax rates for each tax bracket are as follows: 11% (first bracket), 13.2% (second bracket), 24.2% (third bracket), 26.4% (fourth bracket), 35.2% (fifth bracket), 38.5% (sixth bracket), 40.7% (seventh bracket)", false]
+    "b": ["<span class = \"tcjaLabel\">TCJA</span>", "Tax rates for each tax bracket are as follows:<br/>10% (first bracket)<br/>12% (second bracket)<br/>22% (third bracket)<br/>24% (fourth bracket)<br/>32% (fifth bracket)<br/>35% (sixth bracket)<br/>37% (seventh bracket)", "tcja"],
+    "d": ["Between TCJA and pre-TCJA ","Tax rates for each tax bracket are as follows:<br/>10% (first bracket)<br/>13% (second bracket)<br/>24% (third bracket)<br/>26% (fourth bracket)<br/>32.5% (fifth bracket)<br/>35% (sixth bracket)<br/>38.5% (seventh bracket)", false],
+    "a" : ["<span class = \"pretcjaLabel\">Pre-TCJA</span>","Tax rates for each tax bracket are as follows:<br/>10% (first bracket)<br/>15% (second bracket)<br/>25% (third bracket)<br/>28% (fourth bracket)<br/>33% (fifth bracket)<br/>35% (sixth bracket)<br/>39.6% (seventh bracket)","pretcja"],
+    "c": ["10 percent higher than TCJA","Tax rates for each tax bracket are as follows:<br/>11% (first bracket)<br/>13.2% (second bracket)<br/>24.2% (third bracket)<br/>26.4% (fourth bracket)<br/>35.2% (fifth bracket)<br/>38.5% (sixth bracket)<br/>40.7% (seventh bracket)", false]
   },
   "standard": {
     "label": "Standard deduction",
@@ -143,13 +143,13 @@ var paramaterText = {
     "h": ["High","$13,200 (single)<br/>$26,400 (married filing jointly)<br/>$21,600 (head of household)<br/>$13,200 (married filing separately)", false]
   },
   "amtThreshold": {
-    "label": "Alternative minimum tax exemption phase-out threshold",
+    "label": "AMT exemption phase-out threshold",
     "info": ["The individual alternative minimum tax, or AMT, operates alongside the regular income tax. It requires some taxpayers to calculate their liability twice&mdash;once under the rules for the regular income tax and once under the AMT rules&mdash;and pay the higher amount. The TCJA raised the income threshold at which the AMT exemption phases out, which will significantly reduce the number of taxpayers subject to the AMT.", false],
     "l" : ["Low","Phases out at adjusted gross income above $123,100 (single) or $164,100 (joint)", "pretcja"],
     "h": ["High","Phases out at adjusted gross income above $500,000 (single) or $1,000,000 (joint)", "tcja"],
   },
   "amtAmount": {
-    "label": "Alternative minimum tax exemption amount",
+    "label": "AMT exemption amount",
     "info": ["The individual alternative minimum tax, or AMT, operates alongside the regular income tax. It requires some taxpayers to calculate their liability twice&mdash;once under the rules for the regular income tax and once under the AMT rules&mdash;and pay the higher amount. The AMT exemption is an amount that taxpayers can deduct from their AMT-taxable income before calculating their AMT liability. The TCJA increased the AMT exemption, reducing the number of middle-income households subject to the AMT.", false],
     "l" : ["Low","$55,400 (single)<br/>$86,200 (joint)", "pretcja"],
     "h": ["High","$70,300 (single)<br/>$109,400 (joint)", "tcja"],
@@ -200,14 +200,14 @@ var DEFAULT_FILTERS = {
 }
 
 var ttWidths = {
-  "rates": 280,
+  "rates": 220,
   "standard": 284,
   "amtThreshold": 268,
   "amtAmount": 154,
   "personal": 0,
   "salt": 230,
   "ctcThreshold": 206,
-  "ctcAmount": 50
+  "ctcAmount": 96
 }
 
 function wrap(text, width) {

@@ -843,25 +843,81 @@ function showInputTooltip(dot, d){
     hideInputTooltip()
   }else{
     var container = d3.select(dot.parentNode.parentNode.parentNode)
-    // console.log(container.node())
-    // console.log(d)
+
+    var leftShift = (dot.getBoundingClientRect().left - ttWidths[d[1]]*.5 + 9 < 0) ? -160 : -.5*ttWidths[d[1]] - 36 - 49;
+    var leftClass = (dot.getBoundingClientRect().left - ttWidths[d[1]]*.5 + 9 < 0) ? " left" : ""
+
+
+
     var tt = container.append("div")
       .attr("class", "input tooltip")
-
-
-//make global dict of hardcoded tt widths, apply the width and apply the left offset to 1/2 the width
       .style("width", ttWidths[d[1]] + "px" )
-      .style("left", (dot.getBoundingClientRect().left  - ttWidths[d[1]] + 50) + "px")
+      .style("left", (dot.getBoundingClientRect().left  + leftShift) + "px")
+    
+    if(d[1] == "rates"){
+      tt.style("top", (dot.getBoundingClientRect().top - d3.select("#controls").node().getBoundingClientRect().top  - 433) + "px")
+    }
+
+
     tt.append("div")
+      .attr("class", "ttContent")
       .html(paramaterText[ d[1] ][ d[2] ][1] )
     tt.append("div")
-      .attr("class", "ttArrow")
+      .attr("class", "ttArrow" + leftClass)
   }
     // .html()
 }
 function hideInputTooltip(){
-  // d3.selectAll(".input.tooltip").remove()
+  d3.selectAll(".input.tooltip").remove()
 
+}
+
+function showInfoTooltip(dot, key){
+  hideInputTooltip()
+var container = d3.select(dot.parentNode.parentNode)
+
+
+
+
+var tt = container.append("div")
+  .attr("class", "info tooltip")
+
+
+tt.append("img")
+  .attr("class", "infoClose")
+  .attr("src", "images/closeDot.png")
+  .on("mouseover", function(){
+    d3.select(this).attr("src", "images/closeDotHover.png")
+  })
+  .on("mouseout", function(){
+    d3.select(this).attr("src", "images/closeDot.png")
+  })
+  .on("click", hideInfoTooltip)
+
+tt.append("div")
+  .attr("class", "infoTitle")
+  .html(paramaterText[key]["label"])
+
+
+tt.append("div")
+  .attr("class", "ttContent")
+  .html(paramaterText[ key ][ "info" ][0] )
+
+
+if(paramaterText[ key ][ "info" ][1]){
+tt.append("div")
+  .attr("class", "infoTitle where")
+  .html("Where is the Pre-TCJA value?")
+
+  tt.append("div")
+    .attr("class", "ttContent")
+    .html(paramaterText[ key ][ "info" ][1] )
+}
+
+
+}
+function hideInfoTooltip(){
+  d3.selectAll(".info.tooltip").remove()
 }
 
 
@@ -1195,9 +1251,18 @@ function buildCheckboxes(key, vals, numVals, filterVals, points){
   w = d3.select(".step.lastStep").node().getBoundingClientRect().width
   h = 150
 
-  container.append("div")
+  var title = container.append("div")
   .attr("class", key + " controlTitle")
+  title.append("span")
   .text(paramaterText[key]["label"] + ":")
+
+  var info = title.append("div")
+  .attr("class", key +  " controlInfo")
+  info.on("click", function(d){
+    showInfoTooltip(this, key)
+  })
+
+  info.append("img").attr("src", "images/infoDot.png")
 
   var rsvg = container.append("svg")
   // .attr("")
@@ -1252,6 +1317,10 @@ function buildCheckboxes(key, vals, numVals, filterVals, points){
   }
 
   })
+    .on("mouseover", function(d){
+    showInputTooltip(this, d)
+  })
+  .on("mouseout", hideInputTooltip)
 
 
   var labelContainer = container
@@ -1290,9 +1359,18 @@ function buildRange(key, vals, numVals, filterVals, points){
   w = d3.select(".step.lastStep").node().getBoundingClientRect().width
   h = 80
 
-  container.append("div")
+  var title = container.append("div")
   .attr("class", key + " controlTitle")
+  title.append("span")
   .text(paramaterText[key]["label"] + ":")
+
+  var info = title.append("div")
+  .attr("class", key +  " controlInfo")
+  info.on("click", function(d){
+    showInfoTooltip(this, key)
+  })
+
+  info.append("img").attr("src", "images/infoDot.png")
 
   var rsvg = container.append("svg")
   // .attr("")
