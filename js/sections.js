@@ -75,12 +75,17 @@ var scrollVis = function () {
 
   var w, h;
 
-  if(IS_DESK1()){
-    w = 800
+
+  if(IS_PHONE()){
+    w = window.innerWidth;
   }
   else if(IS_MOBILE()){
     w = 900;
-  }else{
+  }
+  else if(IS_DESK1()){
+    w = 800
+  }
+  else{
     w = 900;
   }
 
@@ -140,6 +145,7 @@ var scrollVis = function () {
 
 
   var chartArea = d3.select("#vis").append("div")
+    .attr("class", "resizeRemove")
     .style("left", margin.left + "px")
     .style("top", margin.top + "px")
     .style("position", "absolute")
@@ -996,7 +1002,7 @@ function hideInfoTooltip(){
     });
 
     overlaySvg.on("mousemove",function(){
-      if(activeIndex == 18){
+      if(activeIndex == 19){
         var mouse = d3.mouse(this),
         closest = tree.find(mouse[0], mouse[1]);
         if(typeof(closest) != "undefined"){
@@ -1271,6 +1277,21 @@ d3.select(".highlightEllipse")
     console.log(16, activeIndex)
   }
 
+  function preExplore(points){
+    if(IS_MOBILE()){
+      hideMobileExplore(true, true);
+    }
+    animateLayout(getIncome(),getGroup(), points, true, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
+
+    quadO.transition()
+      .style("opacity",0)
+
+    d3.selectAll("#legendG")
+      .transition()
+      .duration(duration)
+      .style("opacity",1)
+  }
+
   function showExplore(points){
 
 
@@ -1297,7 +1318,6 @@ d3.select(".highlightEllipse")
       .duration(duration)
       .style("opacity",1)
 
-    console.log(17, activeIndex)
   }
 
 
@@ -1678,7 +1698,8 @@ function buildExploreSection(filterVals, points){
     activateFunctions[15] = function(){ compareQ3(points); };
     activateFunctions[16] = function(){ compareQ4(points); };
     activateFunctions[17] = function(){ compareQ5(points); };
-    activateFunctions[18] = function(){ showExplore(points); };
+    activateFunctions[18] = function(){ preExplore(points) };
+    activateFunctions[19] = function(){ showExplore(points); };
 
 
     d3.select("#groupMenu").on("input", function(){
@@ -1727,10 +1748,11 @@ function display(points) {
   d3.select('#vis')
     .style("left", function(){
       if(IS_PHONE()){
-        return ( (window.innerWidth - PHONE_VIS_WIDTH - margin.left - margin.right)*.5 ) + "px"
+        // return ( (window.innerWidth - PHONE_VIS_WIDTH - margin.left - margin.right)*.5 ) + "px"
+        return "0px"
       }
-      if(IS_MOBILE()){
-        return ( (window.innerWidth - VIS_WIDTH - margin.left - margin.right)*.5 ) + "px"
+      else if(IS_MOBILE()){
+        return ( (window.innerWidth - VIS_WIDTH - MARGIN.left - MARGIN.right - 100)*.5 ) + "px"
       }else{
         return "inherit"
       }
@@ -1752,7 +1774,7 @@ function display(points) {
   scroll.on('active', function (index) {
     var offOpacity = (IS_MOBILE()) ? 1 : .1
     d3.selectAll('.step')
-      .style('opacity', function (d, i) { return i === index ? 1 : offOpacity; });
+      .style('opacity', function (d, i) { return (i === index || i == 19) ? 1 : offOpacity; });
     plot.activate(index);  
   });
 }

@@ -59,6 +59,9 @@
         padding: 30px;
         z-index: 2;
     }
+    .penultimateStep{
+      margin-bottom: 600px !important;
+    }
     .step.lastStep{
         margin-bottom: 0px;
         opacity: 1;
@@ -100,7 +103,6 @@
         top: 90px;
         left: 0px;
         z-index: 2;
-        margin-left: 10px;
         background: red;
         padding: 10px;
         color: white;
@@ -113,6 +115,15 @@
     .controlContainer svg{
         z-index: 2;
     }
+}
+@media (max-width: 1100px) {
+  .wrapper {width:100%; padding-top:100px;}
+  .content {width:auto; padding:0px 30px}
+  .container {width:auto; padding:0px 30px; margin-bottom: 40px;}
+  ul {margin-left: 15px;}
+  li {padding-left:0px;}
+    #left{ width:100%;}
+    #right{ width:100%; margin-top:30px;}
 }
 @media (max-width: 930px){
     .headerimage {
@@ -127,6 +138,12 @@
         margin-bottom: 1200px;
     }
 }
+@media (max-width: 600px) {
+   .wrapper {padding-top:80px;} 
+   .headerimage{ height:250px;}
+    h1{font-size: 45px;padding-top: 100px;}
+    .overhalf{width:100%;}
+}
 @media (max-width: 500px){
     .headerimage {
         height: 180px !important;
@@ -140,6 +157,13 @@
         width: 300px;
         pointer-events: none;
     }
+}
+@media (max-width: 450px){
+  .footerButton.researchButton {
+      margin-left: 0px;
+      margin-top: 10px;
+      clear: both;
+  }
 }
 @media (max-width: 350px){
     #sections{
@@ -164,6 +188,22 @@
        display: block;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
