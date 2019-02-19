@@ -7,6 +7,15 @@ var IS_PHONE = function(){
 var IS_MOBILE = function(){
   return (d3.select("#isMobile").style("display") == "block")
 }
+var IS_DESK1 = function(){
+  return (d3.select("#isDesk1").style("display") == "block")
+}
+var IS_DESK2 = function(){
+  return (d3.select("#isDesk2").style("display") == "block")
+}
+
+
+
 var SECTION_INDEX = function(){
   return d3.select("#sectionIndex").attr("data-index")
 }
@@ -113,7 +122,7 @@ const lag = 500;
 const longLag = 900;
 
 
-var quadTextWidth = 280,
+var quadTextWidth = (IS_DESK1()) ? 200 : 280,
   quadTextLineHeight = 20
   legendWidth = 200,
   legendHeight = 100;
@@ -214,6 +223,46 @@ var ttWidths = {
   "ctcThreshold": 206,
   "ctcAmount": 96
 }
+
+function showMobileExplore(isTransition){
+  if(isTransition){
+    d3.selectAll(".mobileExplore")
+      .transition()
+      .duration(duration)
+      .style("margin-left",function(){
+        return -1*(window.innerWidth*.5 - 200) + "px"
+      })
+  }else{
+    d3.selectAll(".mobileExplore")
+      .style("margin-left",function(){
+        return -1*(window.innerWidth*.5 - 200) + "px"
+      })
+  }
+}
+function hideMobileExplore(isTransition, hideAll){
+  if(hideAll){
+    d3.select("#showExplore").style("display","none")
+  }else{
+    d3.select("#showExplore").style("display","block")
+  }
+  if(isTransition){
+    d3.selectAll(".mobileExplore")
+      .transition()
+      .duration(duration)
+      .style("margin-left",function(){
+        // "0px"
+        return -1*(window.innerWidth + 600) + "px"
+      })   
+  }else{
+    d3.selectAll(".mobileExplore")
+      .style("margin-left",function(){
+        // "0px"
+        return -1*(window.innerWidth + 600) + "px"
+      }) 
+  } 
+
+}
+
 
 function wrap(text, width) {
   text.each(function() {

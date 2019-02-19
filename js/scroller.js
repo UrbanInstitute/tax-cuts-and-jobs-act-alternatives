@@ -141,7 +141,7 @@ function scroller() {
       }    
     }else{
       if(d3.select(".lastStep").node().getBoundingClientRect().bottom <= 24){
-
+          hideMobileExplore(false, true)
           d3.select("#vis")
             .classed("posRelBottomSingleCol", true)
             .classed("posRelTopSingleCol", false)
@@ -152,6 +152,10 @@ function scroller() {
             })  
           d3.select("#sections")
             .style("z-index",-1)
+      }
+      else if(d3.select(".lastStep").node().getBoundingClientRect().bottom > 24 && d3.select(".lastStep").node().getBoundingClientRect().bottom < 60){
+        showMobileExplore(false)
+
       }else{
           if(d3.select(".step").node().getBoundingClientRect().top >= 62){
             d3.select("#vis")
@@ -196,6 +200,7 @@ function scroller() {
     fixVis();
     var sectionIndex = d3.bisect(sectionPositions, pos) - 1;
     sectionIndex = Math.max(0,Math.min(sections.size() -1, sectionIndex));
+    // console.log(sectionIndex)
 
     if (currentIndex !== sectionIndex) {
       // @v4 you now `.call` the dispatch callback

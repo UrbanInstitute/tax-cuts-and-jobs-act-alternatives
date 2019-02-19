@@ -7,7 +7,9 @@
   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/> -->
+
   <link rel="stylesheet" type="text/css" href="css/main.css"/>
+  <link rel="stylesheet" type="text/css" href="css/responsive.css"/>
   <link rel="stylesheet" type="text/css" href="css/urban.css"/>
   <link rel="stylesheet" type="text/css" href="css/urban-header.css"/>
   <link rel="stylesheet" type="text/css" href="css/vendor/jquery-ui.css">
@@ -54,6 +56,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 
 <div id = "isMobile"></div>
+<div id = "isDesk1"></div>
+<div id = "isDesk2"></div>
 <div id = "isPhone"></div>
 <div id = "isShort"></div>
 <div id = "sectionIndex" data-index="0"></div>
@@ -254,10 +258,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
+      <div id = "mobileExploreBg" class = "mobileExplore"></div>
 
-
-      <section class="step lastStep">
-        <div class="title">Explore</div>
+      <section class="step lastStep mobileExplore">
+        <div class="title">Explore<div id = "hideExplore">HIDE</div></div>
         <p>
           All tax plans come with trade-offs for certain groups. Understanding these trade-offs, both in terms of revenue and people’s after-tax income, is critical to creating sound, evidence-based tax policy. In our report, we look at a few alternative plans that would lose less adjusted revenue than the TCJA and more evenly distribute after-tax income. Below, see for yourself how changing tax policy parameters affects adjusted revenue and after-tax income for different groups.
         </p>
@@ -376,6 +380,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
   </div>
 </div>
+      <div id = "showExplore">SHOW</div>
 
     
     <footer>

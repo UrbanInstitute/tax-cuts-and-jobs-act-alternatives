@@ -75,14 +75,17 @@ var scrollVis = function () {
 
   var w, h;
 
-  if(IS_MOBILE()){
-    w = 300;
+  if(IS_DESK1()){
+    w = 800
+  }
+  else if(IS_MOBILE()){
+    w = 900;
   }else{
     w = 900;
   }
 
   if(IS_MOBILE()){
-    h = 300
+    h = 700
   }else{
     h = 700;
   }
@@ -217,12 +220,16 @@ var scrollVis = function () {
   var highlight = overlaySvg.append("circle")
       .attr("r", 3)
       .classed("hidden", true)
-      .classed("highlightDot", true);
+      .classed("highlightDot", true)
+      .attr("cx", -10)
+      .attr("cy", -10)
 
   var tcjaDot = overlaySvg.append("circle")
       .attr("r", 3)
       // .classed("hidden", true)
-      .classed("tcjaDot", true);
+      .classed("tcjaDot", true)
+      .attr("cx", -10)
+      .attr("cy", -10)
 
 
 
@@ -1247,6 +1254,9 @@ d3.select(".highlightEllipse")
     function compareQ5(points){
     //shade dots based on std deduction 
     //legend
+    if(IS_MOBILE()){
+      hideMobileExplore(true, true);
+    }
     hideExploreTooltip()
     filterPoints(DEFAULT_FILTERS, points)
 
@@ -1260,6 +1270,39 @@ d3.select(".highlightEllipse")
 
     console.log(16, activeIndex)
   }
+
+  function showExplore(points){
+
+
+
+// d3.select(".highlightEllipse")
+//     .transition()
+//     .duration(duration)
+//     .delay(lag)
+//     .attr("cx", x(-.88))
+//     .attr("rx", 15)
+//     .style("opacity",0)
+
+    if(IS_MOBILE()){
+      showMobileExplore();
+    }
+
+    animateLayout(getIncome(),getGroup(), points, true, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
+
+    quadO.transition()
+      .style("opacity",0)
+
+    d3.selectAll("#legendG")
+      .transition()
+      .duration(duration)
+      .style("opacity",1)
+
+    console.log(17, activeIndex)
+  }
+
+
+
+
 
 
 function checkDot(dot, points){
@@ -1603,6 +1646,15 @@ function buildExploreSection(filterVals, points){
     }
   })
 
+   d3.select("#hideExplore")
+    .on("click", function(){
+      hideMobileExplore(true, false)
+    })
+   d3.select("#showExplore")
+    .on("click", function(){
+      showMobileExplore(true)
+    })
+
 
 }
 
@@ -1626,7 +1678,7 @@ function buildExploreSection(filterVals, points){
     activateFunctions[15] = function(){ compareQ3(points); };
     activateFunctions[16] = function(){ compareQ4(points); };
     activateFunctions[17] = function(){ compareQ5(points); };
-    activateFunctions[18] = function(){ showAllAll(points); };
+    activateFunctions[18] = function(){ showExplore(points); };
 
 
     d3.select("#groupMenu").on("input", function(){

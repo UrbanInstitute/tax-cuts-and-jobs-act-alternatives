@@ -1,3 +1,7 @@
+
+
+
+
 .axisLine{
   stroke-dasharray: 4 4;
   stroke-width: 2px;
@@ -332,6 +336,10 @@ select{
 }
 
 
+#mobileExploreBg, #hideExplore, #showExplore{
+  display: none;
+}
+
 
 /************************************************************/
 /******************** PROTOTYPE CANVAS **********************/
@@ -660,15 +668,7 @@ circle.morph{
   font-size: 12px;
 }
 
-#isMobile, #isPhone, #isShort, #sectionIndex{
-    display: none;
-    pointer-events: none;
-    width: 0;
-    height: 0;
-    position: fixed;
-    top: 0;
-    left: 0;
-}
+
 .dotNote{
   display: block;
 }
@@ -693,218 +693,7 @@ circle.morph{
   line-height: 1.6;
 }
 
-@media (max-height: 880px){
-  #buttonContainer{
-    top: 45px !important;
-  }
-  .scatterButtonLabel.title{
-    font-style: italic;
-    font-size: 13px !important;
-    font-weight: normal;
-    bottom: 48px !important;
-    left: 1px !important;
-  }
-  #isShort{
-    display: block;
-  }
-  #vis.posRelBottom{
-    bottom: -97px;
-  }
-  .mapFL{
-    top: 19px;
-    left: 180px;
-    width: 473px;
-  }
-  .mapNY{
-    top: -53px;
-    left: 180px;
-    width: 473px;
-  }
-  #dotChartYAxis .tick text{
-    font-size: 11px;
-  }
 
-/*  .scatterButton{
-    bottom: 80px;
-  }*/
-}
-
-@media (max-height: 636px) , (max-width: 768px){
-  #isPhone{
-    display: block;
-  }
-  #mobile-notes{
-    display: block;
-  }
-  .dotNote, .histNote{
-    display: none;
-  }
-  .switch{
-    width: 55px !important;
-    height: 18px !important;
-    border-radius: 10px !important;
-  }
-  .switch.off {
-      background-position: -47.2px 0px !important;
-  }
-
-  .switch.on {
-      background-position: -10px 0px !important;
-  }
-
-  #buttonContainer{
-    left: 26px !important;
-    top: 55px !important;
-    width: 252px !important;
-    height: 40px !important;
-  }
-  .scatterButtonLabel.title{
-    bottom: 33px !important;
-  }
-  .stateButton {
-      left: 95px !important;
-      top: 17px !important;
-  }
-  .scatterButtonLabel.state {
-      left: 95px !important;
-  }
-  .localButton{
-      left: 20px !important;
-      top: 17px !important;
-  }
-  .federalButton{
-      left: 170px !important;
-      top: 17px !important;
-  }
-  .scatterButtonLabel.federal {
-      left: 170px !important;
-  }
-
-  #clearSelected{
-    display: none;
-  }
-  #dotChartYAxis .tick text{
-    font-size: 10px;
-  }
-  .largeChartLabel, .largeScatterplotLabel {
-    letter-spacing: 1px;
-    font-size: 13px;
-  }
-  .mapNY {
-    top: 50px;
-    left: 17px;
-    width: 280px;
-  }
-  .mapFL {
-    top: 110px;
-    left: 19px;
-    width: 270px;
-  }
-
-  .stateButton{
-    left: 0px;
-  }
-  .localButton{
-    left: 96px;
-  }
-  .federalButton{
-    left: 196px;
-  }
-  .largeScatterplotLabel{
-    display: none;
-  }
-}
-
-@media (max-width: 1200px){
-  .container{
-    margin-left: 10px;
-  }
-}
-@media (max-width: 1170px){
-  .headerimage{
-    height: 440px !important;
-  }
-  .container{
-    margin-left: auto;
-    width: 100%;
-  }
-  #isMobile{
-    display: block;
-  }
-  .dotNote, .histNote{
-    display: none;
-  }
-  .mobileDotNote{
-    display: block;
-  }
-  #topText{
-    font-size: 18px;
-  }
-#extra-space {
-  height: 680px;
-  z-index: -1;
-}
-  #sections{
-    display: inherit;
-    width: 400px;
-    margin: 0 auto;
-    pointer-events: none;
-  }
-  .mapButton{
-    display: none;
-  }
-  .step {
-    margin-bottom: 1000px;
-    opacity: 1;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: rgb(136, 136, 136) 4px 4px 16px;
-    padding: 30px;
-    z-index: 2;
-  }
-  .step.lastStep{
-    margin-bottom: 0px;
-  }
-  #vis{
-    /*position: fixed;*/
-    /*top: 20px;*/
-  }
-}
-@media (max-width: 930px){
-  .headerimage {
-    height: 350px !important;
-  }
-  #topTitle {
-    font-size: 25px;
-  }
-}
-@media (max-width: 768px){
-  .step {
-    margin-bottom: 1200px;
-  }
-}
-@media (max-width: 350px){
-  #sections{
-    /*width: 300px;*/
-    left: -20px;
-    /*pointer-events: none;*/
-  }
-}
-
-@media (max-width: 500px){
-  .headerimage {
-    height: 180px !important;
-    top: 20px;
-  }
-  #topText{
-    margin-top: -90px;
-    padding: 20px;
-  }
-  #sections{
-    width: 300px;
-    /*left: -20px;*/
-    pointer-events: none;
-  }
-}
 
 .dotChartLine {
   stroke: #e3e3e3;
