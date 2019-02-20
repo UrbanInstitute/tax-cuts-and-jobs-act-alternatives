@@ -388,15 +388,15 @@ highlightEllipse = svg.append("ellipse")
 
 
 
-  var legend = overlaySvg.append("g")
+  var legend = svg.append("g")
     .attr("transform", "translate(20,20)")
     .attr("id", "legendG")
     .style("opacity",0)
 
   legend.append("rect")
     .attr("id", "legendBg")
-    .attr("width", legendWidth)
-    .attr("height", legendHeight)
+    .attr("width", legendWidth(0))
+    .attr("height", legendHeight(0))
 
   legend.append("text")
     .attr("id", "legendTitle")
@@ -421,6 +421,27 @@ highlightEllipse = svg.append("ellipse")
     // .attr("r", 3)
     .attr("class", "tcjaLegendText legendText")
     .text("TCJA")
+
+
+  var lrow2 = legend.append("g")
+    .attr("class", "lrow")
+    .attr("transform", "translate(20, 60)")
+
+  lrow2.append("line")
+    .attr("x1", 0)
+    .attr("x2", 9)
+    .attr("y1",-2)
+    .attr("y2",10)
+    .attr("class", "pretcjaLegendLine")
+
+  lrow2.append("text")
+    .attr("x", 12)
+    .attr("y", 10)
+    // .attr("r", 3)
+    .attr("class", "pretcjaLegendText legendText")
+    .text("Pre-TCJA")
+
+
 
 
 
@@ -529,7 +550,7 @@ highlightEllipse = svg.append("ellipse")
     var i = 2
     var h = legend.append("g")
     .attr("class", "lrow temp")
-    .attr("transform", "translate(20, " + (50 + 20) + ")")
+    .attr("transform", "translate(20, " + (70 + 20) + ")")
     h.append("text")
     .attr("x", 0)
     .attr("y", 10)
@@ -548,7 +569,7 @@ highlightEllipse = svg.append("ellipse")
 
     var row = legend.append("g")
     .attr("class", "lrow temp")
-    .attr("transform", "translate(30, " + (50 + i* 20) + ")")
+    .attr("transform", "translate(20, " + (70 + i* 20) + ")")
     .style("opacity",0)
     row.transition()
     .duration(500)
@@ -579,7 +600,7 @@ highlightEllipse = svg.append("ellipse")
         text = customLegendText[key]
     var row = legend.append("g")
     .attr("class", "lrow temp")
-    .attr("transform", "translate(20, " + (60) + ")")
+    .attr("transform", "translate(20, " + (80) + ")")
     .style("opacity",0)
     row.transition()
     .duration(500)
@@ -601,6 +622,12 @@ highlightEllipse = svg.append("ellipse")
     .text(text)
 
     }
+
+     d3.select("#legendBg")
+     .transition()
+     .duration(duration)
+    .attr("width", legendWidth(activeIndex))
+    .attr("height", legendHeight(activeIndex))
 
   }
 
@@ -1002,7 +1029,6 @@ function hideInfoTooltip(){
       .transition()
       .duration(duration)
       .style("opacity",0)
-    console.log(0, activeIndex)
   }
 
   function showAllAll(points){
@@ -1030,7 +1056,6 @@ function hideInfoTooltip(){
       .duration(duration)
       .style("opacity",1)
 
-    console.log(1, activeIndex)
   }
 
   function showQ1(points){
@@ -1040,7 +1065,6 @@ d3.select(".highlightEllipse")
 
     animateLayout("1","a", points, false, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
 
-    console.log(2, activeIndex)
   }
 
   function showQ1_CTC(points){
@@ -1059,7 +1083,6 @@ d3.select(".highlightEllipse")
     //direct label
     //mouseover show both ctc parameters??
     // recolorPoints("ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR}, points)
-    console.log(3, activeIndex)
   }
 
   function showMarriedKids(points){
@@ -1087,7 +1110,6 @@ d3.select(".highlightEllipse")
 
     animateLayout("1","g", points, false, "ctcAmount", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3})
 
-    console.log(4, activeIndex)
   }
 
   function showMarriedKidsFilter1(points){
@@ -1096,7 +1118,6 @@ d3.select(".highlightEllipse")
     // recolorPoints("ctcThreshold", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3}, points)
     animateLayout("1","g", points, false, "ct1", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3, "l0": HIDE_1, "m0": HIDE_2, "h0": HIDE_3})
 
-    console.log(5, activeIndex)
   }
 
   function showMarriedKidsFilter2(points){
@@ -1105,7 +1126,6 @@ d3.select(".highlightEllipse")
     // recolorPoints("ctcThreshold", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3}, points)
     animateLayout("1","g", points, false, "ct2", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3, "l0": HIDE_1, "m0": HIDE_2, "h0": HIDE_3})
 
-    console.log(6, activeIndex)
   }
 
     function showMarriedKidsFilter3(points){
@@ -1114,7 +1134,6 @@ d3.select(".highlightEllipse")
     // recolorPoints("ctcThreshold", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3}, points)
     animateLayout("1","g", points, false, "ct3", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3, "l0": HIDE_1, "m0": HIDE_2, "h0": HIDE_3})
 
-    console.log(7, activeIndex)
   }
 
 
@@ -1124,7 +1143,6 @@ d3.select(".highlightEllipse")
     // recolorPoints("personal", {"l": COLOR_1, "ml": COLOR_2, "mh": COLOR_3, "h": COLOR_4}, points)
     animateLayout("1","a", points, false, "personal", {"l": COLOR_1, "ml": COLOR_2, "mh": COLOR_3, "h": COLOR_4})
 
-    console.log(8, activeIndex)
   }
   function showQ1_StandardDeduction(points){
     //shade dots based on std deduction 
@@ -1132,14 +1150,12 @@ d3.select(".highlightEllipse")
     // recolorPoints("standard", {"l": COLOR_1, "ml": COLOR_2, "mh": COLOR_3, "h": COLOR_4}, points)
     animateLayout("1","a", points, false, "standard", {"l": COLOR_1, "ml": COLOR_2, "mh": COLOR_3, "h": COLOR_4})
 
-    console.log(9, activeIndex)
   }
   function showTop5_Rates(points){
     //shade dots based on std deduction 
     //legend
     animateLayout("8","a", points, false, "rates", {"b": COLOR_1, "d": COLOR_2, "a": COLOR_3, "c": COLOR_4})
 
-    console.log(10, activeIndex)
   }
   function compareQ1(points){
     //shade dots based on std deduction 
@@ -1148,7 +1164,6 @@ d3.select(".highlightEllipse")
       .style("opacity",0)
     animateLayout("1","a", points, false, "q1", {"0": DARK_HIDE, "1": SEQ_1})
 
-    console.log(11, activeIndex)
   }
   function compareTop1(points){
     //shade dots based on std deduction 
@@ -1157,7 +1172,6 @@ d3.select(".highlightEllipse")
       .style("opacity",0)
     animateLayout("8","a", points, false, "t1", {"0": DARK_HIDE, "1": COLOR_4})
 
-    console.log(12, activeIndex)
   }
 
 
@@ -1184,8 +1198,6 @@ d3.select(".highlightEllipse")
     })
       
     animateLayout("2","a", points, false, "q1", {"0": DARK_HIDE, "1": SEQ_1})
-
-    console.log(13, activeIndex)
   }
 
   function compareQ3(points){
@@ -1204,7 +1216,6 @@ d3.select(".highlightEllipse")
       }
     }, duration + lag + lag)
 
-    console.log(14, activeIndex)
   }
 
   function compareQ4(points){
@@ -1218,7 +1229,6 @@ d3.select(".highlightEllipse")
       }
     }, duration + lag+ lag)
 
-    console.log(15, activeIndex)
   }
     function compareQ5(points){
     //shade dots based on std deduction 
@@ -1237,7 +1247,6 @@ d3.select(".highlightEllipse")
       }
     }, duration + lag+ lag)
 
-    console.log(16, activeIndex)
   }
 
   function preExplore(points){

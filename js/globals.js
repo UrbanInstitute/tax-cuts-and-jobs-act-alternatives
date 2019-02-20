@@ -151,8 +151,59 @@ var phoneXScootch = 50;
 
 var quadTextWidth = (IS_DESK1()) ? 200 : 280,
   quadTextLineHeight = 20
-  legendWidth = 200,
-  legendHeight = 100;
+
+
+
+
+var legendWidth = function(i){
+  if(i >= 4 && i < 8){
+    return 186
+  }
+  else if(i == 8){
+    return 214
+  }
+  else if(i == 9){
+    return 167
+  }
+  else if(i == 10){
+    return 237
+  }
+  else if(i == 11 || i == 13 || i == 14){
+    return 201
+  }
+  else if(i == 12){
+    return 174
+  }
+  else if(i == 15){
+    return 257
+  }
+  else if(i == 16){
+    return 295
+  }
+  else if(i == 17){
+    return 324
+  }
+  else{
+    return 120
+  }
+}
+
+
+var legendHeight = function(i){
+  if(i >= 4 && i < 8){
+    return 180
+  }
+  else if(i >= 8 && i < 11){
+    return 200
+  }
+  else if(i >= 11 && i < 18){
+    return 110
+  }
+  else{
+    return 90
+  }
+}
+
 
 
 var customLegendText = {
