@@ -33,7 +33,7 @@ function scroller() {
         return "-20px"
       }
       if(IS_MOBILE()){
-        return ( (window.innerWidth - VIS_WIDTH - MARGIN.left - MARGIN.right - 100)*.5 ) + "px"
+        return ( (getDeviceWidth() - VIS_WIDTH - MARGIN.left - MARGIN.right - 100)*.5 ) + "px"
       }else{
         return "inherit"
       }
@@ -104,7 +104,7 @@ function scroller() {
 
   function fixVis(){
     if(! IS_MOBILE()){
-      if(d3.select(".step").node().getBoundingClientRect().top <= 64){
+      if(d3.select(".step").node().getBoundingClientRect().top <= 260){
         var bump = (IS_SHORT()) ? -120: -30;
         if(d3.selectAll(".step").nodes()[d3.selectAll(".step").nodes().length-1].getBoundingClientRect().bottom <= VIS_WIDTH+margin.top+margin.bottom+20+bump){
           d3.select("#vis")
@@ -157,7 +157,7 @@ function scroller() {
         showMobileExplore(false)
 
       }else{
-          if(d3.select(".step").node().getBoundingClientRect().top >= 62){
+          if(d3.select(".step").node().getBoundingClientRect().top >= 260){
             d3.select("#vis")
               .classed("posRelBottomSingleCol", false)
               .classed("posRelTopSingleCol", true)
@@ -170,6 +170,7 @@ function scroller() {
             d3.select("#sections")
               .style("z-index",90)
           }else{
+            console.log("fixing")
             d3.select("#vis")
               .classed("posRelBottomSingleCol", false)
               .classed("posRelTopSingleCol", false)
@@ -186,7 +187,7 @@ function scroller() {
   window.setInterval(function(){
     fixVis()
     visPosition()
-  }, 20);
+  }, 10);
   /**
    * position - get current users position.
    * if user has scrolled to new section,

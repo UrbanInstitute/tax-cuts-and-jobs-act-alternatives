@@ -15,6 +15,14 @@ var IS_DESK2 = function(){
 }
 
 
+var getDeviceWidth = function(){
+  if (window.innerWidth > screen.width){
+    return screen.width;
+  }else{
+    return window.innerWidth
+  }
+}
+
 
 var SECTION_INDEX = function(){
   return d3.select("#sectionIndex").attr("data-index")

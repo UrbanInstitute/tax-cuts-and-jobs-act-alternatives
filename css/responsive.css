@@ -12,10 +12,6 @@
     #isDesk1{
         display: block;
     }
-    .x.axisLabel {
-        left: calc(50% - 130px);
-        width: 260px;
-    }
     .quadGroup text {
         font-size: 13px;
     }

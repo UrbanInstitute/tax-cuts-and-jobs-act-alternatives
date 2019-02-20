@@ -33,8 +33,8 @@
 .x.axisLabel{
     position: relative;
     top: 27px;
-    left: calc(50% - 120px);
-    width: 240px;
+    left: calc(50% - 130px);
+    width: 260px;
     text-align: center;
 }
 
@@ -467,6 +467,9 @@ p{
   font-size: 16px;
   line-height: 23px;
   color: #000;
+}
+.firstStep{
+  margin-top: 181px;
 }
 .smallStep{
   margin-bottom: 400px;

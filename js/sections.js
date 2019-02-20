@@ -77,7 +77,7 @@ var scrollVis = function () {
 
 
   if(IS_PHONE()){
-    w = window.innerWidth;
+    w = getDeviceWidth();
   }
   else if(IS_MOBILE()){
     w = 900;
@@ -1749,10 +1749,10 @@ function display(points) {
     .style("left", function(){
       if(IS_PHONE()){
         // return ( (window.innerWidth - PHONE_VIS_WIDTH - margin.left - margin.right)*.5 ) + "px"
-        return "0px"
+        return "-20px"
       }
       else if(IS_MOBILE()){
-        return ( (window.innerWidth - VIS_WIDTH - MARGIN.left - MARGIN.right - 100)*.5 ) + "px"
+        return ( (getDeviceWidth() - VIS_WIDTH - MARGIN.left - MARGIN.right - 100)*.5 ) + "px"
       }else{
         return "inherit"
       }
