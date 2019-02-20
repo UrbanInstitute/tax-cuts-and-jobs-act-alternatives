@@ -12,6 +12,7 @@ body{
     left: 0;
     width: 100%;
     background: #fff;
+    height: 56px;
     border-bottom: 2px solid #eee;
     z-index: 10000;
     -webkit-transition: top 0.25s linear;

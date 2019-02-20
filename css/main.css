@@ -259,7 +259,7 @@
 .axis.tooltip{
     width: 260px;
     top: 20px;
-    left: -10px;
+    left: -60px;
     padding: 18px;
     font-size: 14px;
     z-index: 100;
@@ -282,6 +282,18 @@
 .axis.tooltip .ttArrow{
   left: 73px;
 }
+.axis.tooltip.side .ttArrow{
+    top: 80px;
+    left: -36px;
+    transform: rotate(90deg);
+    overflow: hidden;
+}
+.axis.tooltip.side{
+  -webkit-box-shadow: -7px 10px 17px -6px rgba(0,0,0,0.44);
+  -moz-box-shadow: -7px 10px 17px -6px rgba(0,0,0,0.44);
+  box-shadow: -7px 10px 17px -6px rgba(0,0,0,0.44);
+}
+
 .ttArrow::after{
      content: "";
      position: absolute;
@@ -300,8 +312,8 @@
 
 .explore.tooltip{
     position: absolute;
-    top: 370px;
-    left: 120px;
+    /*top: 370px;*/
+    left: 70px;
     width: 340px;
     z-index: 100;
     padding: 20px;
@@ -520,18 +532,20 @@ position: absolute;
   position: fixed;
   top: 20px;
   padding-left: 10px;
+  margin-left: 60px;
 }
 #vis.posRelTop{
     position: relative;
     float: left;
     display: inline-block;
-    margin-left: 400px;
+    margin-left: 460px;
 }
 #vis.posRelBottom{
-  position: relative;
-  float: inherit;
-  padding-left: 0px;
-  bottom: -110px;
+    position: relative;
+    float: inherit;
+    margin-left: 55px;
+    bottom: 637px;
+    padding-left: 0px;
 }
 #vis.posRelBottomSingleCol{
   position: absolute;

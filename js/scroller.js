@@ -29,14 +29,7 @@ function scroller() {
   function visPosition(){
     d3.select("#vis")
     .style("left", function(){
-      if(IS_PHONE()){
-        return "-20px"
-      }
-      if(IS_MOBILE()){
-        return ( (getDeviceWidth() - VIS_WIDTH - MARGIN.left - MARGIN.right - 100)*.5 ) + "px"
-      }else{
-        return "inherit"
-      }
+      return getVisLeft();
     })
 
   }
@@ -106,7 +99,8 @@ function scroller() {
     if(! IS_MOBILE()){
       if(d3.select(".step").node().getBoundingClientRect().top <= 260){
         var bump = (IS_SHORT()) ? -120: -30;
-        if(d3.selectAll(".step").nodes()[d3.selectAll(".step").nodes().length-1].getBoundingClientRect().bottom <= VIS_WIDTH+margin.top+margin.bottom+20+bump){
+        if(d3.selectAll(".step").nodes()[d3.selectAll(".step").nodes().length-1].getBoundingClientRect().bottom <= getVisWidth()+margin.top+margin.bottom+20+bump){
+          //bottom sticky
           d3.select("#vis")
             .classed("posRelBottomSingleCol", false)
             .classed("posRelTopSingleCol", false)
@@ -117,6 +111,7 @@ function scroller() {
           d3.select("#sections")
             .style("z-index",90)
         }else{
+          //no sticky
           d3.select("#vis")
             .classed("posRelBottomSingleCol", false)
             .classed("posRelTopSingleCol", false)
@@ -129,6 +124,7 @@ function scroller() {
 
         }
       }else{
+        //top sticky
           d3.select("#vis")
             .classed("posRelBottomSingleCol", false)
             .classed("posRelTopSingleCol", false)
@@ -148,7 +144,7 @@ function scroller() {
             .classed("posRelTop", false)
             .classed("posFixed", false)
             .style("top", function(){
-              return (d3.select(".headerimage").node().getBoundingClientRect().height + d3.select(".container").node().getBoundingClientRect().height - VIS_HEIGHT - MARGIN.top - MARGIN.bottom + 165) + "px"
+              return (d3.select(".headerimage").node().getBoundingClientRect().height + d3.select(".container").node().getBoundingClientRect().height - getVisHeight() - margin.top - margin.bottom + 165) + "px"
             })  
           d3.select("#sections")
             .style("z-index",-1)
@@ -170,7 +166,6 @@ function scroller() {
             d3.select("#sections")
               .style("z-index",90)
           }else{
-            console.log("fixing")
             d3.select("#vis")
               .classed("posRelBottomSingleCol", false)
               .classed("posRelTopSingleCol", false)

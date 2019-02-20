@@ -50,7 +50,7 @@ table {
 
 
 a{
- color:#1696d2;
+ color:#008bb0;
  text-decoration: none;
    
 }
@@ -305,10 +305,9 @@ footer {
     margin-top: 25px;
   }
 }
-footer .content{
-  
-    max-width: 1100px;
-
+footer .content {
+    max-width: 750px;
+    width: calc(100% - 40px);
 }
    
 
@@ -323,16 +322,16 @@ h4 {
 
 #left {
   float: left;
-  width: 45%;
+  width: 100%;
   padding-left: 0px;
   padding-right:0px;
 
 }
 
 #right {
-
+  margin-top: 30px;
   float: right;
-  width: 45%;
+  width: 100%;
    padding-right: 0px;
   padding-left: 0px;
     font-size:14px;
@@ -342,7 +341,7 @@ h4 {
 .footerButton{
   float: left;
   height: 40px;
-  width: 135px;
+  width: 160px;
   border: 1px solid #333;
   cursor: pointer;
   font-weight: bold;
@@ -352,7 +351,7 @@ h4 {
   color: #333 !important;
 }
 .footerButton:hover{
-  background: #fdbf11;
+  background: #fcb64b;
   color: #fff !important;
 }
 .footerButton.researchButton{

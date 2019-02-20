@@ -22,7 +22,16 @@ var getDeviceWidth = function(){
     return window.innerWidth
   }
 }
+var getDeviceHeight = function(){
+  if (window.innerHeight > screen.height){
+    return screen.height;
+  }else{
+    return window.innerHeight
+  }
+}
 
+  var screenW = $(window).width(),
+      screenH = $(window).height()
 
 var SECTION_INDEX = function(){
   return d3.select("#sectionIndex").attr("data-index")
@@ -49,41 +58,50 @@ function getInternetExplorerVersion()
   return rv;
 }
 
-var PHONE_VIS_WIDTH = 230;
-var PHONE_VIS_HEIGHT = 400;
-var SHORT_VIS_WIDTH = 600;
-var SHORT_VIS_HEIGHT = 480;
-var SHORT_SCATTER_WIDTH = 480;
-var PHONE_SCATTER_WIDTH = 235
-var VIS_WIDTH = 600;
-var VIS_HEIGHT = 680;
-
-
-var MARGIN = { top: 60, left: 120, bottom: 104, right: 20 };
-var PHONE_MARGIN = { top: 100, left: 30, bottom: 30, right: 30 };
 
 
 
-var desktopHistMargin = {top: 20, right: 20, bottom: 120, left: 120},
-  desktopHistWidth = 600 - desktopHistMargin.left - desktopHistMargin.right,
-  desktopHistHeight = 380 - desktopHistMargin.top - desktopHistMargin.bottom;
-var phoneHistMargin = {top: 20, right: 20, bottom: 40, left: 35},
-  phoneHistWidth = 300 - phoneHistMargin.left - phoneHistMargin.right,
-  phoneHistHeight = 210 - phoneHistMargin.top - phoneHistMargin.bottom;
-var histBinWidth = 5;
+var getVisWidth = function(){
+  if(IS_PHONE()){
+    return getDeviceWidth() + 50;
+  }
+  else if(IS_MOBILE()){
+    return d3.min([900, getDeviceWidth()]);
+  }
+  else if(IS_DESK1()){
+    return 800
+  }
+  else{
+    return 700;
+  }
+}
+var getVisHeight = function(){
+  if(IS_SHORT()){
+    return getDeviceHeight() - 100;
+  }
+  else{
+    return 700;
+  }
+}
 
 
-var margin = ( IS_PHONE() ) ? PHONE_MARGIN : MARGIN;
-var DOT_RADIUS = (IS_PHONE()) ? 4 : 5;
-var SMALL_DOT_RADIUS = (IS_PHONE()) ? 2 : 3;
-var histMargin = (IS_PHONE()) ? phoneHistMargin : desktopHistMargin;
-var histWidth = (IS_PHONE()) ? phoneHistWidth : desktopHistWidth;
-var histHeight = (IS_PHONE()) ? phoneHistHeight : desktopHistHeight;
+var getVisLeft = function(){
+    if(IS_PHONE()){
+      return "0px"
+    }
+    else if(IS_MOBILE()){
+      return ((getDeviceWidth() - getVisWidth())*.5) + "px"
+    }else{
+      return "inherit"
+    }
+}
 
 
-var mapColor = d3.scaleThreshold()
-    .domain([0,.05, .1, .15, .2, .25, .3,.35,.4])
-    .range(["#9d9d9d","#cfe8f3","#a2d4ec","#73bfe2","#46abdb","#1696d2","#12719e","#0a4c6a","#062635","#000"]);
+
+
+var margin = {top: 20, right: 10, bottom: 30, left: 70}
+
+
 
 var DOLLARS = d3.format("$.0s")
 var SMALL_DOLLARS = function(d){
@@ -129,6 +147,7 @@ const increment = 50;
 const lag = 500;
 const longLag = 900;
 
+var phoneXScootch = 50;
 
 var quadTextWidth = (IS_DESK1()) ? 200 : 280,
   quadTextLineHeight = 20
@@ -233,17 +252,19 @@ var ttWidths = {
 }
 
 function showMobileExplore(isTransition){
+  // var scootch = (IS_PHONE()) ? 150 : 200;
+  var scootch = 200;
   if(isTransition){
     d3.selectAll(".mobileExplore")
       .transition()
       .duration(duration)
       .style("margin-left",function(){
-        return -1*(window.innerWidth*.5 - 200) + "px"
+        return -1*(window.innerWidth*.5 - scootch) + "px"
       })
   }else{
     d3.selectAll(".mobileExplore")
       .style("margin-left",function(){
-        return -1*(window.innerWidth*.5 - 200) + "px"
+        return -1*(window.innerWidth*.5 - scootch) + "px"
       })
   }
 }

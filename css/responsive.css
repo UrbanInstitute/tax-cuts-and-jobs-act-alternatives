@@ -28,9 +28,14 @@
     .container{
         margin-left: auto;
         width: 100%;
+        padding-left: 0px;
+        padding-right: 0px;
     }
     #isMobile{
         display: block;
+    }
+    #vis.posFixed{
+      margin-left: 0px;
     }
     #topText{
         font-size: 18px;
@@ -111,6 +116,9 @@
     .controlContainer svg{
         z-index: 2;
     }
+    .axis.tooltip{
+        left: 40px;
+    }
 }
 @media (max-width: 1100px) {
   .wrapper {width:100%; padding-top:100px;}
@@ -130,8 +138,28 @@
     }
 }
 @media (max-width: 768px){
+    #isPhone{
+       display: block;
+    }
+    #catLabels {
+        left: 20px;
+        top: -22px
+    }
+    .catLabel{
+        display: block;
+        font-size: 14px;
+    }
+    .catName.income {
+        margin-right: 0px;
+    }
     .step {
         margin-bottom: 1200px;
+    }
+    .step.lastStep, #mobileExploreBg{
+        width: 300px;
+    }
+    .y.axisLabel{
+        left: -131px;
     }
 }
 @media (max-width: 600px) {
@@ -153,35 +181,26 @@
         width: 300px;
         pointer-events: none;
     }
-}
-@media (max-width: 450px){
-  .footerButton.researchButton {
-      margin-left: 0px;
-      margin-top: 10px;
-      clear: both;
-  }
-}
-@media (max-width: 350px){
-    #sections{
-        left: -20px;
+    .footerButton.researchButton {
+        display: block;
+        margin-left: 15px;
     }
 }
 
 
 
-
-
-@media (max-height: 880px){
+@media (max-height: 800px){
     #isShort{
         display: block;
     }
     #vis.posRelBottom{
         bottom: -97px;
     }
-}
-@media (max-height: 636px), (max-width: 768px){
-    #isPhone{
-       display: block;
+    .y.axisLabel {
+        top: calc(50% - 29px);
+    }
+    .axis.tooltip{
+        left: 40px;
     }
 }
 

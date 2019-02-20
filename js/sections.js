@@ -43,21 +43,6 @@
       out[k].push(v)
     })
 
-    // console.log(out)
-
-    // for(var i = 0; i< cs.length; i++){
-    //   var d = cs[i]
-    //   // console.log(d)
-    //   if(out.hasOwnProperty(d[1]) ){
-    //     if(d3.select(".rangeDot." + d[1] + "_" + d[0] ).classed("active") ){
-    //       out[ d[1] ].push(d[0])  
-    //     }
-    //   }else{
-    //     out[ d[1] ] = [ d[0] ]
-    //   }
-
-    // }
-    // console.log(out)
 
     return out;
   }
@@ -74,37 +59,25 @@ var scrollVis = function () {
   var activeIndex = 0;
 
   var w, h;
+  w = getVisWidth();
+  h = getVisHeight();
 
 
-  if(IS_PHONE()){
-    w = getDeviceWidth();
-  }
-  else if(IS_MOBILE()){
-    w = 900;
-  }
-  else if(IS_DESK1()){
-    w = 800
-  }
-  else{
-    w = 900;
-  }
 
-  if(IS_MOBILE()){
-    h = 700
-  }else{
-    h = 700;
-  }
-
-  var margin = {top: 20, right: 10, bottom: 30, left: 120},
-  width = w - margin.left - margin.right,
+  // var margin = {top: 20, right: 10, bottom: 30, left: 120},
+  var width = w - margin.left - margin.right,
   height = h - margin.top - margin.bottom;
+
+  var scootch = (IS_PHONE()) ? phoneXScootch : 0;
+
+
 
   var svg = d3.select("#vis").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .attr("class", "resizeRemove")
     .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      .attr("transform", "translate(" + (margin.left - scootch) + "," + margin.top + ")");
 
   var x = d3.scaleLinear()
     .range([0, width])
@@ -121,12 +94,16 @@ var scrollVis = function () {
     .tickSizeOuter(0)
     .tickPadding(10)
 
+  var tickPadding = (IS_PHONE()) ? -1*getVisWidth() + phoneXScootch + 25 : 10
+
   var yAxis = d3.axisLeft()
     .scale(y)
     .tickFormat(function(d){ return DOLLARS(d).replace("G","") })
     .tickSize(-width)
     .tickSizeOuter(0)
-    .tickPadding(10)
+    .tickPadding(tickPadding)
+
+
 
 
 
@@ -146,7 +123,7 @@ var scrollVis = function () {
 
   var chartArea = d3.select("#vis").append("div")
     .attr("class", "resizeRemove")
-    .style("left", margin.left + "px")
+    .style("left", (margin.left-scootch) + "px")
     .style("top", margin.top + "px")
     .style("position", "absolute")
 
@@ -168,10 +145,18 @@ var scrollVis = function () {
       d3.select(this).attr("src", "images/infoDotHover.png")
       d3.select("#vis")
         .append("div")
-        .attr("class", "axis tooltip")
+        .attr("class", function(){
+          if(IS_MOBILE() || IS_SHORT()) return "axis tooltip side"
+          else return "axis tooltip"
+        })
+        .style("top", function(){
+          if(IS_SHORT() || IS_MOBILE()) return (d3.select(".y.axisLabelTooltip").node().getBoundingClientRect().top - 165) + "px"
+          else return "20px"
+        })
         .html(yTooltipText)
         .append("div")
-        .attr("class", "ttArrow")
+          .attr("class", "ttArrow")
+
     })
     .on("mouseout", function(){
       d3.select(this).attr("src", "images/infoDot.png")
@@ -538,7 +523,7 @@ highlightEllipse = svg.append("ellipse")
     })
 
     if(key == "ctcAmount" && colors.l == DOT_COLOR && colors.medium == DOT_COLOR && colors.h == DOT_COLOR){
-    // console.log("no legend")
+    // "no legend"
     }
     else if(paramaterText.hasOwnProperty(key)){
     var i = 2
@@ -558,7 +543,6 @@ highlightEllipse = svg.append("ellipse")
 
     for (var c in colors) {
     if (colors.hasOwnProperty(c) && c != "l0" && c != "m0" && c != "h0" ) {
-    // console.log(key, yourobject[key]);
     var color = colors[c].replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"),
     text = paramaterText[key][c][0].replace("<span class = \"tcjaLabel\">","").replace("<span class = \"pretcjaLabel\">","").replace("</span>","")
 
@@ -623,7 +607,6 @@ highlightEllipse = svg.append("ellipse")
 
 
   function filterPoints(filters, points){
-    // console.log(filters, points)
     points[0].forEach(function(point){
       point.hide = false;
       for(var filter in filters){
@@ -655,22 +638,6 @@ highlightEllipse = svg.append("ellipse")
     points[0].forEach(function(point){
 
       point.color = colors[point[key]]
-      // console.log(colors, point, key)
-      // point.hide = false;
-      // for(var filter in filters){
-      //   if(point.hide){
-      //     continue
-      //   }else{
-      //     if(filters.hasOwnProperty(filter)){
-      //       var vals = filters[filter]
-      //       if(vals.indexOf(point[filter]) == -1){
-      //         point.hide = true
-      //       }else{
-      //         point.hide = false;
-      //       }
-      //     }
-      //   }
-      // }
 
     })
 
@@ -718,7 +685,6 @@ function loopAnimate (points, moveY) {           //  create a loop function
 
 
       draw(points);
-      // console.log(t)
       if (t === 1) {
         shown = points[0].map(function(p){ return [p.x, p.y] })
         draw(points);
@@ -830,6 +796,7 @@ d3.selectAll(".explore.tooltip").remove()
 var tt = d3.select("#vis")
   .append("div")
   .attr("class", "explore tooltip")
+  .style("top", (getVisHeight() - 330) + "px")
 
 var xRow = tt.append("div").attr("class", "ttRow x")
 xRow.append("div").attr("class", "ttTitle").text("Change in average after-tax income:")
@@ -868,7 +835,6 @@ function hideExploreTooltip(){
   d3.selectAll(".rangeDot").classed("highlight", false)
   // d3.selectAll(".tempHighlight").classed("tempHighlight", false)
 
-  console.log("hide")
 }
 function showInputTooltip(dot, d){
   if(paramaterText[ d[1] ][ d[2] ][1] == false){
@@ -979,14 +945,14 @@ function hideInfoTooltip(){
     context.clearRect(0, 0, width, height);
 
 
-    // points[0].forEach(function(p,i){
-    //   context.beginPath();
-    //   context.arc(x(p.x), y(p.y), 3, 0, 2 * Math.PI);
-    //   if(p.hide){
-    //     context.fillStyle = "rgba(0, 0, 0, 0.008)";
-    //     context.fill();
-    //   }
-    // });
+    points[0].forEach(function(p,i){
+      context.beginPath();
+      context.arc(x(p.x), y(p.y), 3, 0, 2 * Math.PI);
+      if(p.hide){
+        context.fillStyle = COLOR_HIDE;
+        context.fill();
+      }
+    });
 
     points[0].forEach(function(p,i){
       context.beginPath();
@@ -995,14 +961,11 @@ function hideInfoTooltip(){
         context.fillStyle = p.color;
         context.fill();
         tree.add(p)
-      }else{
-        context.fillStyle = COLOR_HIDE;
-        context.fill();
       }
     });
 
     overlaySvg.on("mousemove",function(){
-      if(activeIndex == 19){
+      if(activeIndex == 19 && !IS_PHONE()){
         var mouse = d3.mouse(this),
         closest = tree.find(mouse[0], mouse[1]);
         if(typeof(closest) != "undefined"){
@@ -1239,7 +1202,7 @@ d3.select(".highlightEllipse")
       if(activeIndex == 15){
         animateLayout("3","a", points, false, "q2", {"0": DARK_HIDE, "1": SEQ_2})
       }
-    }, duration + lag)
+    }, duration + lag + lag)
 
     console.log(14, activeIndex)
   }
@@ -1253,7 +1216,7 @@ d3.select(".highlightEllipse")
       if(activeIndex == 16){
         animateLayout("4","a", points, false, "q3", {"0": DARK_HIDE, "1": SEQ_3})
       }
-    }, duration + lag)
+    }, duration + lag+ lag)
 
     console.log(15, activeIndex)
   }
@@ -1272,7 +1235,7 @@ d3.select(".highlightEllipse")
       if(activeIndex == 17){
         animateLayout("5","a", points, false, "q4", {"0": DARK_HIDE, "1": SEQ_4})
       }
-    }, duration + lag)
+    }, duration + lag+ lag)
 
     console.log(16, activeIndex)
   }
@@ -1307,6 +1270,8 @@ d3.select(".highlightEllipse")
     if(IS_MOBILE()){
       showMobileExplore();
     }
+
+    filterPoints(getFilterVals(), points)
 
     animateLayout(getIncome(),getGroup(), points, true, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
 
@@ -1498,8 +1463,17 @@ function buildRange(key, vals, numVals, filterVals, points){
   .append("div")
   .attr("class", "resizeRemove controlContainer " + key)
   var filters = filterVals[key],
-  w = d3.select(".step.lastStep").node().getBoundingClientRect().width
+  w,
   h = 80
+
+  if(IS_PHONE()){
+    w = 300
+  }
+  else if(IS_MOBILE()){
+    w = 480
+  }else{
+    w = d3.select(".step.lastStep").node().getBoundingClientRect().width
+  }
 
   var title = container.append("div")
   .attr("class", key + " controlTitle")
@@ -1644,7 +1618,8 @@ function buildRange(key, vals, numVals, filterVals, points){
 
 }
 
-function buildExploreSection(filterVals, points){
+function buildExploreSection(points){
+  var filterVals = points[1]
   buildCheckboxes("rates", ["b", "d", "a", "c"], [0, 1, 2, 3], filterVals, points)
   buildRange("standard", ["l", "ml", "mh", "h"], [0, 1, 2, 3], filterVals, points)
   buildRange("amtThreshold", ["l", "h"], [0, 1], filterVals, points)
@@ -1715,7 +1690,7 @@ function buildExploreSection(filterVals, points){
     //   .on("input", function(){
     //     filterPoints(getFilterVals(), points)
     // })
-    buildExploreSection(DEFAULT_FILTERS, points)
+    buildExploreSection(points)
     // d3.selectAll(".rangeDot")
 
 
@@ -1738,7 +1713,7 @@ function buildExploreSection(filterVals, points){
 
 
 
-function display(points) {
+function display(points, filterVals) {
   if(getInternetExplorerVersion() != -1){
     IS_IE = true;
   }
@@ -1747,17 +1722,9 @@ function display(points) {
 
   d3.select('#vis')
     .style("left", function(){
-      if(IS_PHONE()){
-        // return ( (window.innerWidth - PHONE_VIS_WIDTH - margin.left - margin.right)*.5 ) + "px"
-        return "-20px"
-      }
-      else if(IS_MOBILE()){
-        return ( (getDeviceWidth() - VIS_WIDTH - MARGIN.left - MARGIN.right - 100)*.5 ) + "px"
-      }else{
-        return "inherit"
-      }
+      return getVisLeft();
     })
-    .datum([points])
+    .datum([points, filterVals])
     .call(plot);
 
   var scroll = scroller()
@@ -1766,9 +1733,13 @@ function display(points) {
   scroll(d3.selectAll('.step'));
 
   scroll.on('resized', function(){
-    var filterVals = getFilterVals()
-    d3.selectAll(".resizeRemove").remove()
-    display(points)
+    if($(window).width() != screenW || $(window).height() != screenH){
+      screenW = $(window).width()
+      screenH = $(window).height()
+      var filterVals = getFilterVals()
+      d3.selectAll(".resizeRemove").remove()
+      display(points, filterVals)
+    }
   })
 
   scroll.on('active', function (index) {
@@ -1781,5 +1752,5 @@ function display(points) {
 
 
 d3.json("data/data.json", function(points){
-  display(points);
+  display(points, DEFAULT_FILTERS);
 });
