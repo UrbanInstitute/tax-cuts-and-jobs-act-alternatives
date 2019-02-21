@@ -404,6 +404,13 @@ circle.tcjaDot, circle.tcjaLegendDot{
   display: none;
 }
 
+#datePublished{
+  text-align: center;
+    margin-bottom: 40px;
+    font-size: 20px;
+    font-style: italic;
+    margin-top: -9px;
+}
 
 #controls{
   display: block;
@@ -444,6 +451,7 @@ body, svg text{
   font-size: 30px;
   text-align: center;
   padding-bottom: 20px;
+  font-family: "Avenir LT W01_95 Black1475556";
 }
 #topText{
   margin-top: -140px;
@@ -455,6 +463,30 @@ body, svg text{
   background: #fff; 
   z-index: 1000;
   position: relative;
+}
+.jumpTo{
+  font-family: "Avenir LT W01_95 Black1475556"; 
+  font-style: italic;
+}
+.jumpTo span{
+  color: #008bb0;
+  cursor: pointer;
+}
+.jumpButton{
+  display: block;
+  position: absolute;
+  top: 8px;
+  right: 99px;
+  text-transform: uppercase;
+  border: 1px solid #bdbdbd;
+  padding: 8px;
+  color: #bdbdbd !important;
+  background: white;
+  cursor: pointer;
+}
+.jumpButton:hover{
+  background: #fcb64b;
+  color: white !important;
 }
 #topHR{
   width: 130px;

@@ -469,10 +469,11 @@ highlightEllipse = svg.append("ellipse")
 
   }
   function setIncome(income){
+    $("#incomeMenu" ).val(income).selectmenu("refresh")
 
   }
   function setGroup(group){
-
+    $("#groupMenu" ).val(group).selectmenu("refresh")
   }
   function getTcjaVals(i, g){
     var income = (typeof(i) == "undefined") ? getIncome() : i;
@@ -1660,6 +1661,24 @@ function buildExploreSection(points){
     })
 
 
+  d3.selectAll(".jumpTo span")
+    .on("click", function(){
+      var income = d3.select(this).attr("data-income")
+      var group = d3.select(this).attr("data-group")
+
+      setIncome(income)
+      setGroup(group)
+
+      $([document.documentElement, document.body]).animate({
+          scrollTop: $(".lastStep").offset().top - 100
+      }, 1000);
+    })
+
+  d3.select(".jumpButton").on("click", function(){
+    $([document.documentElement, document.body]).animate({
+          scrollTop: $(".lastStep").offset().top - 100
+      }, 1000);
+  })
 }
 
 
