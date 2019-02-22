@@ -168,20 +168,23 @@ var legendWidth = function(i){
   else if(i == 10){
     return 237
   }
-  else if(i == 11 || i == 13 || i == 14){
+  else if(i == 11 || i == 13){
     return 201
   }
   else if(i == 12){
     return 174
   }
+  else if(i == 14){
+    return 304
+  }
   else if(i == 15){
-    return 257
+    return 351
   }
   else if(i == 16){
-    return 295
+    return 388
   }
   else if(i == 17){
-    return 324
+    return 410
   }
   else{
     return 120
@@ -190,14 +193,18 @@ var legendWidth = function(i){
 
 
 var legendHeight = function(i){
+  console.log(i)
   if(i >= 4 && i < 8){
     return 180
   }
   else if(i >= 8 && i < 11){
     return 200
   }
-  else if(i >= 11 && i < 18){
+  else if( (i >= 11 && i < 14) || i == 17){
     return 110
+  }
+  else if(i >= 14 && i < 17){
+    return 130
   }
   else{
     return 90
@@ -207,11 +214,12 @@ var legendHeight = function(i){
 
 
 var customLegendText = {
-  "t1": "Benefits the top 1%",
-  "q1": "Benefits the 1st quintile",
-  "q2": "Benefits the 1st and 2nd quintiles",
-  "q3": "Benefits the 1st, 2nd, and 3rd quintiles",
-  "q4": "Benefits the 1st, 2nd, 3rd, and 4th quintiles"
+  "t1": ["Benefits the top 1%"],
+  "q1": ["Benefits the 1st quintile"],
+  "q1a": ["Benefits the 1st and 2nd quintiles", "Benefits the 1st but not the 2nd quintile"],
+  "q2": ["Benefits the 1st, 2nd, and 3rd quintiles","Benefits the 1st and 2nd but not the 3rd quintile"],
+  "q3": ["Benefits the 1st, 2nd, 3rd, and 4th quintiles","Benefits the 1st, 2nd, and 3rd but not the 4th quintile"],
+  "q4": ["Benefits the 1st, 2nd, 3rd, and 4th but not the 5th quintile"]
 }
 
 var yTooltipText = "Our &ldquo;adjusted revenue&rdquo; measure smooths certain corporate and individual provisions to limit yearly fluctuations in distributional changes. Therefore, it does not match straight revenue change estimates from other organizations."

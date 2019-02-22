@@ -190,18 +190,26 @@ for d in byParam:
 # print dataOut
 
 for o in dataOut:
-	if o["a1"] > tcjaOut["a1"] and o["burden"] > tcjaOut["burden"]:
+	if o["a1"] > tcjaOut["a1"] and o["a2"] > tcjaOut["a2"] and o["burden"] > tcjaOut["burden"]:
 		o["q1"] = "1"
+	elif o["a1"] > tcjaOut["a1"] and o["burden"] > tcjaOut["burden"]:
+		o["q1"] = "2"
 	else:
 		o["q1"] = "0"
 
-	if o["a1"] > tcjaOut["a1"] and o["a2"] > tcjaOut["a2"] and o["burden"] > tcjaOut["burden"]:
+	
+	if o["a1"] > tcjaOut["a1"] and o["a2"] > tcjaOut["a2"] and o["a3"] < tcjaOut["a3"] and o["burden"] > tcjaOut["burden"]:
 		o["q2"] = "1"
+	elif o["a1"] > tcjaOut["a1"] and o["a2"] > tcjaOut["a2"] and o["burden"] > tcjaOut["burden"]:
+		o["q2"] = "2"
 	else:
 		o["q2"] = "0"
 
-	if o["a1"] > tcjaOut["a1"] and o["a2"] > tcjaOut["a2"] and o["a3"] > tcjaOut["a3"] and o["burden"] > tcjaOut["burden"]:
+
+	if o["a1"] > tcjaOut["a1"] and o["a2"] > tcjaOut["a2"] and o["a3"] > tcjaOut["a3"] and o["a4"] > tcjaOut["a4"] and o["burden"] > tcjaOut["burden"]:
 		o["q3"] = "1"
+	elif o["a1"] > tcjaOut["a1"] and o["a2"] > tcjaOut["a2"] and o["a3"] > tcjaOut["a3"] and o["burden"] > tcjaOut["burden"]:
+		o["q3"] = "2"
 	else:
 		o["q3"] = "0"
 

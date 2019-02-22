@@ -334,28 +334,6 @@ var scrollVis = function () {
     .call(wrap, quadTextWidth)
 
 
-  var quadO = svg.append("g")
-    .attr("class", "quadGroupOverlap")
-    .attr("transform", "translate(" + x(TCJA["a2"]) + ",0)")
-    .style("opacity", 0)
-
-  quadO.append("rect")
-    .attr("fill","rgba(207,232,243, .6)")
-    .attr("x",0)
-    .attr("y", 0)
-    .attr("width", width - x(TCJA["a2"]))
-    .attr("height",y(TCJA["burden"]))
-
-  quadO.append("text")
-    .text("Benefits the second quintle")
-    .attr("y", function(){
-      return (.5 * ( height - y(TCJA["burden"]) -2*quadTextLineHeight) + "px")
-    })
-    .attr("dx", function(){
-      return "20px"
-    })
-    .attr("dy", "0px")
-    .call(wrap, quadTextWidth)
 
 
 highlightEllipse = svg.append("ellipse")
@@ -482,25 +460,6 @@ highlightEllipse = svg.append("ellipse")
     return [TCJA[xkey], TCJA["burden"]]
   }
 
-  function moveQuadO(number, word){
-    quadO
-    .transition()
-    .delay(longLag + duration + lag)
-    .duration(duration)
-    .attr("transform", "translate(" + x(TCJA["a" + number]) + ",0)")
-    .style("opacity",1)
-
-    quadO.select("rect")
-    .transition()
-    .delay(longLag + duration + lag)
-    .duration(duration)
-    .attr("width", width - x(TCJA["a" + number]))
-    .on("start", function(){
-    quadO.select("text")
-    .text("Benefits the " + word + " quintile")
-    })
-
-  }
 
   function moveTCJA(vals){
   d3.selectAll(".tick line")
@@ -530,10 +489,15 @@ highlightEllipse = svg.append("ellipse")
   }
 
   function updateLegend(origKey, colors){
+    console.log(origKey, colors)
     var key;
     if(origKey == "ct1" || origKey == "ct2" || origKey == "ct3"){
     key = "ctcAmount"
-    }else{
+    }
+    else if(origKey == "q1" && colors["1"] != colors["2"]){
+      key = "q1a"
+    }
+    else{
     key = origKey
     }
     d3.selectAll(".lrow.temp")
@@ -597,30 +561,60 @@ highlightEllipse = svg.append("ellipse")
 
 
     }else{
-      var color = colors["1"].replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"),
-        text = customLegendText[key]
-    var row = legend.append("g")
-    .attr("class", "lrow temp")
-    .attr("transform", "translate(20, " + (80) + ")")
-    .style("opacity",0)
-    row.transition()
-    .duration(500)
-    .style("opacity",1)
+      // var color = colors["1"].replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"),
+      var color = (key == "q4") ? COLOR_1 : COLOR_2
+      var text = customLegendText[key]
+      
+      var row1 = legend.append("g")
+        .attr("class", "lrow temp")
+        .attr("transform", "translate(20, " + (80) + ")")
+        .style("opacity",0)
+      row1.transition()
+        .duration(500)
+        .style("opacity",1)
 
-    row.append("circle")
-    .attr("cx", 3)
-    .attr("cy", 5)
-    .attr("r", 3)
-    .style("stroke-width", "4px")
-    .style("stroke", color)
-    .style("fill", color)
-    .attr("class", "legendDot")
-    row.append("text")
-    .attr("x", 12)
-    .attr("y", 10)
-    // .attr("r", 3)
-    .attr("class", "legendText legendText")
-    .text(text)
+      row1.append("circle")
+        .attr("cx", 3)
+        .attr("cy", 5)
+        .attr("r", 3)
+        .style("stroke-width", "4px")
+        .style("stroke", color.replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"))
+        .style("fill", color.replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"))
+        .attr("class", "legendDot")
+      row1.append("text")
+        .attr("x", 12)
+        .attr("y", 10)
+        // .attr("r", 3)
+        .attr("class", "legendText legendText")
+        .text(text[0])
+
+      if(text.length == 2){
+        var row2 = legend.append("g")
+          .attr("class", "lrow temp")
+          .attr("transform", "translate(20, " + (100) + ")")
+          .style("opacity",0)
+        row2.transition()
+          .duration(500)
+          .style("opacity",1)
+
+        row2.append("circle")
+          .attr("cx", 3)
+          .attr("cy", 5)
+          .attr("r", 3)
+          .style("stroke-width", "4px")
+          .style("stroke", COLOR_1.replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"))
+          .style("fill", COLOR_1.replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"))
+          .attr("class", "legendDot")
+        row2.append("text")
+          .attr("x", 12)
+          .attr("y", 10)
+          // .attr("r", 3)
+          .attr("class", "legendText legendText")
+          .text(text[1])
+
+      }
+
+
 
     }
 
@@ -1049,8 +1043,7 @@ function hideInfoTooltip(){
       .transition()
       .duration(duration)
       .style("opacity",0)
-    quadO.transition()
-      .style("opacity",0)
+
 
     d3.selectAll("#legendG")
       .transition()
@@ -1161,16 +1154,14 @@ d3.select(".highlightEllipse")
   function compareQ1(points){
     //shade dots based on std deduction 
     //legend
-    quadO.transition()
-      .style("opacity",0)
-    animateLayout("1","a", points, false, "q1", {"0": DARK_HIDE, "1": SEQ_1})
+
+    animateLayout("1","a", points, false, "q1", {"0": DARK_HIDE, "1": COLOR_2, "2": COLOR_2})
 
   }
   function compareTop1(points){
     //shade dots based on std deduction 
     //legend
-    quadO.transition()
-      .style("opacity",0)
+
     animateLayout("8","a", points, false, "t1", {"0": DARK_HIDE, "1": COLOR_4})
 
   }
@@ -1180,25 +1171,8 @@ d3.select(".highlightEllipse")
   function compareQ2(points){
     //shade dots based on std deduction 
     //legend
-
-  quadO
-    .transition()
-      .delay(longLag)
-      .duration(duration)
-      .attr("transform", "translate(" + x(TCJA["a2"]) + ",0)")
-      .style("opacity",1)
-
-  quadO.select("rect")
-    .transition()
-      .delay(longLag)
-      .duration(duration)
-    .attr("width", width - x(TCJA["a2"]))
-    .on("start", function(){
-  quadO.select("text")
-    .text("Benefits the second quintle")
-    })
       
-    animateLayout("2","a", points, false, "q1", {"0": DARK_HIDE, "1": SEQ_1})
+    animateLayout("2","a", points, false, "q1", {"0": DARK_HIDE, "1": COLOR_2, "2": COLOR_1 })
   }
 
   function compareQ3(points){
@@ -1206,14 +1180,13 @@ d3.select(".highlightEllipse")
     //legend
 
 
-    moveQuadO(3, "third")
 
 
 
-    animateLayout("2","a", points, false, "q2", {"0": DARK_HIDE, "1": SEQ_2})
+    animateLayout("2","a", points, false, "q1", {"0": DARK_HIDE, "1": COLOR_2, "2": DARK_HIDE})
     setTimeout(function(){
       if(activeIndex == 15){
-        animateLayout("3","a", points, false, "q2", {"0": DARK_HIDE, "1": SEQ_2})
+        animateLayout("3","a", points, false, "q2", {"0": DARK_HIDE, "2": COLOR_2, "1": COLOR_1})
       }
     }, duration + lag + lag)
 
@@ -1222,11 +1195,10 @@ d3.select(".highlightEllipse")
   function compareQ4(points){
     //shade dots based on std deduction 
     //legend
-    moveQuadO(4, "fourth")
-    animateLayout("3","a", points, false, "q3", {"0": DARK_HIDE, "1": SEQ_3})
+    animateLayout("3","a", points, false, "q2", {"0": DARK_HIDE, "2": COLOR_2, "1": DARK_HIDE})
     setTimeout(function(){
       if(activeIndex == 16){
-        animateLayout("4","a", points, false, "q3", {"0": DARK_HIDE, "1": SEQ_3})
+        animateLayout("4","a", points, false, "q3", {"0": DARK_HIDE, "1": COLOR_2, "2": COLOR_1})
       }
     }, duration + lag+ lag)
 
@@ -1240,11 +1212,10 @@ d3.select(".highlightEllipse")
     hideExploreTooltip()
     filterPoints(DEFAULT_FILTERS, points)
 
-    moveQuadO(5, "fifth")
-    animateLayout("4","a", points, false, "q4", {"0": DARK_HIDE, "1": SEQ_4})
+    animateLayout("4","a", points, false, "q3", {"0": DARK_HIDE, "1": COLOR_2, "2": DARK_HIDE})
     setTimeout(function(){
       if(activeIndex == 17){
-        animateLayout("5","a", points, false, "q4", {"0": DARK_HIDE, "1": SEQ_4})
+        animateLayout("5","a", points, false, "q4", {"0": DARK_HIDE, "1": COLOR_1})
       }
     }, duration + lag+ lag)
 
@@ -1256,8 +1227,6 @@ d3.select(".highlightEllipse")
     }
     animateLayout(getIncome(),getGroup(), points, true, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
 
-    quadO.transition()
-      .style("opacity",0)
 
     d3.selectAll("#legendG")
       .transition()
@@ -1285,8 +1254,6 @@ d3.select(".highlightEllipse")
 
     animateLayout(getIncome(),getGroup(), points, true, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
 
-    quadO.transition()
-      .style("opacity",0)
 
     d3.selectAll("#legendG")
       .transition()
