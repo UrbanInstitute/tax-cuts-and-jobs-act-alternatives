@@ -69,10 +69,10 @@ var getVisWidth = function(){
     return d3.min([900, getDeviceWidth()]);
   }
   else if(IS_DESK1()){
-    return 800
+    return 750
   }
   else{
-    return 700;
+    return 750;
   }
 }
 var getVisHeight = function(){
@@ -124,8 +124,8 @@ var HIDE_2 = "rgba(22,150,210,0.01)" // blue
 var HIDE_3 = "rgba(137,14,202,0.01)" // purple
 
 
-var COLOR_HIDE = "rgba(0, 0, 0, 0.008)"
-var DARK_HIDE = "rgba(0, 0, 0, 0.01)"
+var COLOR_HIDE = "rgba(0, 0, 0, 0.02)"
+var DARK_HIDE = "rgba(0, 0, 0, 0.02)"
 
 var SEQ_1 = "rgba(115,191,226,0.3)"
 var SEQ_2 = "rgba(70,171,219,0.3)"
@@ -149,15 +149,18 @@ const longLag = 900;
 
 var phoneXScootch = 50;
 
-var quadTextWidth = (IS_DESK1()) ? 200 : 280,
+var quadTextWidth = 240,
   quadTextLineHeight = 20
 
 
 
 
 var legendWidth = function(i){
-  if(i >= 4 && i < 8){
+  if(i == 4){
     return 186
+  }
+  else if(i > 4 && i < 8){
+    return 265
   }
   else if(i == 8){
     return 214
@@ -194,8 +197,11 @@ var legendWidth = function(i){
 
 var legendHeight = function(i){
   console.log(i)
-  if(i >= 4 && i < 8){
+  if(i == 4){
     return 180
+  }
+  if(i > 4 && i < 8){
+    return 210
   }
   else if(i >= 8 && i < 11){
     return 200

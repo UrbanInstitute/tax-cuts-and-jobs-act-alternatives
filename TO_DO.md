@@ -1,7 +1,6 @@
-- header, w explore button
-- jump to explore section
 - explore fix left align
-- favicon
+- update width breakpoints
+
 
 
 mobile:

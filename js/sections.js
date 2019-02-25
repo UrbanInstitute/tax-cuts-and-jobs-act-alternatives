@@ -255,15 +255,25 @@ var scrollVis = function () {
     .attr("height", y(TCJA["burden"]))
 
   quad1.append("text")
-    .text("Plans in this quadrant would lead to more average after-tax income and more adjusted revenue than the TCJA.")
+    .html("<tspan class = \"tsm\">More</tspan> after-tax income than TCJA")
     .attr("y", function(){
-      return (.5 * ( y(TCJA["burden"]) -2*quadTextLineHeight) + "px")
+      return (.5 * ( y(TCJA["burden"]) -quadTextLineHeight) + "px")
     })
     .attr("dx", function(){
       return (.5 * (width - x(TCJA["a0"]) ) + "px")
     })
     .attr("dy", "0px")
-    .call(wrap, quadTextWidth)
+
+  quad1.append("text")
+    .html("<tspan class = \"tsm\">More</tspan> adjusted revenue than TCJA")
+    .attr("y", function(){
+      return (.5 * ( y(TCJA["burden"]) +quadTextLineHeight) + "px")
+    })
+    .attr("dx", function(){
+      return (.5 * (width - x(TCJA["a0"]) ) + "px")
+    })
+    .attr("dy", "0px")
+
 
   var quad2 = svg.append("g")
     .attr("class", "quadGroup")
@@ -275,16 +285,29 @@ var scrollVis = function () {
     .attr("width", x(TCJA["a0"]))
     .attr("height", y(TCJA["burden"]))
 
+
   quad2.append("text")
-    .text("Plans in this quadrant would lead to less average after-tax income and more adjusted revenue than the TCJA.")
+    .html("<tspan class = \"tsl\">Less</tspan> after-tax income than TCJA")
     .attr("y", function(){
-      return (.5 * ( y(TCJA["burden"]) -2*quadTextLineHeight) + "px")
+      return (.5 * ( y(TCJA["burden"]) -quadTextLineHeight) + "px")
     })
     .attr("dx", function(){
       return (.5 * ( x(TCJA["a0"]) ) + "px")
     })
     .attr("dy", "0px")
-    .call(wrap, quadTextWidth)
+
+  quad2.append("text")
+    .html("<tspan class = \"tsm\">More</tspan> adjusted revenue than TCJA")
+    .attr("y", function(){
+      return (.5 * ( y(TCJA["burden"]) +quadTextLineHeight) + "px")
+    })
+    .attr("dx", function(){
+      return (.5 * ( x(TCJA["a0"]) ) + "px")
+    })
+    .attr("dy", "0px")
+
+
+
 
 
   var quad3 = svg.append("g")
@@ -298,16 +321,29 @@ var scrollVis = function () {
     .attr("width", x(TCJA["a0"]))
     .attr("height", height - y(TCJA["burden"]))
 
+
   quad3.append("text")
-    .text("Plans in this quadrant would lead to less average after-tax income and less adjusted revenue than the TCJA.")
+    .html("<tspan class = \"tsl\">Less</tspan> after-tax income than TCJA")
     .attr("y", function(){
-      return (.5 * ( height - y(TCJA["burden"]) -2*quadTextLineHeight) + "px")
+      return (.5 * ( height - y(TCJA["burden"]) -quadTextLineHeight) + "px")
     })
     .attr("dx", function(){
       return (.5 * ( x(TCJA["a0"]) ) + "px")
     })
     .attr("dy", "0px")
-    .call(wrap, quadTextWidth)
+
+  quad3.append("text")
+    .html("<tspan class = \"tsl\">Less</tspan> adjusted revenue than TCJA")
+    .attr("y", function(){
+      return (.5 * ( height - y(TCJA["burden"]) +quadTextLineHeight) + "px")
+    })
+    .attr("dx", function(){
+      return (.5 * ( x(TCJA["a0"]) ) + "px")
+    })
+    .attr("dy", "0px")
+
+
+
 
 
 
@@ -323,15 +359,25 @@ var scrollVis = function () {
     .attr("height", height - y(TCJA["burden"]))
 
   quad4.append("text")
-    .text("Plans in this quadrant would lead to more average after-tax income and less adjusted revenue than the TCJA.")
+    .html("<tspan class = \"tsm\">More</tspan> after-tax income than TCJA")
     .attr("y", function(){
-      return (.5 * ( height - y(TCJA["burden"]) -2*quadTextLineHeight) + "px")
+      return (.5 * ( height - y(TCJA["burden"]) -quadTextLineHeight) + "px")
     })
     .attr("dx", function(){
       return (.5 * (width - x(TCJA["a0"]) ) + "px")
     })
     .attr("dy", "0px")
-    .call(wrap, quadTextWidth)
+
+  quad4.append("text")
+    .html("<tspan class = \"tsl\">Less</tspan> adjusted revenue than TCJA")
+    .attr("y", function(){
+      return (.5 * ( height - y(TCJA["burden"]) +quadTextLineHeight) + "px")
+    })
+    .attr("dx", function(){
+      return (.5 * (width - x(TCJA["a0"]) ) + "px")
+    })
+    .attr("dy", "0px")
+
 
 
 
@@ -367,7 +413,7 @@ highlightEllipse = svg.append("ellipse")
 
 
   var legend = svg.append("g")
-    .attr("transform", "translate(20,20)")
+    .attr("transform", "translate(10,10)")
     .attr("id", "legendG")
     .style("opacity",0)
 
@@ -489,7 +535,6 @@ highlightEllipse = svg.append("ellipse")
   }
 
   function updateLegend(origKey, colors){
-    console.log(origKey, colors)
     var key;
     if(origKey == "ct1" || origKey == "ct2" || origKey == "ct3"){
     key = "ctcAmount"
@@ -557,12 +602,33 @@ highlightEllipse = svg.append("ellipse")
     i++;
     }
     }
+    if(key == "ctcAmount" && colors.medium != DOT_COLOR && activeIndex > 4){
+      // console.log(activeIndex)
+      var amt;
+      if (activeIndex == 5) amt = "$2,500"
+      else if(activeIndex == 6) amt = "$1,250"
+      else amt = "$0"
+      var rowT = legend.append("g")
+      .attr("class", "lrow temp")
+      .attr("transform", "translate(20, " + (70 + 6* 20) + ")")
+      .style("opacity",0)
+      rowT.transition()
+      .duration(500)
+      .style("opacity",1)
 
+      rowT.append("text")
+        .attr("class", "legendText bottomLegendText")
+        .text("Filtered by CTC threshold of " + amt)
+
+
+
+    }
 
 
     }else{
       // var color = colors["1"].replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"),
-      var color = (key == "q4") ? COLOR_1 : COLOR_2
+      var color = (key == "q4") ? COLOR_4 : COLOR_2
+      if(key == "t1") color = COLOR_1
       var text = customLegendText[key]
       
       var row1 = legend.append("g")
@@ -602,8 +668,8 @@ highlightEllipse = svg.append("ellipse")
           .attr("cy", 5)
           .attr("r", 3)
           .style("stroke-width", "4px")
-          .style("stroke", COLOR_1.replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"))
-          .style("fill", COLOR_1.replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"))
+          .style("stroke", COLOR_4.replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"))
+          .style("fill", COLOR_4.replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"))
           .attr("class", "legendDot")
         row2.append("text")
           .attr("x", 12)
@@ -1162,7 +1228,7 @@ d3.select(".highlightEllipse")
     //shade dots based on std deduction 
     //legend
 
-    animateLayout("8","a", points, false, "t1", {"0": DARK_HIDE, "1": COLOR_4})
+    animateLayout("8","a", points, false, "t1", {"0": DARK_HIDE, "1": COLOR_1})
 
   }
 
@@ -1172,7 +1238,7 @@ d3.select(".highlightEllipse")
     //shade dots based on std deduction 
     //legend
       
-    animateLayout("2","a", points, false, "q1", {"0": DARK_HIDE, "1": COLOR_2, "2": COLOR_1 })
+    animateLayout("2","a", points, false, "q1", {"0": DARK_HIDE, "1": COLOR_2, "2": COLOR_4 })
   }
 
   function compareQ3(points){
@@ -1186,7 +1252,7 @@ d3.select(".highlightEllipse")
     animateLayout("2","a", points, false, "q1", {"0": DARK_HIDE, "1": COLOR_2, "2": DARK_HIDE})
     setTimeout(function(){
       if(activeIndex == 15){
-        animateLayout("3","a", points, false, "q2", {"0": DARK_HIDE, "2": COLOR_2, "1": COLOR_1})
+        animateLayout("3","a", points, false, "q2", {"0": DARK_HIDE, "2": COLOR_2, "1": COLOR_4})
       }
     }, duration + lag + lag)
 
@@ -1198,7 +1264,7 @@ d3.select(".highlightEllipse")
     animateLayout("3","a", points, false, "q2", {"0": DARK_HIDE, "2": COLOR_2, "1": DARK_HIDE})
     setTimeout(function(){
       if(activeIndex == 16){
-        animateLayout("4","a", points, false, "q3", {"0": DARK_HIDE, "1": COLOR_2, "2": COLOR_1})
+        animateLayout("4","a", points, false, "q3", {"0": DARK_HIDE, "1": COLOR_2, "2": COLOR_4})
       }
     }, duration + lag+ lag)
 
@@ -1215,7 +1281,7 @@ d3.select(".highlightEllipse")
     animateLayout("4","a", points, false, "q3", {"0": DARK_HIDE, "1": COLOR_2, "2": DARK_HIDE})
     setTimeout(function(){
       if(activeIndex == 17){
-        animateLayout("5","a", points, false, "q4", {"0": DARK_HIDE, "1": COLOR_1})
+        animateLayout("5","a", points, false, "q4", {"0": DARK_HIDE, "1": COLOR_4})
       }
     }, duration + lag+ lag)
 

@@ -52,10 +52,16 @@
 
 .quadGroup text{
   text-transform: uppercase;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 12px;
   color: #000;
   text-anchor: middle;
+  font-family: "Avenir LT W01_95 Black1475556";
+}
+.tsl{
+  fill: rgb(236,0,139);
+}
+.tsm{
+  fill: rgb(137,14,202);
 }
 
 
@@ -74,7 +80,9 @@
   font-size: 14px;
   font-weight: normal;
 }
-
+.bottomLegendText{
+  font-style: italic;
+}
 
 
 #catLabels{

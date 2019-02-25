@@ -12,9 +12,6 @@
     #isDesk1{
         display: block;
     }
-    .quadGroup text {
-        font-size: 13px;
-    }
 }
 @media (max-width: 1200px){
     .container{
