@@ -173,7 +173,6 @@ for row in cr:
 			byParam[param][categoryDict[category] + "6"] = float(row[h["pctchginafttaxincpercent_pct_14"]])
 			byParam[param][categoryDict[category] + "7"] = float(row[h["pctchginafttaxincpercent_pct_15"]])
 			byParam[param][categoryDict[category] + "8"] = float(row[h["pctchginafttaxincpercent_pct_16"]])
-			byParam[param][categoryDict[category] + "9"] = float(row[h["pctchginafttaxincpercent_pct_17"]])
 
 	tcja = float(row[h["tcja_dummy"]])
 	if tcja == 1:
