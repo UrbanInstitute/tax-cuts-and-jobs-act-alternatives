@@ -542,9 +542,13 @@ highlightEllipse = svg.append("ellipse")
     else if(origKey == "q1" && colors["1"] != colors["2"]){
       key = "q1a"
     }
+    else if(origKey == "standard"){
+      key = "standardSingle"
+    }
     else{
     key = origKey
     }
+    console.log(key)
     d3.selectAll(".lrow.temp")
     .transition()
     .duration(500)
@@ -1208,7 +1212,7 @@ d3.select(".highlightEllipse")
     //shade dots based on std deduction 
     //legend
     // recolorPoints("standard", {"l": COLOR_1, "ml": COLOR_2, "mh": COLOR_3, "h": COLOR_4}, points)
-    animateLayout("1","a", points, false, "standard", {"l": COLOR_1, "ml": COLOR_2, "mh": COLOR_3, "h": COLOR_4})
+    animateLayout("1","l", points, false, "standard", {"l": COLOR_1, "ml": COLOR_2, "mh": COLOR_3, "h": COLOR_4})
 
   }
   function showTop5_Rates(points){

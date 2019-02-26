@@ -248,6 +248,14 @@ var paramaterText = {
     "mh": ["Medium high","$12,000 (single)<br/>$24,000 (married filing jointly)<br/>$18,000 (head of household)<br/>$12,000 (married filing separately)", "tcja"],
     "h": ["High","$13,200 (single)<br/>$26,400 (married filing jointly)<br/>$21,600 (head of household)<br/>$13,200 (married filing separately)", false]
   },
+  "standardSingle": {
+    "label": "Standard deduction",
+    "info": [false, false],
+    "l" : ["$6,500",false, false],
+    "ml": ["$9,250", false, false],
+    "mh": ["$12,000",false, false],
+    "h": ["$13,200",false, false]
+  },
   "amtThreshold": {
     "label": "AMT exemption phase-out threshold",
     "info": ["The individual alternative minimum tax, or AMT, operates alongside the regular income tax. It requires some taxpayers to calculate their liability twice&mdash;once under the rules for the regular income tax and once under the AMT rules&mdash;and pay the higher amount. The TCJA raised the income threshold at which the AMT exemption phases out, which will significantly reduce the number of taxpayers subject to the AMT.", false],
