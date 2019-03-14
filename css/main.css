@@ -1,16 +1,42 @@
 
-
+#loadingContainer{
+  position: absolute;
+  width: 100%;
+  background: rgba(255,255,255,.95);
+  height: 1220px;
+  z-index: 100;
+  left: 0px;
+  /*top: 40px;*/
+}
+#loadingGif img{
+    margin: 0 auto;
+    display: block;
+    margin-top: 60px;
+    width: 75px;
+}
+#loadingText{
+    font-size: 20px;
+    margin: 0 auto;
+    margin-top: 30px;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-style: italic;
+    color: #adabac;
+}
 
 
 .axisLine{
-  stroke-dasharray: 4 4;
-  stroke-width: 2px;
+  /*stroke-dasharray: 4 4;*/
+  stroke-width: 1.5px;
 }
 .axisLine.zero{
   stroke: #000;
 }
 .axisLine.tcja{
   stroke: #fcb64b;
+  stroke-dasharray: 4 4;
+  stroke-width: 2px;
 }
 .tick line{
   stroke: #bcbec0;
@@ -51,20 +77,20 @@
 }
 
 .quadGroup text{
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   font-size: 12px;
   color: #000;
-  text-anchor: middle;
+  text-anchor: start;
+  font-family: "Avenir LT W01_65 Medium1475532";
+}
+.quadGroup text.big{
+  text-transform: uppercase;
+  font-size: 14px;
   font-family: "Avenir LT W01_95 Black1475556";
 }
-.tsl{
-  fill: rgb(236,0,139);
+.quadArrow{
+  fill: #000;
 }
-.tsm{
-  fill: rgb(137,14,202);
-}
-
-
 
 
 #legendBg{
@@ -90,18 +116,24 @@
     top: -12px;
     left: 80px;
     width: 810px;
+    opacity: 0;
 }
 .catLabel{
   display: inline-block;
   font-size: 18px;
 }
 .catDesc{
-  font-weight: bold;
+  font-family: "Avenir LT W01_95 Black1475556";
   display: inline-block;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #f0573e;
 
 }
 .catName{
   display: inline-block;
+  font-family: "Avenir LT W01_95 Black1475556";
+  font-size: 14px;
   margin-left: 5px;
 }
 .catName.income{
@@ -328,7 +360,7 @@
     padding: 20px;
     padding-bottom: 10px;
     font-size: 13px;
-    background: rgba(157,157,157,.4);
+    background: rgba(255,255,255,.8);
     fill: #000 !important;
     color: #000 !important;
     pointer-events: none;
@@ -389,7 +421,8 @@ svg {
   display: none;
 }
 .x.axis path{
-  stroke-width: 2px;
+  /*stroke-width: 2px;*/
+  display: none;
 }
 
 circle.highlightDot {
@@ -403,7 +436,7 @@ circle.tcjaDot, circle.tcjaLegendDot{
   fill: #fcb64b;
 }
 .pretcjaLegendLine{
-  stroke-dasharray: 2 2;
+  /*stroke-dasharray: 2 2;*/
   stroke: #000;
   stroke-width: 2px;
 }
@@ -483,18 +516,20 @@ body, svg text{
 .jumpButton{
   display: block;
   position: absolute;
-  top: 8px;
-  right: 99px;
+  top: 12px;
+  right: 77px;
   text-transform: uppercase;
-  border: 1px solid #bdbdbd;
-  padding: 8px;
-  color: #bdbdbd !important;
-  background: white;
+  border: 1px solid #bcbec0;
+  padding: 5px 8px;
+  color: #ffffff !important;
+  background: #bcbec0;
+  border-radius: 3px;
   cursor: pointer;
 }
 .jumpButton:hover{
-  background: #fcb64b;
-  color: white !important;
+  background: #008bb0;
+  border: 1px solid #008bb0;
+  /*color: white !important;*/
 }
 #topHR{
   width: 130px;
@@ -508,6 +543,11 @@ body, svg text{
 p{
   line-height:1.6;
   margin-bottom:15px !important;
+}
+.pHeader{
+    font-size: 20px;
+    display: block;
+    margin-bottom: 10px;
 }
 #sections {
   position: relative;

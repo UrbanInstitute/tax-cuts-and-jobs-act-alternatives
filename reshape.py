@@ -160,8 +160,8 @@ for row in cr:
 
 
 
-	categories = ["all","elderly","hoh","kids","mfj","mfs","mkids","mminorkids","myoungkids","nokids","notelderly","single"]
-	categoryDict = {"all": "a","elderly":"b","hoh":"c","kids":"d","mfj":"e","mfs":"f","mkids":"g","mminorkids":"h","myoungkids":"i","nokids":"j","notelderly":"k","single":"l"}
+	categories = ["all","elderly","hoh","kids","mfj"	,"mkids","mminorkids","myoungkids","single"]
+	categoryDict = {"all": "a","elderly":"b","hoh":"c","kids":"d","mfj":"e","mkids":"g","mminorkids":"h","myoungkids":"i","single":"l"}
 	for category in categories:
 		if(row[h["category"]] == category):
 			byParam[param][categoryDict[category] + "0"] = float(row[h["pctchginafttaxincpercent_pct_12"]])
@@ -189,6 +189,42 @@ for d in byParam:
 # print dataOut
 
 for o in dataOut:
+	if o["a4"] > tcjaOut["a4"] and o["burden"] > tcjaOut["burden"]:
+		o["b1"] = "1"
+	elif o["a3"] > tcjaOut["a3"] and o["burden"] > tcjaOut["burden"]:
+		o["b1"] = "2"
+	elif o["a2"] > tcjaOut["a2"] and o["burden"] > tcjaOut["burden"]:
+		o["b1"] = "3"
+	elif o["a1"] > tcjaOut["a1"] and o["burden"] > tcjaOut["burden"]:
+		o["b1"] = "4"
+	else:
+		o["b1"] = "0"
+
+	if o["a4"] > tcjaOut["a4"] and o["burden"] > tcjaOut["burden"]:
+		o["b2"] = "1"
+	else:
+		o["b2"] = "0"
+	if o["a3"] > tcjaOut["a3"] and o["burden"] > tcjaOut["burden"]:
+		o["b3"] = "1"
+	else:
+		o["b3"] = "0"
+	if o["a2"] > tcjaOut["a2"] and o["burden"] > tcjaOut["burden"]:
+		o["b4"] = "1"
+	else:
+		o["b4"] = "0"
+	if o["a1"] > tcjaOut["a1"] and o["burden"] > tcjaOut["burden"]:
+		o["b5"] = "1"
+	else:
+		o["b5"] = "0"
+
+	if o["a5"] > tcjaOut["a5"] and o["burden"] > tcjaOut["burden"]:
+		o["b1"] = "6"
+		o["b2"] = "2"
+		o["b3"] = "2"
+		o["b4"] = "2"
+		o["b5"] = "2"
+
+
 	if o["a1"] > tcjaOut["a1"] and o["a2"] > tcjaOut["a2"] and o["burden"] > tcjaOut["burden"]:
 		o["q1"] = "1"
 	elif o["a1"] > tcjaOut["a1"] and o["burden"] > tcjaOut["burden"]:

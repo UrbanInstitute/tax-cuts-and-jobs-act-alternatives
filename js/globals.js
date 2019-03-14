@@ -105,9 +105,9 @@ var margin = {top: 20, right: 10, bottom: 30, left: 70}
 
 var DOLLARS = d3.format("$.0s")
 var SMALL_DOLLARS = function(d){
-  return d3.format("$.2f")(d/1000000000) + " billion"
+  return d3.format("$.1f")(d/1000000000) + " billion"
 }
-var RATIOS = d3.format(".2f")
+var RATIOS = d3.format(".1f")
 
 
 var DOT_COLOR = "rgba(0,139,176,0.3)"
@@ -225,10 +225,17 @@ var customLegendText = {
   "q1a": ["Benefits the 1st and 2nd quintiles", "Benefits the 1st but not the 2nd quintile"],
   "q2": ["Benefits the 1st, 2nd, and 3rd quintiles","Benefits the 1st and 2nd but not the 3rd quintile"],
   "q3": ["Benefits the 1st, 2nd, 3rd, and 4th quintiles","Benefits the 1st, 2nd, and 3rd but not the 4th quintile"],
-  "q4": ["Benefits the 1st, 2nd, 3rd, and 4th but not the 5th quintile"]
+  "q4": ["Benefits the 1st, 2nd, 3rd, and 4th but not the 5th quintile"],
+  "b5": ["Benefits the 1st quintile and costs less than TCJA", "Benefits the 5th quintile and costs less than TCJA"],
+  "b4": ["Benefits the 2nd quintile and costs less than TCJA", "Benefits the 5th quintile and costs less than TCJA"],
+  "b3": ["Benefits the 3rd quintile and costs less than TCJA", "Benefits the 5th quintile and costs less than TCJA"],
+  "b2": ["Benefits the 4th quintile and costs less than TCJA", "Benefits the 5th quintile and costs less than TCJA"],
+  "b1": ["Benefits any of the first 4 quintiles and costs less than TCJA", "Benefits the 5th quintile and costs less than TCJA"]
 }
 
-var yTooltipText = "Our &ldquo;adjusted revenue&rdquo; measure smooths certain corporate and individual provisions to limit yearly fluctuations in distributional changes. Therefore, it does not match straight revenue change estimates from other organizations."
+var yTooltipText = "Our &ldquo;revenue&rdquo; measure smooths certain corporate and individual provisions to limit yearly fluctuations in distributional changes. Therefore, it does not match straight revenue change estimates from other organizations. It also incorporates the effects of microdynamic behavioral responses."
+
+var xTooltipText = "Our &ldquo;after-tax income&rdquo; measure smooths results to avoid short-term fluctuations caused by the timing of tax provisions. It does not incorporate the effects of microdynamic behavioral responses."
 
 var paramaterText = {
 //note order should be b, d, a, c

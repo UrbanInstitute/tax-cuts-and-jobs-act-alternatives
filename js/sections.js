@@ -136,7 +136,7 @@ var scrollVis = function () {
   var yLabel = chartArea.append("div")
     .attr("class","y axisLabel resizeRemove")
   yLabel.append("div")
-    .text("Adjusted revenue change ($ billions)")
+    .text("Revenue change ($ billions)")
     .attr("class", "y axisLabelText")
   yLabel.append("img")
     .attr("class", "y axisLabelTooltip")
@@ -254,25 +254,42 @@ var scrollVis = function () {
     .attr("width", width - x(TCJA["a0"]))
     .attr("height", y(TCJA["burden"]))
 
-  quad1.append("text")
-    .html("<tspan class = \"tsm\">More</tspan> after-tax income than TCJA")
-    .attr("y", function(){
-      return (.5 * ( y(TCJA["burden"]) -quadTextLineHeight) + "px")
-    })
-    .attr("dx", function(){
-      return (.5 * (width - x(TCJA["a0"]) ) + "px")
-    })
-    .attr("dy", "0px")
+  var qg1 = quad1
+    .append("g")
+    .attr("transform", "translate(" + (.5 * (width - x(TCJA["a0"]) - 200 + 30)) + "," + .5*( y(TCJA["burden"]) -1.7*quadTextLineHeight) + ")" )
 
-  quad1.append("text")
-    .html("<tspan class = \"tsm\">More</tspan> adjusted revenue than TCJA")
-    .attr("y", function(){
-      return (.5 * ( y(TCJA["burden"]) +quadTextLineHeight) + "px")
-    })
-    .attr("dx", function(){
-      return (.5 * (width - x(TCJA["a0"]) ) + "px")
-    })
+  qg1.append("text")
+    .text("MORE")
+    .attr("class","big")
     .attr("dy", "0px")
+    .attr("dx", "23px")
+
+  qg1.append("polygon")
+    .attr("class", "quadArrow more")
+    .attr("points", "0,-1 9,-10, 18,-1")
+
+  qg1.append("text")
+    .text("after-tax income than TCJA")
+    .attr("dy", (quadTextLineHeight*.8) + "px")
+
+
+  qg1.append("text")
+    .text("MORE")
+    .attr("class","big")
+    .attr("dy", (quadTextLineHeight*2.8) + "px")
+    .attr("dx", "23px")
+
+  qg1.append("polygon")
+    .attr("class", "quadArrow more")
+    .attr("points", "0," + (quadTextLineHeight*2.8-1) + " 9," + (quadTextLineHeight*2.8-10) + " 18," + (quadTextLineHeight*2.8-1))
+
+
+  qg1.append("text")
+    .text("adjusted revenue than TCJA")
+    .attr("dy", (quadTextLineHeight*3.6) + "px")
+
+
+
 
 
   var quad2 = svg.append("g")
@@ -285,30 +302,39 @@ var scrollVis = function () {
     .attr("width", x(TCJA["a0"]))
     .attr("height", y(TCJA["burden"]))
 
+  var qg2 = quad2
+    .append("g")
+    .attr("transform", "translate(" + (.5 * ( x(TCJA["a0"]) - 200 + 30)) + "," + .5*( y(TCJA["burden"]) -1.7*quadTextLineHeight) + ")" )
 
-  quad2.append("text")
-    .html("<tspan class = \"tsl\">Less</tspan> after-tax income than TCJA")
-    .attr("y", function(){
-      return (.5 * ( y(TCJA["burden"]) -quadTextLineHeight) + "px")
-    })
-    .attr("dx", function(){
-      return (.5 * ( x(TCJA["a0"]) ) + "px")
-    })
+  qg2.append("text")
+    .text("LESS")
+    .attr("class","big")
     .attr("dy", "0px")
+    .attr("dx", "23px")
 
-  quad2.append("text")
-    .html("<tspan class = \"tsm\">More</tspan> adjusted revenue than TCJA")
-    .attr("y", function(){
-      return (.5 * ( y(TCJA["burden"]) +quadTextLineHeight) + "px")
-    })
-    .attr("dx", function(){
-      return (.5 * ( x(TCJA["a0"]) ) + "px")
-    })
-    .attr("dy", "0px")
+  qg2.append("polygon")
+    .attr("class", "quadArrow less")
+    .attr("points", "0,-10 9,-1, 18,-10")
 
+  qg2.append("text")
+    .text("after-tax income than TCJA")
+    .attr("dy", (quadTextLineHeight*.8) + "px")
 
 
+  qg2.append("text")
+    .text("MORE")
+    .attr("class","big")
+    .attr("dy", (quadTextLineHeight*2.8) + "px")
+    .attr("dx", "23px")
 
+  qg2.append("polygon")
+    .attr("class", "quadArrow more")
+    .attr("points", "0," + (quadTextLineHeight*2.8-1) + " 9," + (quadTextLineHeight*2.8-10) + " 18," + (quadTextLineHeight*2.8-1))
+
+
+  qg2.append("text")
+    .text("adjusted revenue than TCJA")
+    .attr("dy", (quadTextLineHeight*3.6) + "px")
 
   var quad3 = svg.append("g")
     .attr("class", "quadGroup")
@@ -322,25 +348,43 @@ var scrollVis = function () {
     .attr("height", height - y(TCJA["burden"]))
 
 
-  quad3.append("text")
-    .html("<tspan class = \"tsl\">Less</tspan> after-tax income than TCJA")
-    .attr("y", function(){
-      return (.5 * ( height - y(TCJA["burden"]) -quadTextLineHeight) + "px")
-    })
-    .attr("dx", function(){
-      return (.5 * ( x(TCJA["a0"]) ) + "px")
-    })
-    .attr("dy", "0px")
+  var qg3 = quad3
+    .append("g")
+    .attr("transform", "translate(" + (.5 * ( x(TCJA["a0"]) - 200 + 30)) + "," + .5*(height - y(TCJA["burden"]) -1.7*quadTextLineHeight) + ")" )
 
-  quad3.append("text")
-    .html("<tspan class = \"tsl\">Less</tspan> adjusted revenue than TCJA")
-    .attr("y", function(){
-      return (.5 * ( height - y(TCJA["burden"]) +quadTextLineHeight) + "px")
-    })
-    .attr("dx", function(){
-      return (.5 * ( x(TCJA["a0"]) ) + "px")
-    })
+  qg3.append("text")
+    .text("LESS")
+    .attr("class","big")
     .attr("dy", "0px")
+    .attr("dx", "23px")
+
+  qg3.append("polygon")
+    .attr("class", "quadArrow less")
+    .attr("points", "0,-10 9,-1, 18,-10")
+
+  qg3.append("text")
+    .text("after-tax income than TCJA")
+    .attr("dy", (quadTextLineHeight*.8) + "px")
+
+
+  qg3.append("text")
+    .text("LESS")
+    .attr("class","big")
+    .attr("dy", (quadTextLineHeight*2.8) + "px")
+    .attr("dx", "23px")
+
+  qg3.append("polygon")
+    .attr("class", "quadArrow more")
+    .attr("points", "0," + (quadTextLineHeight*2.8-10) + " 9," + (quadTextLineHeight*2.8-1) + " 18," + (quadTextLineHeight*2.8-10))
+
+
+  qg3.append("text")
+    .text("adjusted revenue than TCJA")
+    .attr("dy", (quadTextLineHeight*3.6) + "px")
+
+
+
+
 
 
 
@@ -358,25 +402,45 @@ var scrollVis = function () {
     .attr("width", width - x(TCJA["a0"]))
     .attr("height", height - y(TCJA["burden"]))
 
-  quad4.append("text")
-    .html("<tspan class = \"tsm\">More</tspan> after-tax income than TCJA")
-    .attr("y", function(){
-      return (.5 * ( height - y(TCJA["burden"]) -quadTextLineHeight) + "px")
-    })
-    .attr("dx", function(){
-      return (.5 * (width - x(TCJA["a0"]) ) + "px")
-    })
-    .attr("dy", "0px")
 
-  quad4.append("text")
-    .html("<tspan class = \"tsl\">Less</tspan> adjusted revenue than TCJA")
-    .attr("y", function(){
-      return (.5 * ( height - y(TCJA["burden"]) +quadTextLineHeight) + "px")
-    })
-    .attr("dx", function(){
-      return (.5 * (width - x(TCJA["a0"]) ) + "px")
-    })
+
+
+  var qg4 = quad4
+    .append("g")
+    .attr("transform", "translate(" + (.5 * (width - x(TCJA["a0"]) - 200 + 30)) + "," + .5*(height - y(TCJA["burden"]) -1.7*quadTextLineHeight) + ")" )
+
+  qg4.append("text")
+    .text("MORE")
+    .attr("class","big")
     .attr("dy", "0px")
+    .attr("dx", "23px")
+
+  qg4.append("polygon")
+    .attr("class", "quadArrow less")
+    .attr("points", "0,-1 9,-10, 18,-1")
+
+  qg4.append("text")
+    .text("after-tax income than TCJA")
+    .attr("dy", (quadTextLineHeight*.8) + "px")
+
+
+  qg4.append("text")
+    .text("LESS")
+    .attr("class","big")
+    .attr("dy", (quadTextLineHeight*2.8) + "px")
+    .attr("dx", "23px")
+
+  qg4.append("polygon")
+    .attr("class", "quadArrow more")
+    .attr("points", "0," + (quadTextLineHeight*2.8-10) + " 9," + (quadTextLineHeight*2.8-1) + " 18," + (quadTextLineHeight*2.8-10))
+
+
+  qg4.append("text")
+    .text("adjusted revenue than TCJA")
+    .attr("dy", (quadTextLineHeight*3.6) + "px")
+
+
+
 
 
 
@@ -535,6 +599,7 @@ highlightEllipse = svg.append("ellipse")
   }
 
   function updateLegend(origKey, colors){
+    // if(origKey[0] == "b"){ return false}
     var key;
     if(origKey == "ct1" || origKey == "ct2" || origKey == "ct3"){
     key = "ctcAmount"
@@ -548,7 +613,6 @@ highlightEllipse = svg.append("ellipse")
     else{
     key = origKey
     }
-    console.log(key)
     d3.selectAll(".lrow.temp")
     .transition()
     .duration(500)
@@ -632,7 +696,10 @@ highlightEllipse = svg.append("ellipse")
     }else{
       // var color = colors["1"].replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"),
       var color = (key == "q4") ? COLOR_4 : COLOR_2
+      var color2 = (key[0] == "b") ? COLOR_1 : COLOR_4
       if(key == "t1") color = COLOR_1
+      if(key[0] == "b") color = COLOR_3
+
       var text = customLegendText[key]
       
       var row1 = legend.append("g")
@@ -672,8 +739,8 @@ highlightEllipse = svg.append("ellipse")
           .attr("cy", 5)
           .attr("r", 3)
           .style("stroke-width", "4px")
-          .style("stroke", COLOR_4.replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"))
-          .style("fill", COLOR_4.replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"))
+          .style("stroke", color2.replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"))
+          .style("fill", color2.replace(/rgba\((.*?\,.*?\,.*?)\,.*?\)/,"rgb($1)"))
           .attr("class", "legendDot")
         row2.append("text")
           .attr("x", 12)
@@ -1057,7 +1124,7 @@ function hideInfoTooltip(){
     });
 
     overlaySvg.on("mousemove",function(){
-      if(activeIndex == 19 && !IS_PHONE()){
+      if(activeIndex == 24 && !IS_PHONE()){
         var mouse = d3.mouse(this),
         closest = tree.find(mouse[0], mouse[1]);
         if(typeof(closest) != "undefined"){
@@ -1094,6 +1161,10 @@ function hideInfoTooltip(){
       .transition()
       .duration(duration)
       .style("opacity",0)
+    d3.select("#catLabels")
+      .transition()
+      .duration(duration)
+      .style("opacity",0)
   }
 
   function showAllAll(points){
@@ -1116,6 +1187,11 @@ function hideInfoTooltip(){
 
 
     d3.selectAll("#legendG")
+      .transition()
+      .duration(duration)
+      .style("opacity",1)
+
+    d3.select("#catLabels")
       .transition()
       .duration(duration)
       .style("opacity",1)
@@ -1273,14 +1349,14 @@ d3.select(".highlightEllipse")
     }, duration + lag+ lag)
 
   }
-    function compareQ5(points){
+  function compareQ5(points){
     //shade dots based on std deduction 
     //legend
-    if(IS_MOBILE()){
-      hideMobileExplore(true, true);
-    }
-    hideExploreTooltip()
-    filterPoints(DEFAULT_FILTERS, points)
+    // if(IS_MOBILE()){
+    //   hideMobileExplore(true, true);
+    // }
+    // hideExploreTooltip()
+    // filterPoints(DEFAULT_FILTERS, points)
 
     animateLayout("4","a", points, false, "q3", {"0": DARK_HIDE, "1": COLOR_2, "2": DARK_HIDE})
     setTimeout(function(){
@@ -1288,6 +1364,39 @@ d3.select(".highlightEllipse")
         animateLayout("5","a", points, false, "q4", {"0": DARK_HIDE, "1": COLOR_4})
       }
     }, duration + lag+ lag)
+
+  }
+
+
+  function compareQ5Alt1(points){
+
+    animateLayout("5","a", points, false, "b5", {"0": DARK_HIDE, "1": COLOR_3, "2": COLOR_1})
+
+  }
+  function compareQ5Alt2(points){
+
+    animateLayout("5","a", points, false, "b4", {"0": DARK_HIDE, "1": COLOR_3, "2": COLOR_1})
+
+  }
+  function compareQ5Alt3(points){
+
+    animateLayout("5","a", points, false, "b3", {"0": DARK_HIDE, "1": COLOR_3, "2": COLOR_1})
+
+  }
+  function compareQ5Alt4(points){
+
+
+    animateLayout("5","a", points, false, "b2", {"0": DARK_HIDE, "1": COLOR_3, "2": COLOR_1})
+
+  }
+  function compareQ5Alt(points){
+    if(IS_MOBILE()){
+      hideMobileExplore(true, true);
+    }
+    hideExploreTooltip()
+    filterPoints(DEFAULT_FILTERS, points)
+
+    animateLayout("5","a", points, false, "b1", {"0": DARK_HIDE, "1": COLOR_3, "2": COLOR_3, "3": COLOR_3, "4": COLOR_3, "6": COLOR_1})
 
   }
 
@@ -1738,8 +1847,13 @@ function buildExploreSection(points){
     activateFunctions[15] = function(){ compareQ3(points); };
     activateFunctions[16] = function(){ compareQ4(points); };
     activateFunctions[17] = function(){ compareQ5(points); };
-    activateFunctions[18] = function(){ preExplore(points) };
-    activateFunctions[19] = function(){ showExplore(points); };
+    activateFunctions[18] = function(){ compareQ5Alt1(points); };
+    activateFunctions[19] = function(){ compareQ5Alt2(points); };
+    activateFunctions[20] = function(){ compareQ5Alt3(points); };
+    activateFunctions[21] = function(){ compareQ5Alt4(points); };
+    activateFunctions[22] = function(){ compareQ5Alt(points); };
+    activateFunctions[23] = function(){ preExplore(points) };
+    activateFunctions[24] = function(){ showExplore(points); };
 
 
     d3.select("#groupMenu").on("input", function(){
@@ -1815,7 +1929,41 @@ function display(points, filterVals) {
   });
 }
 
+var counter = 0;
+function checkReady() {
+  counter += 1;
+  var drawn = d3.selectAll(".quadGroup").nodes().length
+  if (drawn < 4) {
+    if(counter >= 7){
+        d3.select("#loadingText")
+          .html("Almost done&#8230; thanks for your patience!")
+    }
+    setTimeout("checkReady()", 100);
+  } else {
+    setTimeout(function(){
+        d3.select("#loadingContainer")
+          .transition()
+          .style("opacity", 0)
+          .on("end", function(){
+            d3.select(this).remove()
+          })
+    },500);
+  }
+}
+
+d3.select("#loadingContainer")
+  .style("position", function(){
+    if(d3.select("#vis").classed("posFixed")) return "fixed"
+    else return "absolute"
+  })
+  .style("top", function(){
+    if(d3.select("#vis").classed("posFixed")) return "40px"
+    else return (d3.select("#vis").node().getBoundingClientRect().top - d3.select("body").node().getBoundingClientRect().top - 40) + "px"
+  })
+
+
 
 d3.json("data/data.json", function(points){
   display(points, DEFAULT_FILTERS);
 });
+checkReady()
