@@ -220,12 +220,12 @@ var legendHeight = function(i){
 
 
 var customLegendText = {
-  "t1": ["Benefits the top 1%"],
-  "q1": ["Benefits the 1st quintile"],
-  "q1a": ["Benefits the 1st and 2nd quintiles", "Benefits the 1st but not the 2nd quintile"],
-  "q2": ["Benefits the 1st, 2nd, and 3rd quintiles","Benefits the 1st and 2nd but not the 3rd quintile"],
-  "q3": ["Benefits the 1st, 2nd, 3rd, and 4th quintiles","Benefits the 1st, 2nd, and 3rd but not the 4th quintile"],
-  "q4": ["Benefits the 1st, 2nd, 3rd, and 4th but not the 5th quintile"],
+  "t1": ["Benefits the top 1% and costs less than TCJA"],
+  "q1": ["Benefits the 1st quintile and costs less than TCJA"],
+  "q1a": ["Benefits the 1st and 2nd quintiles and costs less than TCJA", "Benefits the 1st but not the 2nd quintile and costs less than TCJA"],
+  "q2": ["Benefits the 1st through 3rd quintiles and costs less than TCJA","Benefits the 1st and 2nd but not the 3rd quintile and costs less than TCJA"],
+  "q3": ["Benefits the 1st through 4th quintiles and costs less than TCJA","Benefits the 1st through 3rd but not the 4th quintile and costs less than TCJA"],
+  "q4": ["Benefits the 1st through 4th but not the 5th quintile and costs less than TCJA"],
   "b5": ["Benefits the 1st quintile and costs less than TCJA", "Benefits the 5th quintile and costs less than TCJA"],
   "b4": ["Benefits the 2nd quintile and costs less than TCJA", "Benefits the 5th quintile and costs less than TCJA"],
   "b3": ["Benefits the 3rd quintile and costs less than TCJA", "Benefits the 5th quintile and costs less than TCJA"],
@@ -240,8 +240,8 @@ var xTooltipText = "Our &ldquo;after-tax income&rdquo; measure smooths results t
 var paramaterText = {
 //note order should be b, d, a, c
   "rates": {
-    "label": "Marginal tax rates",
-    "info": ["Average tax rates measure tax burden; marginal tax rates measure the taxes&rsquo; effect on incentives to earn, save, invest, or spend. The TCJA reduced tax rates at almost all levels of taxable income and shifted the thresholds for several income tax brackets.", false],
+    "label": "Marginal tax rates ",
+    "info": ["Average tax rates measure tax burden; marginal tax rates measure the taxes&rsquo; effect on incentives to earn, save, invest, or spend. The TCJA reduced tax rates at almost all levels of taxable income and shifted the thresholds for several income tax brackets. The &ldquo;pre-TCJA&rdquo; values use tax brackets under prior law; the other values use brackets under current law.", false],
     "b": ["<span class = \"tcjaLabel\">TCJA</span>", "Tax rates for each tax bracket are as follows:<br/>10% (first bracket)<br/>12% (second bracket)<br/>22% (third bracket)<br/>24% (fourth bracket)<br/>32% (fifth bracket)<br/>35% (sixth bracket)<br/>37% (seventh bracket)", "tcja"],
     "d": ["Between TCJA and pre-TCJA ","Tax rates for each tax bracket are as follows:<br/>10% (first bracket)<br/>13% (second bracket)<br/>24% (third bracket)<br/>26% (fourth bracket)<br/>32.5% (fifth bracket)<br/>35% (sixth bracket)<br/>38.5% (seventh bracket)", false],
     "a" : ["<span class = \"pretcjaLabel\">Pre-TCJA</span>","Tax rates for each tax bracket are as follows:<br/>10% (first bracket)<br/>15% (second bracket)<br/>25% (third bracket)<br/>28% (fourth bracket)<br/>33% (fifth bracket)<br/>35% (sixth bracket)<br/>39.6% (seventh bracket)","pretcja"],
@@ -284,7 +284,7 @@ var paramaterText = {
     "h": ["$5,500",false, false]
   },
   "salt": {
-    "label": "State and local tax deduction cap",
+    "label": "SALT deduction cap",
     "info": ["Under prior law, taxpayers who itemized their deductions could, with no cap, deduct from their taxable income all their state and local property tax as well as either their income or sales taxes. The TCJA capped the total state and local tax (SALT) deduction at $10,000, leading to a steep drop in the share of taxpayers with a tax benefit from the SALT deduction.", "Under prior law, there was no limit to the SALT deduction. We did not simulate &ldquo;no limit&rdquo; in our data."],
     "l" : ["$0","A $0 cap means the SALT deduction is repealed", false],
     "ml": ["$10,000", false, "tcja"],
@@ -292,15 +292,15 @@ var paramaterText = {
     "h": ["$20,000",false, false]
   },
   "ctcThreshold": {
-    "label": "CTC refundability threshold",
-    "info": ["The TCJA&rsquo;s boost to the CTC offset the loss of personal exemptions for many taxpayers with dependents. The new law increased the CTC from $1,000 to $2,000 and raised the income at which the credit begins to phase out. The TCJA also lowered the refundability threshold from $3,000 to $2,5000, which expands the credit to more households.", "The TCJA increased the CTC from $1,000 to $2,000 per child. Our simulations fix the maximum CTC at the TCJA amount of $2,000 and change other factors. Because prior law had a different CTC amount (and therefore a different reference point for a refundability threshold), we don&rsquo;t include the pre-TCJA value in our options."],
+    "label": "CTC earnings threshold for refundability",
+    "info": ["The TCJA&rsquo;s boost to the CTC offset the loss of personal exemptions for many taxpayers with dependents. The new law increased the CTC from $1,000 to $2,000 and raised the income at which the credit begins to phase out. The TCJA also lowered the earnings threshold for refundability from $3,000 to $2,500, which expands the credit to more households.", "The TCJA increased the CTC from $1,000 to $2,000 per child. Our simulations fix the maximum CTC at the TCJA amount of $2,000 and change other factors. Because prior law had a different CTC amount (and therefore a different reference point for an earnings threshold), we don&rsquo;t include the pre-TCJA value in our options."],
     "l" : ["$0","The refundable portion equals 15 percent of all earnings", false],
     "medium" : ["$1,250","The refundable portion equals 15 percent of earnings above $1,250", false],
     "h": ["$2,500","The refundable portion equals 15 percent of earnings above $2,500", "tcja"],
   },
   "ctcAmount": {
     "label": "CTC refundable portion",
-    "info": ["The TCJA&rsquo;s boost to the CTC offset the loss of personal exemptions for many taxpayers with dependents. The new law increased the CTC from $1,000 to $2,000 and raised the maximum refundable credit amount. It also introduced a new $500 credit for nonchild dependents (we do not include this credit in our options). The values below are a share of the TCJA&rsquo;s $2,000 CTC credit.", "The TCJA increased the CTC from $1,000 to $2,000 per child. Our simulations hold the maximum CTC at the TCJA amount of $2,000 and change other factors. Because prior law had a different CTC amount (and therefore a different reference point for a refundable portion), we don&rsquo;t include the pre-TCJA value in our options."],
+    "info": ["The TCJA&rsquo;s boost to the CTC offset the loss of personal exemptions for many taxpayers with dependents. The new law increased the CTC from $1,000 to $2,000 and raised the maximum refundable credit amount. It also introduced a new $500 credit for nonchild dependents (we do not include this credit in our options). These values represent a share of the TCJA&rsquo;s $2,000 CTC credit.", "The TCJA increased the CTC from $1,000 to $2,000 per child. Our simulations hold the maximum CTC at the TCJA amount of $2,000 and change other factors. Because prior law had a different CTC amount (and therefore a different reference point for a refundable portion), we don&rsquo;t include the pre-TCJA value in our options."],
     "l" : ["50%","$1,000", false],
     "medium" : ["70%","$1,400", "tcja"],
     "h": ["100%","$2,000", false],

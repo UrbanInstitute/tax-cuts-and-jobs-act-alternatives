@@ -151,7 +151,7 @@ var scrollVis = function () {
         })
         .style("top", function(){
           if(IS_SHORT() || IS_MOBILE()) return (d3.select(".y.axisLabelTooltip").node().getBoundingClientRect().top - 165) + "px"
-          else return "20px"
+          else return "0px"
         })
         .html(yTooltipText)
         .append("div")
@@ -169,6 +169,36 @@ var scrollVis = function () {
   xLabel.append("div")
     .text("Change in average after-tax income (%)")
     .attr("class", "x axisLabelText")
+
+
+  xLabel.append("img")
+    .attr("class", "x axisLabelTooltip")
+    .attr("src", "images/infoDot.png")
+    .on("mouseover", function(){
+      d3.select(this).attr("src", "images/infoDotHover.png")
+      d3.select("#vis")
+        .append("div")
+        .attr("class", function(){
+          if(IS_MOBILE() || IS_SHORT()) return "xaxis tooltip side"
+          else return "xaxis tooltip"
+        })
+        .style("top", function(){
+          if(IS_SHORT() || IS_MOBILE()) return (d3.select(".y.axisLabelTooltip").node().getBoundingClientRect().top - 165) + "px"
+          else return (d3.select(".x.axisLabelTooltip").node().getBoundingClientRect().top - 245) + "px"
+        })
+        .style("left", function(){
+          if(IS_SHORT() || IS_MOBILE()) return (d3.select(".y.axisLabelTooltip").node().getBoundingClientRect().top - 165) + "px"
+          else return (d3.select(".x.axisLabelTooltip").node().getBoundingClientRect().left - d3.select("#vis").node().getBoundingClientRect().left - 123) + "px"
+        })
+        .html(xTooltipText)
+        .append("div")
+          .attr("class", "ttArrow")
+
+    })
+    .on("mouseout", function(){
+      d3.select(this).attr("src", "images/infoDot.png")
+      d3.selectAll(".xaxis.tooltip").remove()
+    })
 
 
 
@@ -1820,7 +1850,7 @@ function buildExploreSection(points){
       }, 1000);
     })
 
-  d3.select(".jumpButton").on("click", function(){
+  d3.selectAll(".defaultJump").on("click", function(){
     $([document.documentElement, document.body]).animate({
           scrollTop: $(".lastStep").offset().top - 100
       }, 1000);
@@ -1953,11 +1983,11 @@ function checkReady() {
 
 d3.select("#loadingContainer")
   .style("position", function(){
-    if(d3.select("#vis").classed("posFixed")) return "fixed"
+    if(d3.select("#topText").node().getBoundingClientRect().bottom < 110) return "fixed"
     else return "absolute"
   })
   .style("top", function(){
-    if(d3.select("#vis").classed("posFixed")) return "40px"
+    if(d3.select("#topText").node().getBoundingClientRect().bottom < 110) return "40px"
     else return (d3.select("#vis").node().getBoundingClientRect().top - d3.select("body").node().getBoundingClientRect().top - 40) + "px"
   })
 

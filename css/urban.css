@@ -49,9 +49,10 @@ table {
 
 
 
-a{
+a, .inlineJump{
  color:#008bb0;
  text-decoration: none;
+ cursor: pointer;
    
 }
 

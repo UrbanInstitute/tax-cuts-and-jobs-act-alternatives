@@ -59,15 +59,16 @@
 .x.axisLabel{
     position: relative;
     top: 27px;
-    left: calc(50% - 130px);
-    width: 260px;
+    left: calc(50% - 141px);
+    width: 282px;
     text-align: center;
 }
 
-.y.axisLabelText{
+.axisLabelText{
   display: inline-block;
 }
-.y.axisLabelTooltip{
+
+.y.axisLabelTooltip, .x.axisLabelTooltip{
     width: 16px;
     display: inline-block;
     position: relative;
@@ -75,6 +76,7 @@
     top: 4px;
     cursor: pointer;
 }
+
 
 .quadGroup text{
   /*text-transform: uppercase;*/
@@ -300,13 +302,25 @@
 .axis.tooltip{
     width: 260px;
     top: 20px;
-    left: -60px;
+    left: -87px;
     padding: 18px;
     font-size: 14px;
     z-index: 100;
     position: absolute;
     pointer-events: none;
 }
+.xaxis.tooltip{
+    width: 260px;
+    height: 145px;
+    bottom: 100px;
+    left: -87px;
+    padding: 18px;
+    font-size: 14px;
+    z-index: 100;
+    position: absolute;
+    pointer-events: none;
+}
+
 
 .ttArrow{
       width: 50px;
@@ -525,6 +539,18 @@ body, svg text{
   background: #bcbec0;
   border-radius: 3px;
   cursor: pointer;
+  width: 109px;
+}
+.bigCog{
+    width: 15px;
+    display: inline-block;
+    margin-right: 5px;
+    top: 2px;
+    position: relative;
+}
+.jumpButton span{
+  display: inline-block;
+  color: #ffffff !important;
 }
 .jumpButton:hover{
   background: #008bb0;
@@ -843,7 +869,7 @@ circle.morph{
 }
 
 #heroimage{
-   background-image: url("../images/dummy_header.jpg");
+   background-image: url("../images/header.jpeg");
      background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
