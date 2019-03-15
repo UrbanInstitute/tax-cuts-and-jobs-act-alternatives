@@ -156,6 +156,7 @@ var quadTextWidth = 240,
 
 
 var legendWidth = function(i){
+  console.log(i)
   if(i == 4){
     return 186
   }
@@ -171,23 +172,8 @@ var legendWidth = function(i){
   else if(i == 10){
     return 237
   }
-  else if(i == 11 || i == 13){
-    return 201
-  }
-  else if(i == 12){
-    return 174
-  }
-  else if(i == 14){
-    return 304
-  }
-  else if(i == 15){
-    return 351
-  }
-  else if(i == 16){
-    return 388
-  }
-  else if(i == 17){
-    return 410
+  else if(i >= 11 && i <= 22){
+    return 294
   }
   else{
     return 120
@@ -196,7 +182,7 @@ var legendWidth = function(i){
 
 
 var legendHeight = function(i){
-  console.log(i)
+  // console.log(i)
   if(i == 4){
     return 180
   }
@@ -206,11 +192,11 @@ var legendHeight = function(i){
   else if(i >= 8 && i < 11){
     return 200
   }
-  else if( (i >= 11 && i < 14) || i == 17){
-    return 110
+  else if( (i >= 11 && i < 14 || i == 17)){
+    return 122
   }
-  else if(i >= 14 && i < 17){
-    return 130
+  else if(i >= 14 && i <= 22 && i != 17){
+    return 162
   }
   else{
     return 90

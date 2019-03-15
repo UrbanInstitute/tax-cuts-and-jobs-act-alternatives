@@ -89,22 +89,37 @@
     }
     #hideExplore{
         display: inline-block;
-        margin-left: 10px;
-        background: red;
+        float: right;
+        top: -11px;
+        right: -9px;
         padding: 10px;
         color: white;
         cursor: pointer;
+        position: relative;
+    }
+    #hideExplore img{
+        width: 19px;
     }
     #showExplore{
-        display: block;
+        display: none;
         position: fixed;
-        top: 90px;
-        left: 0px;
+        bottom: 40px;
+        left: calc(50% - 94px);
         z-index: 2;
-        background: red;
-        padding: 10px;
-        color: white;
+        text-transform: uppercase;
+        border: 1px solid #bcbec0;
+        padding: 5px 8px;
+        color: #ffffff !important;
+        background: #bcbec0;
+        border-radius: 3px;
         cursor: pointer;
+    }
+    #showExplore:hover{
+        background: #008bb0;
+        border: 1px solid #008bb0;
+    }
+    #showExplore span{
+        display: inline-block;
     }
     .rangeLabel{
         z-index: 1;
@@ -156,7 +171,7 @@
         width: 300px;
     }
     .y.axisLabel{
-        left: -131px;
+        left: -104px;
     }
 }
 @media (max-width: 600px) {

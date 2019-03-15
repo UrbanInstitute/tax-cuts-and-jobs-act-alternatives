@@ -754,7 +754,7 @@ highlightEllipse = svg.append("ellipse")
         // .attr("r", 3)
         .attr("class", "legendText legendText")
         .text(text[0])
-        .call(wrap, 250, 6)
+        .call(wrap, 260, 6)
 
       if(text.length == 2){
         var row2 = legend.append("g")
@@ -780,7 +780,7 @@ highlightEllipse = svg.append("ellipse")
           // .attr("r", 3)
           .attr("class", "legendText legendText")
           .text(text[1])
-          .call(wrap, 250, 16)
+          .call(wrap, 260, 16)
 
       }
 
@@ -1833,6 +1833,12 @@ function buildExploreSection(points){
    d3.select("#hideExplore")
     .on("click", function(){
       hideMobileExplore(true, false)
+    })
+    .on("mouseover", function(){
+      d3.select(this).select("img").attr("src", "images/closeDotHover.png")
+    })
+    .on("mouseout", function(){
+      d3.select(this).select("img").attr("src", "images/closeDot.png")
     })
    d3.select("#showExplore")
     .on("click", function(){
