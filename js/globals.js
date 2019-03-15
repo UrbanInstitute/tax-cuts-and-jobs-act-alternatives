@@ -373,14 +373,14 @@ function hideMobileExplore(isTransition, hideAll){
 }
 
 
-function wrap(text, width) {
+function wrap(text, width, lineHeight) {
   text.each(function() {
     var text = d3.select(this),
         words = text.text().split(/\s+/).reverse(),
         word,
         line = [],
         lineNumber = 0,
-        lineHeight = quadTextLineHeight, // px
+        // lineHeight = quadTextLineHeight, // px
         y = text.attr("y"),
         dy = parseFloat(text.attr("dy")),
         dx = parseFloat(text.attr("dx")),

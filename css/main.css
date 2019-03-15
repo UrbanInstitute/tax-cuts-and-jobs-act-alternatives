@@ -83,12 +83,12 @@
   font-size: 12px;
   color: #000;
   text-anchor: start;
-  font-family: "Avenir LT W01_65 Medium1475532";
+  font-family: "Avenir LT W01_65 Medium1475532","Avenir";
 }
 .quadGroup text.big{
   text-transform: uppercase;
   font-size: 14px;
-  font-family: "Avenir LT W01_95 Black1475556";
+  font-family: "Avenir LT W01_95 Black1475556","Avenir";
 }
 .quadArrow{
   fill: #000;
@@ -125,7 +125,7 @@
   font-size: 18px;
 }
 .catDesc{
-  font-family: "Avenir LT W01_95 Black1475556";
+  font-family: "Avenir LT W01_95 Black1475556","Avenir";
   display: inline-block;
   font-size: 12px;
   text-transform: uppercase;
@@ -134,7 +134,7 @@
 }
 .catName{
   display: inline-block;
-  font-family: "Avenir LT W01_95 Black1475556";
+  font-family: "Avenir LT W01_95 Black1475556","Avenir";
   font-size: 14px;
   margin-left: 5px;
 }
@@ -163,7 +163,7 @@
   position: absolute;
   top: -16px;
   color: #373a3c;
-  font-family: "Avenir LT W01_65 Medium1475532";
+  font-family: "Avenir LT W01_65 Medium1475532","Avenir";
   /*font-family: "Avenir LT W01_95 Black1475556";*/
 }
 .controlTitle span, .controlInfo{
@@ -180,7 +180,7 @@
 .menuTitle{
   font-size: 16px;
   color: #373a3c;
-  font-family: "Avenir LT W01_65 Medium1475532";
+  font-family: "Avenir LT W01_65 Medium1475532","Avenir";
   /*font-family: "Avenir LT W01_95 Black1475556";*/
 }
 .rangeLine{
@@ -275,7 +275,7 @@
     cursor: pointer;
 }
 .infoTitle{
-  font-family: "Avenir LT W01_95 Black1475556";
+  font-family: "Avenir LT W01_95 Black1475556","Avenir";
 }
 .infoTitle.where{
   margin-top: 40px
@@ -388,12 +388,12 @@
 }
 .ttTitle{
   display: inline-block;
-  font-family: "Avenir LT W01_95 Black1475556";
+  font-family: "Avenir LT W01_95 Black1475556","Avenir";
 }
 .ttValue{
   display: inline-block;
   margin-left: 5px;
-  font-family: "Avenir LT W01_55 Roman1475520","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Avenir LT W01_55 Roman1475520","Avenir","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 .ttValue.tcjaLabel{
   color: #000 !important;
@@ -491,7 +491,7 @@ div.tempHighlight{
 */
 
 body, svg text{
-  font-family: "Avenir LT W01_55 Roman1475520","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Avenir LT W01_55 Roman1475520","Avenir", "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 .container {
   width: 1180px;
@@ -506,7 +506,7 @@ body, svg text{
   font-size: 30px;
   text-align: center;
   padding-bottom: 20px;
-  font-family: "Avenir LT W01_95 Black1475556";
+  font-family: "Avenir LT W01_95 Black1475556","Avenir";
 }
 #topText{
   margin-top: -140px;
@@ -520,7 +520,7 @@ body, svg text{
   position: relative;
 }
 .jumpTo{
-  font-family: "Avenir LT W01_95 Black1475556"; 
+  font-family: "Avenir LT W01_95 Black1475556","Avenir"; 
   font-style: italic;
 }
 .jumpTo span{
@@ -587,7 +587,7 @@ p{
 
 .step {
   margin-bottom: 200px;
-  font-family: "Avenir LT W01_55 Roman1475520","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Avenir LT W01_55 Roman1475520","Avenir","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 16px;
   line-height: 23px;
   color: #000;
@@ -688,7 +688,7 @@ position: absolute;
 }
 .tick text{
   font-size: 12px;
-  font-family: "Avenir LT W01_55 Roman1475520","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Avenir LT W01_55 Roman1475520","Avenir","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 .largeChartLabel, .largeScatterplotLabel{
   font-weight: bold;
@@ -700,7 +700,7 @@ position: absolute;
   letter-spacing: 3px;
 }
 text.dotChartLegend{
-  font-family: "Avenir LT W01_55 Roman1475520","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Avenir LT W01_55 Roman1475520","Avenir","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 12px;
 }
 .dotHoverRect{
