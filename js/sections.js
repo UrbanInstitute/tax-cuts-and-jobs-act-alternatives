@@ -315,7 +315,7 @@ var scrollVis = function () {
 
 
   qg1.append("text")
-    .text("adjusted revenue than TCJA")
+    .text("revenue than TCJA")
     .attr("dy", (quadTextLineHeight*3.6) + "px")
 
 
@@ -363,7 +363,7 @@ var scrollVis = function () {
 
 
   qg2.append("text")
-    .text("adjusted revenue than TCJA")
+    .text("revenue than TCJA")
     .attr("dy", (quadTextLineHeight*3.6) + "px")
 
   var quad3 = svg.append("g")
@@ -409,7 +409,7 @@ var scrollVis = function () {
 
 
   qg3.append("text")
-    .text("adjusted revenue than TCJA")
+    .text("revenue than TCJA")
     .attr("dy", (quadTextLineHeight*3.6) + "px")
 
 
@@ -466,7 +466,7 @@ var scrollVis = function () {
 
 
   qg4.append("text")
-    .text("adjusted revenue than TCJA")
+    .text("revenue than TCJA")
     .attr("dy", (quadTextLineHeight*3.6) + "px")
 
 
@@ -995,7 +995,7 @@ xRow.append("div").attr("class", "ttTitle").text("Change in average after-tax in
 xRow.append("div").attr("class", "ttValue").text(RATIOS(point[getGroup() + getIncome()]) + "%" )
 
 var yRow = tt.append("div").attr("class", "ttRow y")
-yRow.append("div").attr("class", "ttTitle").text("Adjusted revenue change:")
+yRow.append("div").attr("class", "ttTitle").text("Revenue change:")
 yRow.append("div").attr("class", "ttValue").text(SMALL_DOLLARS(point["burden"]) )
 
 
