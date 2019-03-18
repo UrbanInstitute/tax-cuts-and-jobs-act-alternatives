@@ -339,7 +339,7 @@ var scrollVis = function () {
 
   var qg2 = quad2
     .append("g")
-    .attr("transform", "translate(" + (.5 * ( x(TCJA["a0"]) - 200 + 30)) + "," + .5*( y(TCJA["burden"]) -1.7*quadTextLineHeight) + ")" )
+    .attr("transform", "translate(" + (.5 * ( x(TCJA["a0"]) - 290 + 30)) + "," + .5*( y(TCJA["burden"]) -1.7*quadTextLineHeight) + ")" )
 
   qg2.append("text")
     .text("LESS")
@@ -385,7 +385,7 @@ var scrollVis = function () {
 
   var qg3 = quad3
     .append("g")
-    .attr("transform", "translate(" + (.5 * ( x(TCJA["a0"]) - 200 + 30)) + "," + .5*(height - y(TCJA["burden"]) -1.7*quadTextLineHeight) + ")" )
+    .attr("transform", "translate(" + (.5 * ( x(TCJA["a0"]) - 290 + 30)) + "," + .5*(height - y(TCJA["burden"]) -1.7*quadTextLineHeight) + ")" )
 
   qg3.append("text")
     .text("LESS")
@@ -1103,7 +1103,7 @@ tt.append("div")
 if(paramaterText[ key ][ "info" ][1]){
 tt.append("div")
   .attr("class", "infoTitle where")
-  .html("<img src = \"images/questionDot.png\"/>Where is the Pre-TCJA value?")
+  .html("<img src = \"images/questionDot.png\"/>Where is the pre-TCJA value?")
 
   tt.append("div")
     .attr("class", "ttContent")
