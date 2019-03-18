@@ -449,6 +449,14 @@ circle.tcjaDot, circle.tcjaLegendDot{
   stroke: #fcb64b;
   fill: #fcb64b;
 }
+circle.pretcjaDot, circle.pretcjaLegendDot{
+  stroke-width: 2px;
+  stroke: #000;
+  fill: #fff;
+}
+
+
+
 .pretcjaLegendLine{
   /*stroke-dasharray: 2 2;*/
   stroke: #000;

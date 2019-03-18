@@ -253,6 +253,11 @@ var scrollVis = function () {
       .attr("cy", -10)
 
 
+  var pretcjaDot = overlaySvg.append("circle")
+      .attr("r", 4.5)
+      .classed("pretcjaDot", true)
+      .attr("cx", x(0))
+      .attr("cy", y(0))
 
 
 
@@ -545,12 +550,11 @@ highlightEllipse = svg.append("ellipse")
     .attr("class", "lrow")
     .attr("transform", "translate(20, 60)")
 
-  lrow2.append("line")
-    .attr("x1", 0)
-    .attr("x2", 9)
-    .attr("y1",-2)
-    .attr("y2",10)
-    .attr("class", "pretcjaLegendLine")
+  lrow2.append("circle")
+    .attr("cx", 3)
+    .attr("cy", 5)
+    .attr("r", 4.5)
+    .attr("class", "pretcjaLegendDot")
 
   lrow2.append("text")
     .attr("x", 12)
@@ -558,6 +562,8 @@ highlightEllipse = svg.append("ellipse")
     // .attr("r", 3)
     .attr("class", "pretcjaLegendText legendText")
     .text("Pre-TCJA")
+
+
 
 
 
