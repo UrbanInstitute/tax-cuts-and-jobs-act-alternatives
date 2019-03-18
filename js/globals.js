@@ -263,7 +263,7 @@ var paramaterText = {
   },
   "personal": {
     "label": "Personal exemption amount",
-    "info": ["Under prior law, taxpayers could deduct the personal exemption for themselves and for their dependents. The amount was the same for all filing statuses. The TCJA repealed personal and dependent exemptions. In place of personal exemptions, the TCJA increased the standard deduction. And in place of dependent exemptions, the TCJA increased the CTC and created a new $500 tax credit for dependents not eligible for the CTC.", false],
+    "info": ["Under prior law, taxpayers could deduct the personal exemption for themselves and for their dependents. The amount was the same for all filing statuses. The TCJA repealed personal and dependent exemptions. In place of personal exemptions, the TCJA increased the standard deduction. And in place of dependent exemptions, the TCJA increased the child tax credit and created a new $500 tax credit for dependents not eligible for the child tax credit.", false],
     "l" : ["$0",false, "tcja"],
     "ml": ["$2,050", false, false],
     "mh": ["$4,150",false, "pretcja"],
@@ -279,14 +279,14 @@ var paramaterText = {
   },
   "ctcThreshold": {
     "label": "CTC earnings threshold for refundability",
-    "info": ["The TCJA&rsquo;s boost to the CTC offset the loss of personal exemptions for many taxpayers with dependents. The new law increased the CTC from $1,000 to $2,000 and raised the income at which the credit begins to phase out. The TCJA also lowered the earnings threshold for refundability from $3,000 to $2,500, which expands the credit to more households.", "The TCJA increased the CTC from $1,000 to $2,000 per child. Our simulations fix the maximum CTC at the TCJA amount of $2,000 and change other factors. Because prior law had a different CTC amount (and therefore a different reference point for an earnings threshold), we don&rsquo;t include the pre-TCJA value in our options."],
+    "info": ["The TCJA&rsquo;s boost to the child tax credit (CTC) offset the loss of personal exemptions for many taxpayers with dependents. The new law increased the CTC from $1,000 to $2,000 and raised the income at which the credit begins to phase out. The TCJA also lowered the earnings threshold for refundability from $3,000 to $2,500, which expands the credit to more households.", "The TCJA increased the CTC from $1,000 to $2,000 per child. Our simulations fix the maximum CTC at the TCJA amount of $2,000 and change other factors. Because prior law had a different CTC amount (and therefore a different reference point for an earnings threshold), we don&rsquo;t include the pre-TCJA value in our options."],
     "l" : ["$0","The refundable portion equals 15 percent of all earnings", false],
     "medium" : ["$1,250","The refundable portion equals 15 percent of earnings above $1,250", false],
     "h": ["$2,500","The refundable portion equals 15 percent of earnings above $2,500", "tcja"],
   },
   "ctcAmount": {
     "label": "CTC refundable portion",
-    "info": ["The TCJA&rsquo;s boost to the CTC offset the loss of personal exemptions for many taxpayers with dependents. The new law increased the CTC from $1,000 to $2,000 and raised the maximum refundable credit amount. It also introduced a new $500 credit for nonchild dependents (we do not include this credit in our options). These values represent a share of the TCJA&rsquo;s $2,000 CTC credit.", "The TCJA increased the CTC from $1,000 to $2,000 per child. Our simulations hold the maximum CTC at the TCJA amount of $2,000 and change other factors. Because prior law had a different CTC amount (and therefore a different reference point for a refundable portion), we don&rsquo;t include the pre-TCJA value in our options."],
+    "info": ["The TCJA&rsquo;s boost to the child tax credit (CTC) offset the loss of personal exemptions for many taxpayers with dependents. The new law increased the CTC from $1,000 to $2,000 and raised the maximum refundable credit amount. It also introduced a new $500 credit for nonchild dependents (we do not include this credit in our options). These values represent a share of the TCJA&rsquo;s $2,000 CTC.", "The TCJA increased the CTC from $1,000 to $2,000 per child. Our simulations hold the maximum CTC at the TCJA amount of $2,000 and change other factors. Because prior law had a different CTC amount (and therefore a different reference point for a refundable portion), we don&rsquo;t include the pre-TCJA value in our options."],
     "l" : ["50%","$1,000", false],
     "medium" : ["70%","$1,400", "tcja"],
     "h": ["100%","$2,000", false],
