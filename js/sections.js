@@ -1956,13 +1956,24 @@ function display(points, filterVals) {
 
   scroll(d3.selectAll('.step'));
 
-  scroll.on('resized', function(){
-    if($(window).width() != screenW || $(window).height() != screenH){
+  function runResize(){
       screenW = $(window).width()
       screenH = $(window).height()
       var filterVals = getFilterVals()
       d3.selectAll(".resizeRemove").remove()
       display(points, filterVals)
+  }
+  scroll.on('resized', function(){
+
+    if(IS_PHONE()){
+      if($(window).width() != screenW){
+        runResize()
+      } 
+    }
+    else{
+      if($(window).width() != screenW || $(window).height() != screenH){
+        runResize()
+      }
     }
   })
 

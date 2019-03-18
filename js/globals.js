@@ -69,7 +69,7 @@ var getVisWidth = function(){
     return d3.min([900, getDeviceWidth()]);
   }
   else if(IS_DESK1()){
-    return 750
+    return 700
   }
   else{
     return 750;
