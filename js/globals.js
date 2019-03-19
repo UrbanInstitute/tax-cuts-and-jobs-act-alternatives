@@ -1,6 +1,9 @@
 var IS_SHORT = function(){
   return (d3.select("#isShort").style("display") == "block")
 }
+var IS_SMALL_PHONE = function(){
+  return (d3.select("#isSmallPhone").style("display") == "block")
+}
 var IS_PHONE = function(){
   return (d3.select("#isPhone").style("display") == "block")
 }
@@ -173,7 +176,7 @@ var legendWidth = function(i){
     return 237
   }
   else if(i >= 11 && i <= 22){
-    return 294
+    return 288
   }
   else{
     return 120

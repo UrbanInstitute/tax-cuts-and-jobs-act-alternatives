@@ -277,6 +277,11 @@ var scrollVis = function () {
     .attr("y1", y(yMin))
     .attr("y2", y(yMax))
 
+  var rightQuadScootch = (IS_SMALL_PHONE()) ? 105 : 45;
+  var leftQuadScootch = (IS_SMALL_PHONE()) ? 125 : 30;
+  var incomeQuadText = (IS_SMALL_PHONE()) ? "after-tax income" : "after-tax income than TCJA";
+  var revenueQuadText= (IS_SMALL_PHONE()) ? "revenue" : "revenue than TCJA";
+
 
   var quad1 = svg.append("g")
     .attr("class", "quadGroup")
@@ -291,7 +296,7 @@ var scrollVis = function () {
 
   var qg1 = quad1
     .append("g")
-    .attr("transform", "translate(" + (.5 * (width - x(TCJA["a0"]) - 200 + 30)) + "," + .5*( y(TCJA["burden"]) -1.7*quadTextLineHeight) + ")" )
+    .attr("transform", "translate(" + (.5 * (width - x(TCJA["a0"]) - 200 + rightQuadScootch)) + "," + .5*( y(TCJA["burden"]) -1.7*quadTextLineHeight) + ")" )
 
   qg1.append("text")
     .text("MORE")
@@ -304,7 +309,7 @@ var scrollVis = function () {
     .attr("points", "0,-1 9,-10, 18,-1")
 
   qg1.append("text")
-    .text("after-tax income than TCJA")
+    .text(incomeQuadText)
     .attr("dy", (quadTextLineHeight*.8) + "px")
 
 
@@ -320,7 +325,7 @@ var scrollVis = function () {
 
 
   qg1.append("text")
-    .text("revenue than TCJA")
+    .text(revenueQuadText)
     .attr("dy", (quadTextLineHeight*3.6) + "px")
 
 
@@ -339,7 +344,7 @@ var scrollVis = function () {
 
   var qg2 = quad2
     .append("g")
-    .attr("transform", "translate(" + (.5 * ( x(TCJA["a0"]) - 290 + 30)) + "," + .5*( y(TCJA["burden"]) -1.7*quadTextLineHeight) + ")" )
+    .attr("transform", "translate(" + (.5 * ( x(TCJA["a0"]) - 290 + leftQuadScootch)) + "," + .5*( y(TCJA["burden"]) -1.7*quadTextLineHeight) + ")" )
 
   qg2.append("text")
     .text("LESS")
@@ -352,7 +357,7 @@ var scrollVis = function () {
     .attr("points", "0,-10 9,-1, 18,-10")
 
   qg2.append("text")
-    .text("after-tax income than TCJA")
+    .text(incomeQuadText)
     .attr("dy", (quadTextLineHeight*.8) + "px")
 
 
@@ -368,7 +373,7 @@ var scrollVis = function () {
 
 
   qg2.append("text")
-    .text("revenue than TCJA")
+    .text(revenueQuadText)
     .attr("dy", (quadTextLineHeight*3.6) + "px")
 
   var quad3 = svg.append("g")
@@ -385,7 +390,7 @@ var scrollVis = function () {
 
   var qg3 = quad3
     .append("g")
-    .attr("transform", "translate(" + (.5 * ( x(TCJA["a0"]) - 290 + 30)) + "," + .5*(height - y(TCJA["burden"]) -1.7*quadTextLineHeight) + ")" )
+    .attr("transform", "translate(" + (.5 * ( x(TCJA["a0"]) - 290 + leftQuadScootch)) + "," + .5*(height - y(TCJA["burden"]) -1.7*quadTextLineHeight) + ")" )
 
   qg3.append("text")
     .text("LESS")
@@ -398,7 +403,7 @@ var scrollVis = function () {
     .attr("points", "0,-10 9,-1, 18,-10")
 
   qg3.append("text")
-    .text("after-tax income than TCJA")
+    .text(incomeQuadText)
     .attr("dy", (quadTextLineHeight*.8) + "px")
 
 
@@ -414,7 +419,7 @@ var scrollVis = function () {
 
 
   qg3.append("text")
-    .text("revenue than TCJA")
+    .text(revenueQuadText)
     .attr("dy", (quadTextLineHeight*3.6) + "px")
 
 
@@ -442,7 +447,7 @@ var scrollVis = function () {
 
   var qg4 = quad4
     .append("g")
-    .attr("transform", "translate(" + (.5 * (width - x(TCJA["a0"]) - 200 + 30)) + "," + .5*(height - y(TCJA["burden"]) -1.7*quadTextLineHeight) + ")" )
+    .attr("transform", "translate(" + (.5 * (width - x(TCJA["a0"]) - 200 + rightQuadScootch)) + "," + .5*(height - y(TCJA["burden"]) -1.7*quadTextLineHeight) + ")" )
 
   qg4.append("text")
     .text("MORE")
@@ -455,7 +460,7 @@ var scrollVis = function () {
     .attr("points", "0,-1 9,-10, 18,-1")
 
   qg4.append("text")
-    .text("after-tax income than TCJA")
+    .text(incomeQuadText)
     .attr("dy", (quadTextLineHeight*.8) + "px")
 
 
@@ -471,7 +476,7 @@ var scrollVis = function () {
 
 
   qg4.append("text")
-    .text("revenue than TCJA")
+    .text(revenueQuadText)
     .attr("dy", (quadTextLineHeight*3.6) + "px")
 
 
@@ -509,12 +514,73 @@ highlightEllipse = svg.append("ellipse")
     .attr("y2", y(yMax))
 
 
+  var legendSvg = (IS_PHONE()) ? overlaySvg : svg;
+  var legendLeft = (IS_PHONE()) ? -300 : 10
+  var legendTop = (IS_PHONE()) ? 40 : 10
 
 
-  var legend = svg.append("g")
-    .attr("transform", "translate(10,10)")
+  if(IS_PHONE()){
+    var legendButton = overlaySvg.append("g")
+      .attr("transform", "translate(1,10)")
+      .style("cursor", "pointer")
+    legendButton.append("rect")
+      .attr("width", 67)
+      .attr("height", 26)
+      .attr("rx", 4)
+      .attr("ry", 4)
+      .attr("id", "phoneLegendButton")
+    legendButton.append("text")
+      .attr("x", 8)
+      .attr("y", 18)
+      .text("LEGEND")
+      .attr("id", "phoneLegendText")
+      .style("opacity", 1)
+    legendButton.append("image")
+      .attr("xlink:href", "images/closeWhite.png")
+      .attr("width", 15)
+      .attr("height", 15)
+      .attr("x", 5.5)
+      .attr("y", 5.5)
+      .style("opacity", 0)
+    legendButton.on("click", function(){
+      if(d3.select(this).classed("open")){
+        d3.select(this).classed("open", false)
+        d3.select("#legendG")
+          .transition()
+          .attr("transform", "translate(" + legendLeft + "," + legendTop + ")")
+        d3.select(this).select("rect")
+          .transition()
+          .attr("width", 67)
+        d3.select(this).select("text")
+          .transition()
+          .style("opacity", 1)
+        d3.select(this).select("image")
+          .transition()
+          .style("opacity", 0)
+
+      }else{
+        d3.select(this).classed("open", true)
+        d3.select("#legendG")
+          .transition()
+          .attr("transform", "translate(" + 1 + "," + legendTop + ")")
+        d3.select(this).select("rect")
+          .transition()
+          .attr("width", 26)
+        d3.select(this).select("image")
+          .transition()
+          .style("opacity", 1)
+        d3.select(this).select("text")
+          .transition()
+          .style("opacity", 0)
+      }
+
+    })
+  }
+
+  var legend = legendSvg.append("g")
+    .attr("transform", "translate(" + legendLeft + "," + legendTop + ")")
     .attr("id", "legendG")
-    .style("opacity",0)
+    // .style("opacity",0)
 
   legend.append("rect")
     .attr("id", "legendBg")
@@ -525,12 +591,12 @@ highlightEllipse = svg.append("ellipse")
     .attr("id", "legendTitle")
     .text("Legend")
     .attr("text-anchor","start")
-    .attr("x", 20)
+    .attr("x", 16)
     .attr("y", 30)
 
   var lrow = legend.append("g")
     .attr("class", "lrow")
-    .attr("transform", "translate(20, 40)")
+    .attr("transform", "translate(16, 40)")
 
   lrow.append("circle")
     .attr("cx", 3)
@@ -548,7 +614,7 @@ highlightEllipse = svg.append("ellipse")
 
   var lrow2 = legend.append("g")
     .attr("class", "lrow")
-    .attr("transform", "translate(20, 60)")
+    .attr("transform", "translate(16  , 60)")
 
   lrow2.append("circle")
     .attr("cx", 3)
@@ -683,7 +749,7 @@ highlightEllipse = svg.append("ellipse")
 
     var row = legend.append("g")
     .attr("class", "lrow temp")
-    .attr("transform", "translate(20, " + (70 + i* 20) + ")")
+    .attr("transform", "translate(16, " + (70 + i* 20) + ")")
     .style("opacity",0)
     row.transition()
     .duration(500)
@@ -740,7 +806,7 @@ highlightEllipse = svg.append("ellipse")
       
       var row1 = legend.append("g")
         .attr("class", "lrow temp")
-        .attr("transform", "translate(20, " + (80) + ")")
+        .attr("transform", "translate(16, " + (80) + ")")
         .style("opacity",0)
       row1.transition()
         .duration(500)
@@ -765,7 +831,7 @@ highlightEllipse = svg.append("ellipse")
       if(text.length == 2){
         var row2 = legend.append("g")
           .attr("class", "lrow temp")
-          .attr("transform", "translate(20, " + (100) + ")")
+          .attr("transform", "translate(16, " + (100) + ")")
           .style("opacity",0)
         row2.transition()
           .duration(500)
@@ -866,19 +932,19 @@ function loopAnimate (points, moveY) {           //  create a loop function
 
        var t = Math.min(1, ease(timerCount / duration));
 
-      if(moveY == false){
-        points[0].forEach(function(point){
-          point.x = interpolateVal(point.sx, point.tx, t)
-          point.color = interpolateRGBAColors(point.sc, point.tc, t)
-        });
-      }else{
+      // if(moveY == false){
+      //   points[0].forEach(function(point){
+      //     point.x = interpolateVal(point.sx, point.tx, t)
+      //     point.color = interpolateRGBAColors(point.sc, point.tc, t)
+      //   });
+      // }else{
         points[0].forEach(function(point){        
             point.x = interpolateVal(point.sx, point.tx, t);
             point.y = interpolateVal(point.sy, point.ty, t);
             point.color = interpolateRGBAColors(point.sc, point.tc, t)
         });
 
-      }
+      // }
 
 
 
@@ -930,7 +996,7 @@ function loopAnimate (points, moveY) {           //  create a loop function
       });
     }
 
-    if(moveY){
+    // if(true){
       points[0].forEach(function(point){
         point.sy = point.y;
       });
@@ -944,7 +1010,7 @@ function loopAnimate (points, moveY) {           //  create a loop function
           point.ty = point["burden"];
         });
       }
-    }
+    // }
 
 
 
@@ -1187,7 +1253,26 @@ function hideInfoTooltip(){
     // d3.select("#vis").datum([points])
   }
 
+  function hideQuads(){
+      d3.selectAll(".quadGroup")
+      .transition()
+      .duration(duration)
+      .style("opacity",0)
+
+
+
+
+    d3.select("#catLabels")
+      .transition()
+      .duration(duration)
+      .style("opacity",1)
+    d3.select(".highlightEllipse")
+        .transition()
+        .style("opacity",0)
+  }
+
   function showTcjaDot(points){
+    if(activeIndex != 0){ return false }
     //display just the tcja dot (in move tcja func)
     //display tcja lines and axis lines (in move tcja func)
     // display info in 4 quadrants (html divs, will be transitioned to 0 opacity and z index -1)
@@ -1196,10 +1281,7 @@ function hideInfoTooltip(){
       .transition()
       .duration(duration)
       .style("opacity",1)
-    d3.selectAll("#legendG")
-      .transition()
-      .duration(duration)
-      .style("opacity",0)
+
     d3.select("#catLabels")
       .transition()
       .duration(duration)
@@ -1207,6 +1289,8 @@ function hideInfoTooltip(){
   }
 
   function showAllAll(points){
+    hideQuads();
+    if(activeIndex != 1){ return false }
 
 
 
@@ -1219,25 +1303,13 @@ function hideInfoTooltip(){
 //     .style("opacity",0)
 
     animateLayout("0","a", points, true, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
-    d3.selectAll(".quadGroup")
-      .transition()
-      .duration(duration)
-      .style("opacity",0)
 
-
-    d3.selectAll("#legendG")
-      .transition()
-      .duration(duration)
-      .style("opacity",1)
-
-    d3.select("#catLabels")
-      .transition()
-      .duration(duration)
-      .style("opacity",1)
 
   }
 
   function showQ1(points){
+    hideQuads();
+    if(activeIndex != 2){ return false }
 d3.select(".highlightEllipse")
     .transition()
     .style("opacity",0)
@@ -1247,6 +1319,8 @@ d3.select(".highlightEllipse")
   }
 
   function showQ1_CTC(points){
+    hideQuads();
+    if(activeIndex != 3){ return false }
 
 
 d3.select(".highlightEllipse")
@@ -1265,6 +1339,8 @@ d3.select(".highlightEllipse")
   }
 
   function showMarriedKids(points){
+    hideQuads();
+    if(activeIndex != 4){ return false }
     //shade dots based on refundable portion of CTC
     // recolorPoints("ctcAmount", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3}, points)
     //legend
@@ -1292,6 +1368,8 @@ d3.select(".highlightEllipse")
   }
 
   function showMarriedKidsFilter1(points){
+    hideQuads();
+    if(activeIndex != 5){ return false }
     //shade dots based on CTC threshold
     //legend
     // recolorPoints("ctcThreshold", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3}, points)
@@ -1300,6 +1378,8 @@ d3.select(".highlightEllipse")
   }
 
   function showMarriedKidsFilter2(points){
+    hideQuads();
+    if(activeIndex != 6){ return false }
     //shade dots based on CTC threshold
     //legend
     // recolorPoints("ctcThreshold", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3}, points)
@@ -1308,6 +1388,8 @@ d3.select(".highlightEllipse")
   }
 
     function showMarriedKidsFilter3(points){
+      hideQuads();
+      if(activeIndex != 7){ return false }
     //shade dots based on CTC threshold
     //legend
     // recolorPoints("ctcThreshold", {"l": COLOR_1, "medium": COLOR_2, "h": COLOR_3}, points)
@@ -1317,6 +1399,8 @@ d3.select(".highlightEllipse")
 
 
   function showQ1_PersonalExcemption(points){
+    hideQuads();
+    if(activeIndex != 8){ return false }
     //shade dots based on personal exemption 
     //legend
     // recolorPoints("personal", {"l": COLOR_1, "ml": COLOR_2, "mh": COLOR_3, "h": COLOR_4}, points)
@@ -1324,6 +1408,8 @@ d3.select(".highlightEllipse")
 
   }
   function showQ1_StandardDeduction(points){
+    hideQuads();
+    if(activeIndex != 9){ return false }
     //shade dots based on std deduction 
     //legend
     // recolorPoints("standard", {"l": COLOR_1, "ml": COLOR_2, "mh": COLOR_3, "h": COLOR_4}, points)
@@ -1331,12 +1417,16 @@ d3.select(".highlightEllipse")
 
   }
   function showTop5_Rates(points){
+    hideQuads();
+    if(activeIndex != 10){ return false }
     //shade dots based on std deduction 
     //legend
     animateLayout("8","a", points, false, "rates", {"b": COLOR_1, "d": COLOR_2, "a": COLOR_3, "c": COLOR_4})
 
   }
   function compareQ1(points){
+    hideQuads();
+    if(activeIndex != 11 && activeIndex != 13){ return false }
     //shade dots based on std deduction 
     //legend
 
@@ -1344,6 +1434,8 @@ d3.select(".highlightEllipse")
 
   }
   function compareTop1(points){
+    hideQuads();
+    if(activeIndex != 12){ return false }
     //shade dots based on std deduction 
     //legend
 
@@ -1354,6 +1446,8 @@ d3.select(".highlightEllipse")
 
 
   function compareQ2(points){
+    hideQuads();
+    if(activeIndex != 14){ return false }
     //shade dots based on std deduction 
     //legend
       
@@ -1361,6 +1455,8 @@ d3.select(".highlightEllipse")
   }
 
   function compareQ3(points){
+    hideQuads();
+    if(activeIndex != 15){ return false }
     //shade dots based on std deduction 
     //legend
 
@@ -1378,6 +1474,8 @@ d3.select(".highlightEllipse")
   }
 
   function compareQ4(points){
+    hideQuads();
+    if(activeIndex != 16){ return false }
     //shade dots based on std deduction 
     //legend
     animateLayout("3","a", points, false, "q2", {"0": DARK_HIDE, "2": COLOR_2, "1": DARK_HIDE})
@@ -1389,6 +1487,8 @@ d3.select(".highlightEllipse")
 
   }
   function compareQ5(points){
+    hideQuads();
+    if(activeIndex != 17){ return false }
     //shade dots based on std deduction 
     //legend
     // if(IS_MOBILE()){
@@ -1408,27 +1508,37 @@ d3.select(".highlightEllipse")
 
 
   function compareQ5Alt1(points){
+    hideQuads();
+    if(activeIndex != 18){ return false }
 
     animateLayout("5","a", points, false, "b5", {"0": DARK_HIDE, "1": COLOR_3, "2": COLOR_1})
 
   }
   function compareQ5Alt2(points){
+    hideQuads();
+    if(activeIndex != 19){ return false }
 
     animateLayout("5","a", points, false, "b4", {"0": DARK_HIDE, "1": COLOR_3, "2": COLOR_1})
 
   }
   function compareQ5Alt3(points){
+    hideQuads();
+    if(activeIndex != 20){ return false }
 
     animateLayout("5","a", points, false, "b3", {"0": DARK_HIDE, "1": COLOR_3, "2": COLOR_1})
 
   }
   function compareQ5Alt4(points){
+    hideQuads();
+    if(activeIndex != 21){ return false }
 
 
     animateLayout("5","a", points, false, "b2", {"0": DARK_HIDE, "1": COLOR_3, "2": COLOR_1})
 
   }
   function compareQ5Alt(points){
+    hideQuads();
+    if(activeIndex != 22){ return false }
     if(IS_MOBILE()){
       hideMobileExplore(true, true);
     }
@@ -1440,19 +1550,18 @@ d3.select(".highlightEllipse")
   }
 
   function preExplore(points){
+    hideQuads();
+    if(activeIndex != 23){ return false }
     if(IS_MOBILE()){
       hideMobileExplore(true, true);
     }
     animateLayout(getIncome(),getGroup(), points, true, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
 
-
-    d3.selectAll("#legendG")
-      .transition()
-      .duration(duration)
-      .style("opacity",1)
   }
 
   function showExplore(points){
+    hideQuads();
+    if(activeIndex != 24){ return false }
 
 
 
@@ -1473,10 +1582,7 @@ d3.select(".highlightEllipse")
     animateLayout(getIncome(),getGroup(), points, true, "ctcAmount", {"l": DOT_COLOR, "medium": DOT_COLOR, "h": DOT_COLOR})
 
 
-    d3.selectAll("#legendG")
-      .transition()
-      .duration(duration)
-      .style("opacity",1)
+
 
   }
 

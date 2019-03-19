@@ -1,5 +1,5 @@
 
-#isMobile, #isPhone, #isShort, #sectionIndex, #isDesk1, #isDesk2{
+#isMobile, #isPhone, #isSmallPhone, #isShort, #sectionIndex, #isDesk1, #isDesk2{
     display: none;
     pointer-events: none;
     width: 0;
@@ -103,7 +103,7 @@
     #showExplore{
         display: none;
         position: fixed;
-        bottom: 40px;
+        bottom: 9px;
         left: calc(50% - 94px);
         z-index: 2;
         text-transform: uppercase;
@@ -111,6 +111,7 @@
         padding: 5px 8px;
         color: #ffffff !important;
         background: #bcbec0;
+        opacity: .8;
         border-radius: 3px;
         cursor: pointer;
     }
@@ -176,6 +177,20 @@
     .y.axisLabel{
         left: -104px;
     }
+    #legendBg {
+        fill: rgba(255,255,255,1);
+        stroke: #bcbec0;
+        stroke-width: 2px;
+    }
+    #phoneLegendButton{
+        fill: #bcbec0;
+        stroke: none;
+    }
+    #phoneLegendText{
+        fill: #fff;
+        font-family: "Avenir LT W01_65 Medium1475532","Avenir";
+        font-size: 12px;
+    }
 }
 @media (max-width: 600px) {
    .wrapper {padding-top:80px;} 
@@ -184,6 +199,9 @@
     .overhalf{width:100%;}
 }
 @media (max-width: 500px){
+    #isSmallPhone{
+       display: block;
+    }
     .headerimage {
         height: 180px !important;
         top: 20px;
@@ -198,7 +216,10 @@
     }
     .footerButton.researchButton {
         display: block;
-        margin-left: 15px;
+        float: left;
+        clear: both;
+        margin-top: 10px;
+        margin-left: 0px !important;
     }
 }
 
@@ -209,7 +230,7 @@
         display: block;
     }
     #vis.posRelBottom{
-        bottom: -97px;
+        bottom: 300px;
     }
     .y.axisLabel {
         top: calc(50% - 29px);
