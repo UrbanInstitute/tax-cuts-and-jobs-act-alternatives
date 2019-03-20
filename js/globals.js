@@ -324,7 +324,8 @@ function showMobileExplore(isTransition){
   // var scootch = (IS_PHONE()) ? 150 : 200;
   var scootch = 200;
   var ml;
-  if(IS_PHONE()) ml = (-1*(.5*getDeviceWidth() - 200 + 50)) + "px"
+  if(IS_SMALL_PHONE()) ml = (-1*(.5*getDeviceWidth() - 200 + 50)) + "px"
+  else if(IS_PHONE()) ml = (-1*(.5*getDeviceWidth() - 200 )) + "px"
   else if(IS_MOBILE()) ml = (-1*(.5*getDeviceWidth() -200 )) + "px"
   else ml = "0px"
   

@@ -179,20 +179,22 @@ var scrollVis = function () {
       d3.select("#vis")
         .append("div")
         .attr("class", function(){
-          if(IS_MOBILE() || IS_SHORT()) return "xaxis tooltip side"
-          else return "xaxis tooltip"
+          return "xaxis tooltip"
         })
         .style("top", function(){
-          if(IS_SHORT() || IS_MOBILE()) return (d3.select(".y.axisLabelTooltip").node().getBoundingClientRect().top - 165) + "px"
-          else return (d3.select(".x.axisLabelTooltip").node().getBoundingClientRect().top - 245) + "px"
+            return (d3.select(".x.axisLabelTooltip").node().getBoundingClientRect().top - 245) + "px"
         })
         .style("left", function(){
-          if(IS_SHORT() || IS_MOBILE()) return (d3.select(".y.axisLabelTooltip").node().getBoundingClientRect().top - 165) + "px"
+          if(d3.select(".x.axisLabelTooltip").node().getBoundingClientRect().left + 130 + 10 > getDeviceWidth()) return (getDeviceWidth() - 260 - 5) + "px"
           else return (d3.select(".x.axisLabelTooltip").node().getBoundingClientRect().left - d3.select("#vis").node().getBoundingClientRect().left - 123) + "px"
         })
         .html(xTooltipText)
         .append("div")
-          .attr("class", "ttArrow")
+        .attr("class", function(){
+          if(d3.select(".x.axisLabelTooltip").node().getBoundingClientRect().left + 130 + 10 > getDeviceWidth()) return "ttArrow customX"
+          else return "ttArrow"
+        })
+
 
     })
     .on("mouseout", function(){
@@ -1018,46 +1020,12 @@ function loopAnimate (points, moveY) {           //  create a loop function
           point.ty = point["burden"];
         });
       }
-    // }
 
 
 
     timerCount = 0;
     loopAnimate(points, moveY);
 
-
-
-   
-    
-
-
-  //   timer = d3.timer(function(elapsed){
-  //     const t = Math.min(1, ease(elapsed / duration));
-
-  //     if(moveY == false){
-  //       points[0].forEach(function(point){
-  //         point.x = point.sx * (1 - t) + point.tx * t;
-  //       });
-  //     }else{
-  //       points[0].forEach(function(point){        
-  //           point.x = point.sx * (1 - t) + point.tx * t;
-  //           point.y = point.sy * (1 - t) + point.ty * t;
-  //       });
-
-  //     }
-
-
-
-  //     // draw(points);
-  //     console.log(t)
-  //     if (t === 1) {
-  //       shown = points[0].map(function(p){ return [p.x, p.y] })
-  //       // draw(points);
-
-  //       timer.stop()
-
-  //     }
-  //   });
   }
 
 
@@ -1098,14 +1066,12 @@ for (var p in DEFAULT_FILTERS) {
        highlight.classed("hidden", false)
         .attr("cx", x(point.x))
         .attr("cy", y(point.y));
-// console.log(point)
 }
 
 function hideExploreTooltip(){
   highlight.classed("hidden", true)
   d3.selectAll(".explore.tooltip").remove()
   d3.selectAll(".rangeDot").classed("highlight", false)
-  // d3.selectAll(".tempHighlight").classed("tempHighlight", false)
 
 }
 function showInputTooltip(dot, d){
@@ -1114,16 +1080,35 @@ function showInputTooltip(dot, d){
   }else{
     var container = d3.select(dot.parentNode.parentNode.parentNode)
 
+    //if tooltips extend past the left screen edge, make them off-centered and scootched right
     var leftShift = (dot.getBoundingClientRect().left - ttWidths[d[1]]*.5 + 9 < 0) ? -16 : -.5*ttWidths[d[1]] + 9;
     var leftClass = (dot.getBoundingClientRect().left - ttWidths[d[1]]*.5 + 9 < 0) ? " left" : ""
 
+    //if tooltips extend past the right screen edge, make them off-centered and scootched left
+    var rightShift = (dot.getBoundingClientRect().right + ttWidths[d[1]]*.5 - 9 > getDeviceWidth()) ? -.5*ttWidths[d[1]] + 29 : 0;
+    var rightClass = (dot.getBoundingClientRect().right + ttWidths[d[1]]*.5 - 9 > getDeviceWidth() ) ? " right" : ""
 
+    console.log(dot, d)
+    var tt;
 
-    var tt = container.append("div")
+    //on smaller phones, the above scootching still cuts off 2 specific tooltips. Give them bespoke custom positions.
+    if(getDeviceWidth() < 405 && d[1] == "standard" && (d[2] == "mh" || d[2] == "ml")){
+      
+
+      tt = container.append("div")
+        .attr("class", "input tooltip")
+        .style("width", ttWidths[d[1]] + "px" )
+        .style("left", "0px")
+    }else{
+      tt = container.append("div")
       .attr("class", "input tooltip")
       .style("width", ttWidths[d[1]] + "px" )
-      .style("left", (dot.getBoundingClientRect().left - d3.select("#controls").node().getBoundingClientRect().left + leftShift) + "px")
+      .style("left", (dot.getBoundingClientRect().left - d3.select("#controls").node().getBoundingClientRect().left + leftShift + rightShift) + "px")
+    }
+
+
     
+    //the rates checkboxes are arranged as a list, not a faux-slider, so get unique positions
     if(d[1] == "rates"){
       tt.style("top", (dot.getBoundingClientRect().top - d3.select("#controls").node().getBoundingClientRect().top  - 433) + "px")
     }
@@ -1132,10 +1117,20 @@ function showInputTooltip(dot, d){
     tt.append("div")
       .attr("class", "ttContent")
       .html(paramaterText[ d[1] ][ d[2] ][1] )
-    tt.append("div")
-      .attr("class", "ttArrow" + leftClass)
+
+    //on smaller phones, the above scootching still cuts off 2 specific tooltips. Give them bespoke custom positions.
+    if(getDeviceWidth() < 405 && d[1] == "standard" && (d[2] == "mh" || d[2] == "ml")){
+      var customClass = " customTT_" + d[2]
+      tt.append("div")
+        .attr("class", "ttArrow" + customClass)  
+        .style("left", (dot.getBoundingClientRect().left-10) + "px")
+    }
+    else{
+      tt.append("div")
+        .attr("class", "ttArrow" + leftClass + rightClass)      
+    }
+
   }
-    // .html()
 }
 function hideInputTooltip(){
   d3.selectAll(".input.tooltip").remove()
@@ -1145,8 +1140,6 @@ function hideInputTooltip(){
 function showInfoTooltip(dot, key){
   hideInputTooltip()
 var container = d3.select(dot.parentNode.parentNode)
-
-
 
 
 var tt = container.append("div")
@@ -1820,7 +1813,7 @@ function buildRange(key, vals, numVals, filterVals, points){
 
   rsvg.append("line")
   .attr("class", "rangeLine")
-  .attr("x1", 0)
+  .attr("x1",4)
   .attr("x2", w-35)
   .attr("y1", h/2)
   .attr("y2", h/2)

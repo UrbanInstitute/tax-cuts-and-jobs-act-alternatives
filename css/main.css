@@ -334,6 +334,13 @@
 .ttArrow.left{
   left: 25px;
 }
+.ttArrow.right{
+  right: -22px;
+  left: unset;
+}
+.ttArrow.customX{
+  left: 238px
+}
 .axis.tooltip .ttArrow{
   left: 43px;
 }
