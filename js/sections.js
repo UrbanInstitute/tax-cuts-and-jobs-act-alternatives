@@ -94,7 +94,7 @@ var scrollVis = function () {
     .tickSizeOuter(0)
     .tickPadding(10)
 
-  var tickPadding = (IS_PHONE()) ? -1*getVisWidth() + phoneXScootch + 25 : 10
+  var tickPadding = (IS_PHONE()) ? -1*getVisWidth() + phoneXScootch - 20 : 10
 
   var yAxis = d3.axisLeft()
     .scale(y)
@@ -631,9 +631,16 @@ highlightEllipse = svg.append("ellipse")
 
 
 
+    var exploreWidth;
+    if(IS_PHONE()) exploreWidth = getDeviceWidth() + "px";
+    else if(IS_MOBILE()) exploreWidth = "480px";
+    else exploreWidth = "inherit"
 
+    d3.selectAll(".mobileExplore").style("width", exploreWidth)
 
-
+    if(IS_MOBILE() && activeIndex != 24){
+      hideMobileExplore(true, true);
+    }
 
 
 
@@ -1269,6 +1276,11 @@ function hideInfoTooltip(){
     d3.select(".highlightEllipse")
         .transition()
         .style("opacity",0)
+
+    if(IS_MOBILE() && activeIndex != 24){
+      hideMobileExplore(true, true);
+    }
+
   }
 
   function showTcjaDot(points){
@@ -1768,10 +1780,10 @@ function buildRange(key, vals, numVals, filterVals, points){
   h = 80
 
   if(IS_PHONE()){
-    w = 300
+    w = getDeviceWidth() - 10
   }
   else if(IS_MOBILE()){
-    w = 480
+    w = 460
   }else{
     w = d3.select(".step.lastStep").node().getBoundingClientRect().width
   }
@@ -1968,13 +1980,19 @@ function buildExploreSection(points){
 
       $([document.documentElement, document.body]).animate({
           scrollTop: $(".lastStep").offset().top - 100
-      }, 1000);
+      }, 1000, function(){
+        if(IS_MOBILE()) showMobileExplore(true)  
+      });
+
+      
     })
 
   d3.selectAll(".defaultJump").on("click", function(){
     $([document.documentElement, document.body]).animate({
           scrollTop: $(".lastStep").offset().top - 100
-      }, 1000);
+      }, 1000, function(){
+        if(IS_MOBILE()) showMobileExplore(true)  
+      });
   })
 }
 

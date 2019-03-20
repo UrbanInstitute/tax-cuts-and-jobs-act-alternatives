@@ -302,7 +302,7 @@
 .axis.tooltip{
     width: 260px;
     top: 20px;
-    left: -87px;
+    left: -57px;
     padding: 18px;
     font-size: 14px;
     z-index: 100;
@@ -335,7 +335,7 @@
   left: 25px;
 }
 .axis.tooltip .ttArrow{
-  left: 73px;
+  left: 43px;
 }
 .axis.tooltip.side .ttArrow{
     top: 80px;

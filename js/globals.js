@@ -66,7 +66,7 @@ function getInternetExplorerVersion()
 
 var getVisWidth = function(){
   if(IS_PHONE()){
-    return getDeviceWidth() + 50;
+    return getDeviceWidth() ;
   }
   else if(IS_MOBILE()){
     return d3.min([900, getDeviceWidth()]);
@@ -100,9 +100,9 @@ var getVisLeft = function(){
 }
 
 
+var mr = IS_PHONE() ? -30 : 10
 
-
-var margin = {top: 20, right: 10, bottom: 30, left: 70}
+var margin = {top: 20, right: mr, bottom: 30, left: 70}
 
 
 
@@ -323,18 +323,19 @@ var ttWidths = {
 function showMobileExplore(isTransition){
   // var scootch = (IS_PHONE()) ? 150 : 200;
   var scootch = 200;
+  var ml;
+  if(IS_PHONE()) ml = (-1*(.5*getDeviceWidth() - 200 + 50)) + "px"
+  else if(IS_MOBILE()) ml = (-1*(.5*getDeviceWidth() -200 )) + "px"
+  else ml = "0px"
+  
   if(isTransition){
     d3.selectAll(".mobileExplore")
       .transition()
       .duration(duration)
-      .style("margin-left",function(){
-        return -1*(window.innerWidth*.5 - scootch) + "px"
-      })
+      .style("margin-left",ml)
   }else{
     d3.selectAll(".mobileExplore")
-      .style("margin-left",function(){
-        return -1*(window.innerWidth*.5 - scootch) + "px"
-      })
+      .style("margin-left",ml)
   }
 }
 function hideMobileExplore(isTransition, hideAll){
@@ -349,13 +350,13 @@ function hideMobileExplore(isTransition, hideAll){
       .duration(duration)
       .style("margin-left",function(){
         // "0px"
-        return -1*(window.innerWidth + 600) + "px"
+        return -2*(getDeviceWidth()) + "px"
       })   
   }else{
     d3.selectAll(".mobileExplore")
       .style("margin-left",function(){
         // "0px"
-        return -1*(window.innerWidth + 600) + "px"
+        return -2*(getDeviceWidth()) + "px"
       }) 
   } 
 
