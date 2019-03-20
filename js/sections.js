@@ -948,7 +948,7 @@ function loopAnimate (points, moveY) {           //  create a loop function
         points[0].forEach(function(point){        
             point.x = interpolateVal(point.sx, point.tx, t);
             point.y = interpolateVal(point.sy, point.ty, t);
-            point.color = interpolateRGBAColors(point.sc, point.tc, t)
+            if(!IS_PHONE()) point.color = interpolateRGBAColors(point.sc, point.tc, t)
         });
 
       // }
@@ -989,7 +989,8 @@ function loopAnimate (points, moveY) {           //  create a loop function
     points[0].forEach(function(point){
       point.sx = point.x;
       point.sc = point.color
-      point.tc = colors[point[key]]
+      if (!IS_PHONE()) point.tc = colors[point[key]]
+      else point.color = colors[point[key]]
     });
 
 
