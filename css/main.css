@@ -6,7 +6,6 @@
   height: 1220px;
   z-index: 100;
   left: 0px;
-  /*top: 40px;*/
 }
 #loadingGif img{
     margin: 0 auto;
@@ -885,6 +884,7 @@ circle.morph{
 
 #heroimage{
    background-image: url("../images/header.jpeg");
+   background-position: center;
      background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
@@ -935,9 +935,6 @@ circle.morph{
 
 
 
-
-
-
 .switch {
     background-image: url(../images/off-on.png);
     background-color: #696969;
@@ -945,15 +942,8 @@ circle.morph{
     width: 83px;
     height: 26px;
     border-radius: 20px;
-
-    /*display: inline-block;*/
     background-size: cover;
     cursor: pointer;
-    /*margin-right: 9px;*/
-    /*top: 4px;*/
-    /*left: 4px;*/
-    /*position: relative;*/
-
     -webkit-transition:background-position .1s ease-in;  
     -moz-transition:background-position .1s ease-in;  
     -o-transition:background-position .1s ease-in;  

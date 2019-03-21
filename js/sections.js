@@ -7,36 +7,6 @@
 * https://github.com/vlandham/scroll_demo
 */
 
-function getFilterVals(){
-//Get the filter values from the Explore section based on checked/unchecked boxes
-  out = {
-    "rates": [],
-    "standard": [],
-    "amtThreshold": [],
-    "amtAmount": [],
-    "personal": [],
-    "salt": [],
-    "ctcThreshold": [],
-    "ctcAmount": []
-  }
-
-  d3.selectAll(".rangeDot.active").each(function(o){
-    var classes = this.classList,
-    targetClass;
-    for(var i = 0; i< classes.length; i++){
-      if(classes[i].indexOf("_") != -1){
-        targetClass = classes[i]
-      }
-    }
-    var k = targetClass.split("_")[0],
-    v = targetClass.split("_")[1]
-
-    out[k].push(v)
-  })
-
-  return out;
-}
-
 
 var scrollVis = function () {
   var shown;
@@ -1298,7 +1268,7 @@ var scrollVis = function () {
     hideQuads();
     if(activeIndex != 5){ return false }
 
-    animateLayout("1","g", points, false, "ct1", {"l": DARK_BLUE, "medium": TPC_BLUE, "h": PURPLE, "l0": HIDE_1, "m0": HIDE_2, "h0": HIDE_3})
+    animateLayout("1","g", points, false, "ct1", {"l": DARK_BLUE, "medium": TPC_BLUE, "h": PURPLE, "l0": DARK_BLUE_HIDE, "m0": TPC_BLUE_HIDE, "h0": PURPLE_HIDE})
   }
 
   function showMarriedKidsFilter2(points){
@@ -1306,7 +1276,7 @@ var scrollVis = function () {
     hideQuads();
     if(activeIndex != 6){ return false }
 
-    animateLayout("1","g", points, false, "ct2", {"l": DARK_BLUE, "medium": TPC_BLUE, "h": PURPLE, "l0": HIDE_1, "m0": HIDE_2, "h0": HIDE_3})
+    animateLayout("1","g", points, false, "ct2", {"l": DARK_BLUE, "medium": TPC_BLUE, "h": PURPLE, "l0": DARK_BLUE_HIDE, "m0": TPC_BLUE_HIDE, "h0": PURPLE_HIDE})
   }
 
   function showMarriedKidsFilter3(points){
@@ -1314,7 +1284,7 @@ var scrollVis = function () {
     hideQuads();
     if(activeIndex != 7){ return false }
 
-    animateLayout("1","g", points, false, "ct3", {"l": DARK_BLUE, "medium": TPC_BLUE, "h": PURPLE, "l0": HIDE_1, "m0": HIDE_2, "h0": HIDE_3})
+    animateLayout("1","g", points, false, "ct3", {"l": DARK_BLUE, "medium": TPC_BLUE, "h": PURPLE, "l0": DARK_BLUE_HIDE, "m0": TPC_BLUE_HIDE, "h0": PURPLE_HIDE})
   }
 
   function showQ1_PersonalExcemption(points){

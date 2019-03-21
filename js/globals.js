@@ -1,3 +1,40 @@
+//Dot colors
+var TPC_BLUE = "rgba(0,139,176,0.3)" // base teal
+var DARK_BLUE = "rgba(23,74,124,0.3)" // dark blue
+var PURPLE = "rgba(137,14,202,0.3)" // purple
+var PINK = "rgba(236,0,139,0.3)" // pink
+
+var DARK_BLUE_HIDE = "rgba(23,74,124,0.01)" // dark blue
+var TPC_BLUE_HIDE = "rgba(0,139,176,0.01)" // blue
+var PURPLE_HIDE = "rgba(137,14,202,0.01)" // purple
+
+var COLOR_HIDE = "rgba(0, 0, 0, 0.02)"
+var DARK_HIDE = "rgba(0, 0, 0, 0.02)"
+
+var SEQ_1 = "rgba(115,191,226,0.3)"
+var SEQ_2 = "rgba(70,171,219,0.3)"
+var SEQ_3 = "rgba(22,150,210,0.3)"
+var SEQ_4 = "rgba(18,113,158,0.3)"
+
+
+//x and y domain limits
+var xMin = -3.50,
+    xMax = 5.5,
+    yMin = -550000000000,
+    yMax = 300000000000;
+
+//transition constants
+var duration = 700;
+var increment = 50;
+var lag = 500;
+var longLag = 900;
+
+//some layout constants
+var phoneXScootch = 50;
+var quadTextWidth = 240,
+  quadTextLineHeight = 20
+
+//Detect screen width via toggling display property of hidden divs in media queries
 var IS_SHORT = function(){
   return (d3.select("#isShort").style("display") == "block")
 }
@@ -17,149 +54,20 @@ var IS_DESK2 = function(){
   return (d3.select("#isDesk2").style("display") == "block")
 }
 
-var IS_SAFARI = function(){
-  return navigator.userAgent.indexOf("Safari") > -1 && navigator.userAgent.indexOf("Chrome") == -1
+//tooltip sizes
+var ttWidths = {
+  "rates": 220,
+  "standard": 284,
+  "amtThreshold": 268,
+  "amtAmount": 154,
+  "personal": 0,
+  "salt": 230,
+  "ctcThreshold": 206,
+  "ctcAmount": 96
 }
 
-var getDeviceWidth = function(){
-  if (window.innerWidth > screen.width){
-    return screen.width;
-  }else{
-    return window.innerWidth
-  }
-}
-var getDeviceHeight = function(){
-  if (window.innerHeight > screen.height){
-    return screen.height;
-  }else{
-    return window.innerHeight
-  }
-}
-
-  var screenW = $(window).width(),
-      screenH = $(window).height()
-
-var SECTION_INDEX = function(){
-  return d3.select("#sectionIndex").attr("data-index")
-}
-
-var IS_IE = false;
-function getInternetExplorerVersion()
-{
-  var rv = -1;
-  if (navigator.appName == 'Microsoft Internet Explorer')
-  {
-    var ua = navigator.userAgent;
-    var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
-    if (re.exec(ua) != null)
-      rv = parseFloat( RegExp.$1 );
-  }
-  else if (navigator.appName == 'Netscape')
-  {
-    var ua = navigator.userAgent;
-    var re  = new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})");
-    if (re.exec(ua) != null)
-      rv = parseFloat( RegExp.$1 );
-  }
-  return rv;
-}
-
-
-
-
-var getVisWidth = function(){
-  if(IS_PHONE()){
-    return getDeviceWidth() ;
-  }
-  else if(IS_MOBILE()){
-    return d3.min([900, getDeviceWidth()]);
-  }
-  else if(IS_DESK1()){
-    return 700
-  }
-  else{
-    return 750;
-  }
-}
-var getVisHeight = function(){
-  if(IS_SHORT()){
-    return getDeviceHeight() - 100;
-  }
-  else{
-    return 700;
-  }
-}
-
-
-var getVisLeft = function(){
-    if(IS_PHONE()){
-      return "0px"
-    }
-    else if(IS_MOBILE()){
-      return ((getDeviceWidth() - getVisWidth())*.5) + "px"
-    }else{
-      return "inherit"
-    }
-}
-
-
-var mr = IS_PHONE() ? -30 : 10
-
-var margin = {top: 20, right: mr, bottom: 30, left: 70}
-
-
-
-var DOLLARS = d3.format("$.0s")
-var SMALL_DOLLARS = function(d){
-  return d3.format("$.1f")(d/1000000000) + " billion"
-}
-var RATIOS = d3.format(".1f")
-
-
-var TPC_BLUE = "rgba(0,139,176,0.3)" // base teal
-var DARK_BLUE = "rgba(23,74,124,0.3)" // dark blue
-var PURPLE = "rgba(137,14,202,0.3)" // purple
-var PINK = "rgba(236,0,139,0.3)" // pink
-
-
-var HIDE_1 = "rgba(23,74,124,0.01)" // dark blue
-var HIDE_2 = "rgba(22,150,210,0.01)" // blue
-var HIDE_3 = "rgba(137,14,202,0.01)" // purple
-
-
-var COLOR_HIDE = "rgba(0, 0, 0, 0.02)"
-var DARK_HIDE = "rgba(0, 0, 0, 0.02)"
-
-var SEQ_1 = "rgba(115,191,226,0.3)"
-var SEQ_2 = "rgba(70,171,219,0.3)"
-var SEQ_3 = "rgba(22,150,210,0.3)"
-var SEQ_4 = "rgba(18,113,158,0.3)"
-
-
-
-
-var xMin = -3.50,
-    xMax = 5.5,
-    yMin = -550000000000,
-    yMax = 300000000000;
-
-
-
-const duration = 700;
-const increment = 50;
-const lag = 500;
-const longLag = 900;
-
-var phoneXScootch = 50;
-
-var quadTextWidth = 240,
-  quadTextLineHeight = 20
-
-
-
-
+//Legend sizes based on section/slide
 var legendWidth = function(i){
-  console.log(i)
   if(i == 4){
     return 186
   }
@@ -183,9 +91,7 @@ var legendWidth = function(i){
   }
 }
 
-
 var legendHeight = function(i){
-  // console.log(i)
   if(i == 4){
     return 180
   }
@@ -206,8 +112,97 @@ var legendHeight = function(i){
   }
 }
 
+//Margins for viz
+var mr = IS_PHONE() ? -30 : 10
+var margin = {top: 20, right: mr, bottom: 30, left: 70}
 
 
+//browser detection
+var IS_SAFARI = function(){
+  return navigator.userAgent.indexOf("Safari") > -1 && navigator.userAgent.indexOf("Chrome") == -1
+}
+var IS_IE = false;
+var getInternetExplorerVersion = function(){
+  var rv = -1;
+  if (navigator.appName == 'Microsoft Internet Explorer')
+  {
+    var ua = navigator.userAgent;
+    var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+    if (re.exec(ua) != null)
+      rv = parseFloat( RegExp.$1 );
+  }
+  else if (navigator.appName == 'Netscape')
+  {
+    var ua = navigator.userAgent;
+    var re  = new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})");
+    if (re.exec(ua) != null)
+      rv = parseFloat( RegExp.$1 );
+  }
+  return rv;
+}
+
+//get device and vis dimensions
+var getDeviceWidth = function(){
+  if (window.innerWidth > screen.width){
+    return screen.width;
+  }else{
+    return window.innerWidth
+  }
+}
+var getDeviceHeight = function(){
+  if (window.innerHeight > screen.height){
+    return screen.height;
+  }else{
+    return window.innerHeight
+  }
+}
+var getVisWidth = function(){
+  if(IS_PHONE()){
+    return getDeviceWidth() ;
+  }
+  else if(IS_MOBILE()){
+    return d3.min([900, getDeviceWidth()]);
+  }
+  else if(IS_DESK1()){
+    return 700
+  }
+  else{
+    return 750;
+  }
+}
+var getVisHeight = function(){
+  if(IS_SHORT()){
+    return getDeviceHeight() - 100;
+  }
+  else{
+    return 700;
+  }
+}
+
+var screenW = $(window).width(),
+  screenH = $(window).height()
+
+//Get left style of the vis based on screen width
+var getVisLeft = function(){
+    if(IS_PHONE()){
+      return "0px"
+    }
+    else if(IS_MOBILE()){
+      return ((getDeviceWidth() - getVisWidth())*.5) + "px"
+    }else{
+      return "inherit"
+    }
+}
+
+//D3 formatters
+var DOLLARS = d3.format("$.0s")
+var SMALL_DOLLARS = function(d){
+  return d3.format("$.1f")(d/1000000000) + " billion"
+}
+var RATIOS = d3.format(".1f")
+
+
+//A variety of text for tooltips and legends
 var customLegendText = {
   "t1": ["Benefits the top 1% and costs less than TCJA"],
   "q1": ["Benefits the 1st quintile and costs less than TCJA"],
@@ -297,7 +292,7 @@ var paramaterText = {
 
 }
 
-
+//default values for filters (defaults to no filters)
 var DEFAULT_FILTERS = {
   "rates": ["b", "d", "a", "c"],
   "standard": ["l", "ml", "mh", "h"],
@@ -309,19 +304,38 @@ var DEFAULT_FILTERS = {
   "ctcAmount": ["l", "medium", "h"]
 }
 
-var ttWidths = {
-  "rates": 220,
-  "standard": 284,
-  "amtThreshold": 268,
-  "amtAmount": 154,
-  "personal": 0,
-  "salt": 230,
-  "ctcThreshold": 206,
-  "ctcAmount": 96
+//Get the filter values from the Explore section based on checked/unchecked boxes
+function getFilterVals(){
+  out = {
+    "rates": [],
+    "standard": [],
+    "amtThreshold": [],
+    "amtAmount": [],
+    "personal": [],
+    "salt": [],
+    "ctcThreshold": [],
+    "ctcAmount": []
+  }
+
+  d3.selectAll(".rangeDot.active").each(function(o){
+    var classes = this.classList,
+    targetClass;
+    for(var i = 0; i< classes.length; i++){
+      if(classes[i].indexOf("_") != -1){
+        targetClass = classes[i]
+      }
+    }
+    var k = targetClass.split("_")[0],
+    v = targetClass.split("_")[1]
+
+    out[k].push(v)
+  })
+
+  return out;
 }
 
+//show and hide the mobile explore menu, accessed from the global scope
 function showMobileExplore(isTransition){
-  // var scootch = (IS_PHONE()) ? 150 : 200;
   var scootch = 200;
   var ml;
   if(IS_SMALL_PHONE()) ml = (-1*(.5*getDeviceWidth() - 200 + 50)) + "px"
@@ -363,7 +377,7 @@ function hideMobileExplore(isTransition, hideAll){
 
 }
 
-
+//Wrap svg text
 function wrap(text, width, lineHeight) {
   text.each(function() {
     var text = d3.select(this),

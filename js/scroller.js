@@ -1,12 +1,12 @@
 
 /**
- * scroller - handles the details
- * of figuring out which section
- * the user is currently scrolled
- * to.
- * core scroll functionality based on Jim Vallandingham's scroll demo
- * https://github.com/vlandham/scroll_demo
- */
+* scroller - handles the details
+* of figuring out which section
+* the user is currently scrolled
+* to.
+* core scroll functionality based on Jim Vallandingham's scroll demo
+* https://github.com/vlandham/scroll_demo
+*/
 function scroller() {
 
   var container = d3.select('body');
@@ -23,26 +23,25 @@ function scroller() {
   // that is scrolled through
   var sectionPositions = [];
   var currentIndex = -1;
-  // y coordinate of
   var containerStart = 0;
 
-
+  //reposition right column on resize and init
   function visPosition(){
     d3.select("#vis")
-    .style("left", function(){
-      return getVisLeft();
-    })
-
+      .style("left", function(){
+        return getVisLeft();
+      })
   }
+
   /**
-   * scroll - constructor function.
-   * Sets up scroller to monitor
-   * scrolling of els selection.
-   *
-   * @param els - d3 selection of
-   *  elements that will be scrolled
-   *  through by user.
-   */
+  * scroll - constructor function.
+  * Sets up scroller to monitor
+  * scrolling of els selection.
+  *
+  * @param els - d3 selection of
+  *  elements that will be scrolled
+  *  through by user.
+  */
   function scroll(els) {
     sections = els;
 
@@ -72,11 +71,11 @@ function scroller() {
   }
 
   /**
-   * resize - called initially and
-   * also when page is resized.
-   * Resets the sectionPositions
-   *
-   */
+  * resize - called initially and
+  * also when page is resized.
+  * Resets the sectionPositions
+  *
+  */
   function resize() {
     // sectionPositions will be each sections
     // starting position relative to the top
@@ -97,11 +96,13 @@ function scroller() {
 
 
   function fixVis(){
+  //at the top and bottom of the page, the viz needs to be relative positioned
+  //otherwise, it has a fixed position either in the right column or fullscreen on mobile 
     if(! IS_MOBILE()){
       if(d3.select(".step").node().getBoundingClientRect().top <= 260){
         var bump = (IS_SHORT()) ? -120: -30;
         if(d3.selectAll(".step").nodes()[d3.selectAll(".step").nodes().length-1].getBoundingClientRect().bottom <= getVisWidth()+margin.top+margin.bottom+20+bump){
-          //bottom sticky
+          //Desktop, stick at the bottom
           d3.select("#vis")
             .classed("posRelBottomSingleCol", false)
             .classed("posRelTopSingleCol", false)
@@ -109,10 +110,11 @@ function scroller() {
             .classed("posRelTop", false)
             .classed("posFixed", false)
             .style("top", "inherit")
+          
           d3.select("#sections")
             .style("z-index",90)
         }else{
-          //no sticky
+          //Desktop, fixed position
           d3.select("#vis")
             .classed("posRelBottomSingleCol", false)
             .classed("posRelTopSingleCol", false)
@@ -120,90 +122,97 @@ function scroller() {
             .classed("posRelTop", false)
             .classed("posFixed", true)
             .style("top", "80px")  
+
           d3.select("#sections")
             .style("z-index",90)
-
         }
       }else{
-        //top sticky
+        //Desktop, stick at the top
+        d3.select("#vis")
+          .classed("posRelBottomSingleCol", false)
+          .classed("posRelTopSingleCol", false)
+          .classed("posRelBottom", false)
+          .classed("posRelTop", true)
+          .classed("posFixed", false)  
+          .style("top", "inherit")
+
+        d3.select("#sections")
+          .style("z-index",90)
+      }    
+    }else{
+      if(d3.select(".lastStep").node().getBoundingClientRect().bottom <= 24){
+      //Mobile, stick at bottom
+        hideMobileExplore(false, true)
+        d3.select("#vis")
+          .classed("posRelBottomSingleCol", true)
+          .classed("posRelTopSingleCol", false)
+          .classed("posRelTop", false)
+          .classed("posFixed", false)
+          .style("top", function(){
+            return (d3.select(".headerimage").node().getBoundingClientRect().height + d3.select(".container").node().getBoundingClientRect().height - getVisHeight() - margin.top - margin.bottom + 165) + "px"
+          })  
+
+        d3.select("#sections")
+          .style("z-index",-1)
+      }
+      else if(d3.select(".lastStep").node().getBoundingClientRect().bottom > 24 && d3.select(".lastStep").node().getBoundingClientRect().bottom < 60){
+      //Mobile, open explore menu
+        showMobileExplore(false)
+      }else{
+      //Mobile, stick at top
+        if(d3.select(".step").node().getBoundingClientRect().top >= 260){
+          d3.select("#vis")
+            .classed("posRelBottomSingleCol", false)
+            .classed("posRelTopSingleCol", true)
+            .classed("posRelBottom", false)
+            .classed("posRelTop", false)
+            .classed("posFixed", false)
+            .style("top", function(){
+              return (d3.select(".headerimage").node().getBoundingClientRect().height + d3.select("#topText").node().getBoundingClientRect().height +30) + "px"
+            }) 
+
+          d3.select("#sections")
+            .style("z-index",90)
+        }else{
+        //Mobile, fixed pos  
           d3.select("#vis")
             .classed("posRelBottomSingleCol", false)
             .classed("posRelTopSingleCol", false)
             .classed("posRelBottom", false)
-            .classed("posRelTop", true)
-            .classed("posFixed", false)  
-            .style("top", "inherit")
+            .classed("posRelTop", false)
+            .classed("posFixed", true)
+            .style("top", "80px")  
+          
           d3.select("#sections")
             .style("z-index",90)
-      }    
-    }else{
-      if(d3.select(".lastStep").node().getBoundingClientRect().bottom <= 24){
-          hideMobileExplore(false, true)
-          d3.select("#vis")
-            .classed("posRelBottomSingleCol", true)
-            .classed("posRelTopSingleCol", false)
-            .classed("posRelTop", false)
-            .classed("posFixed", false)
-            .style("top", function(){
-              return (d3.select(".headerimage").node().getBoundingClientRect().height + d3.select(".container").node().getBoundingClientRect().height - getVisHeight() - margin.top - margin.bottom + 165) + "px"
-            })  
-          d3.select("#sections")
-            .style("z-index",-1)
-      }
-      else if(d3.select(".lastStep").node().getBoundingClientRect().bottom > 24 && d3.select(".lastStep").node().getBoundingClientRect().bottom < 60){
-        showMobileExplore(false)
-
-      }else{
-          if(d3.select(".step").node().getBoundingClientRect().top >= 260){
-            d3.select("#vis")
-              .classed("posRelBottomSingleCol", false)
-              .classed("posRelTopSingleCol", true)
-              .classed("posRelBottom", false)
-              .classed("posRelTop", false)
-              .classed("posFixed", false)
-              .style("top", function(){
-              return (d3.select(".headerimage").node().getBoundingClientRect().height + d3.select("#topText").node().getBoundingClientRect().height +30) + "px"
-            }) 
-            d3.select("#sections")
-              .style("z-index",90)
-          }else{
-            d3.select("#vis")
-              .classed("posRelBottomSingleCol", false)
-              .classed("posRelTopSingleCol", false)
-              .classed("posRelBottom", false)
-              .classed("posRelTop", false)
-              .classed("posFixed", true)
-              .style("top", "80px")  
-            d3.select("#sections")
-              .style("z-index",90)
-          }
+        }
       }    
     }
   }
+  //check for stickyness every 10ms
   window.setInterval(function(){
     fixVis()
     visPosition()
   }, 10);
+  
   /**
-   * position - get current users position.
-   * if user has scrolled to new section,
-   * dispatch active event with new section
-   * index.
-   *
-   */
+  * position - get current users position.
+  * if user has scrolled to new section,
+  * dispatch active event with new section
+  * index.
+  *
+  */
   function position() {
     visPosition()
     var pos = window.pageYOffset - 100 - containerStart ;
     fixVis();
     var sectionIndex = d3.bisect(sectionPositions, pos) - 1;
     sectionIndex = Math.max(0,Math.min(sections.size() -1, sectionIndex));
-    // console.log(sectionIndex)
 
     if (currentIndex !== sectionIndex) {
       // @v4 you now `.call` the dispatch callback
       dispatch.call('active', this, sectionIndex);
       currentIndex = sectionIndex;
-      d3.select("#sectionIndex").attr("data-index",currentIndex)
     }
 
     var prevIndex = Math.max(sectionIndex - 1, 0);
@@ -212,13 +221,13 @@ function scroller() {
   }
 
   /**
-   * container - get/set the parent element
-   * of the sections. Useful for if the
-   * scrolling doesn't start at the very top
-   * of the page.
-   *
-   * @param value - the new container value
-   */
+  * container - get/set the parent element
+  * of the sections. Useful for if the
+  * scrolling doesn't start at the very top
+  * of the page.
+  *
+  * @param value - the new container value
+  */
   scroll.container = function (value) {
     if (arguments.length === 0) {
       return container;
