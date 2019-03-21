@@ -116,13 +116,10 @@ var SMALL_DOLLARS = function(d){
 var RATIOS = d3.format(".1f")
 
 
-var DOT_COLOR = "rgba(0,139,176,0.3)"
-var COLOR_1 = "rgba(23,74,124,0.3)" // dark blue
-var COLOR_2 = "rgba(22,150,210,0.3)" // blue
-var COLOR_3 = "rgba(137,14,202,0.3)" // purple
-var COLOR_4 = "rgba(236,0,139,0.3)" // pink
-var COLOR_5 = "rgba(22,150,210,0.3)"
-var COLOR_6 = "rgba(202,88,0,0.3)"
+var TPC_BLUE = "rgba(0,139,176,0.3)" // base teal
+var DARK_BLUE = "rgba(23,74,124,0.3)" // dark blue
+var PURPLE = "rgba(137,14,202,0.3)" // purple
+var PINK = "rgba(236,0,139,0.3)" // pink
 
 
 var HIDE_1 = "rgba(23,74,124,0.01)" // dark blue

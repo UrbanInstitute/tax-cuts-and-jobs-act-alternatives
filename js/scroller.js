@@ -4,7 +4,8 @@
  * of figuring out which section
  * the user is currently scrolled
  * to.
- *
+ * core scroll functionality based on Jim Vallandingham's scroll demo
+ * https://github.com/vlandham/scroll_demo
  */
 function scroller() {
 
