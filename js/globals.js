@@ -17,6 +17,9 @@ var IS_DESK2 = function(){
   return (d3.select("#isDesk2").style("display") == "block")
 }
 
+var IS_SAFARI = function(){
+  return navigator.userAgent.indexOf("Safari") > -1 && navigator.userAgent.indexOf("Chrome") == -1
+}
 
 var getDeviceWidth = function(){
   if (window.innerWidth > screen.width){
@@ -239,10 +242,10 @@ var paramaterText = {
   "standard": {
     "label": "Standard deduction",
     "info": ["Tax filers can choose to claim a standard deduction based on their filing status or to itemize their deductions. The TCJA nearly doubled the standard deduction, which is expected to substantially reduce the number of taxpayers choosing to itemize their deductions.", false],
-    "l" : ["Low","$6,500 (single)<br/>$13,000 (married filing jointly)<br/>$9,550 (head of household)<br/>$6,500 (married filing separately)", "pretcja"],
-    "ml": ["Medium low", "$9,250 (single)<br/>$18,500 (married filing jointly)<br/>$13,775 (head of household)<br/>$9,250 (married filing separately)", false],
-    "mh": ["Medium high","$12,000 (single)<br/>$24,000 (married filing jointly)<br/>$18,000 (head of household)<br/>$12,000 (married filing separately)", "tcja"],
-    "h": ["High","$13,200 (single)<br/>$26,400 (married filing jointly)<br/>$21,600 (head of household)<br/>$13,200 (married filing separately)", false]
+    "l" : ["Low","$6,500 (single)<br/>$13,000 (married filing jointly)<br/>$9,550 (head of household)", "pretcja"],
+    "ml": ["Medium low", "$9,250 (single)<br/>$18,500 (married filing jointly)<br/>$13,775 (head of household)", false],
+    "mh": ["Medium high","$12,000 (single)<br/>$24,000 (married filing jointly)<br/>$18,000 (head of household)", "tcja"],
+    "h": ["High","$13,200 (single)<br/>$26,400 (married filing jointly)<br/>$21,600 (head of household)", false]
   },
   "standardSingle": {
     "label": "Standard deduction",
