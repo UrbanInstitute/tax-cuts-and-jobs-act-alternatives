@@ -318,7 +318,7 @@ function getFilterVals(){
   }
 
   d3.selectAll(".rangeDot.active").each(function(o){
-    var classes = this.classList,
+    var classes = d3.select(this).attr("class").split(" "),
     targetClass;
     for(var i = 0; i< classes.length; i++){
       if(classes[i].indexOf("_") != -1){

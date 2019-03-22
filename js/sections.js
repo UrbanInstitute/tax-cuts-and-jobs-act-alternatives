@@ -7,7 +7,6 @@
 * https://github.com/vlandham/scroll_demo
 */
 
-
 var scrollVis = function () {
   var shown;
 
@@ -862,7 +861,7 @@ var scrollVis = function () {
         point.x = interpolateVal(point.sx, point.tx, t);
         point.y = interpolateVal(point.sy, point.ty, t);
         //disable color interpretation on browsers/devices where it's too computationally intensive
-        if(!IS_PHONE() && !IS_SAFARI()) point.color = interpolateRGBAColors(point.sc, point.tc, t)
+        if(!IS_PHONE() && !IS_SAFARI() && !IS_IE) point.color = interpolateRGBAColors(point.sc, point.tc, t)
       });
 
       draw(points);
@@ -903,7 +902,7 @@ var scrollVis = function () {
         point.tx = TCJA["a0"];
         point.ty = TCJA["burden"];
         //disable color interpretation on browsers/devices where it's too computationally intensive
-        if (!IS_PHONE() && !IS_SAFARI()) point.tc = TPC_BLUE
+        if (!IS_PHONE() && !IS_SAFARI() && !IS_IE) point.tc = TPC_BLUE
         else point.color = TPC_BLUE
       });
 //otherwise set target position and color based on input parameters
@@ -912,7 +911,7 @@ var scrollVis = function () {
         point.tx = point[group + income];
         point.ty = point["burden"];
         //disable color interpretation on browsers/devices where it's too computationally intensive
-        if (!IS_PHONE() && !IS_SAFARI()) point.tc = colors[point[key]]
+        if (!IS_PHONE() && !IS_SAFARI() && !IS_IE) point.tc = colors[point[key]]
         else point.color = colors[point[key]]
       });
     }
@@ -1341,7 +1340,7 @@ var scrollVis = function () {
     if(activeIndex != 15){ return false }
 
 //On browsers/devices that have no gradual color transition, no need for long lag between steps
-    var step2Delay = (IS_SAFARI() || IS_PHONE()) ? 400 : duration + lag + lag;
+    var step2Delay = (IS_SAFARI() || IS_PHONE() || IS_IE) ? 400 : duration + lag + lag;
 
     animateLayout("2","a", points, false, "q1", {"0": DARK_HIDE, "1": TPC_BLUE, "2": DARK_HIDE})
 //Add a lag between the two steps of the animation
@@ -1358,7 +1357,7 @@ var scrollVis = function () {
     if(activeIndex != 16){ return false }
   
  //On browsers/devices that have no gradual color transition, no need for long lag between steps 
-    var step2Delay = (IS_SAFARI() || IS_PHONE()) ? 400 : duration + lag + lag;
+    var step2Delay = (IS_SAFARI() || IS_PHONE() || IS_IE) ? 400 : duration + lag + lag;
 
     animateLayout("3","a", points, false, "q2", {"0": DARK_HIDE, "2": TPC_BLUE, "1": DARK_HIDE})
 //Add a lag between the two steps of the animation
@@ -1375,7 +1374,7 @@ var scrollVis = function () {
     if(activeIndex != 17){ return false }
 
  //On browsers/devices that have no gradual color transition, no need for long lag between steps 
-    var step2Delay = (IS_SAFARI() || IS_PHONE()) ? 400 : duration + lag + lag;
+    var step2Delay = (IS_SAFARI() || IS_PHONE() || IS_IE) ? 400 : duration + lag + lag;
 
     animateLayout("4","a", points, false, "q3", {"0": DARK_HIDE, "1": TPC_BLUE, "2": DARK_HIDE})
 //Add a lag between the two steps of the animation
@@ -1885,9 +1884,9 @@ var scrollVis = function () {
 function display(points, filterVals) {
 //Gets run on initialization and on resize
 
-  // if(getInternetExplorerVersion() != -1){
-  //   IS_IE = true;
-  // }
+  if(getInternetExplorerVersion() != -1){
+    IS_IE = true;
+  }
 
 //Create the DOM elements and set up the activate functions
   var plot = scrollVis();
