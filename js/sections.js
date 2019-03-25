@@ -1927,6 +1927,7 @@ function display(points, filterVals) {
 //On all devices, only fire resize events if width/height is actually changing
     else{
       if($(window).width() != screenW || $(window).height() != screenH){
+        showMobileExplore();
         runResize()
       }
     }
