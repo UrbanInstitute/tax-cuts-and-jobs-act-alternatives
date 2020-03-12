@@ -1,0 +1,51 @@
+# @see https://circleci.com/orbs/registry/orb/circleci/aws-s3
+
+version: 2.1
+orbs:
+  aws-s3: circleci/aws-s3@1.0.15
+jobs:
+  deploy-stg:
+    docker:
+      - image: 'cimg/python:3.6'
+    steps:
+      - checkout
+      - run:
+          name: Cleanup for deploy
+          command: |
+            rm -rf .git
+      - aws-s3/sync:
+          from: .
+          overwrite: true
+          to: 's3://apps-stg.taxpolicycenter.org/features/tax-cuts-and-jobs-act-alternatives'
+
+  deploy-live:
+    docker:
+      - image: 'cimg/python:3.6'
+    steps:
+      - checkout
+      - run:
+          name: Cleanup for deploy
+          command: |
+            rm -rf .git
+      - aws-s3/sync:
+          from: .
+          overwrite: true
+          to: 's3://apps.taxpolicycenter.org/features/tax-cuts-and-jobs-act-alternatives'
+
+workflows:
+  version: 2
+  aws-s3:
+    jobs:
+      - deploy-stg:
+          context: Apps S3
+          filters:
+            branches:
+              only:
+                - staging
+  
+      - deploy-live:
+          context: Apps S3
+          filters:
+            branches:
+              only:
+                - master
