@@ -37,12 +37,14 @@ workflows:
   aws-s3:
     jobs:
       - deploy-stg:
+          context: Apps S3
           filters:
             branches:
               only:
                 - staging
   
       - deploy-live:
+          context: Apps S3
           filters:
             branches:
               only:
